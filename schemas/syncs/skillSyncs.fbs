@@ -1,0 +1,52 @@
+include "../Common/Vec3.fbs";
+namespace Game.Syncs;
+
+enum SkillType : byte{
+    Projectile,     // 投掷类
+    RandomPoint,    // 随机落点类
+    Attached,       // 实时跟随类
+    Melee,          // 近战类
+}
+
+// 投掷类技能数据结构
+table ProjectileData{
+    startPos:Game.Common.Vec3;
+    direction:Game.Common.Vec3;
+    speed:float;
+    lifeTime:float;
+}
+
+// 随机落点类技能数据
+table RandomPointData{
+    pos:Game.Common.Vec3;
+}
+
+// 实时跟随类技能数据
+table AttachedData{
+    isActive:bool;  // 显示状态:true时显示,false时消失
+}
+
+// 近战类技能数据
+table MeleeData{
+    startPos:Game.Common.Vec3;
+    direction:Game.Common.Vec3;
+    lifeTime:float;
+}
+
+union SkillData{
+    ProjectileData,
+    RandomPointData,
+    AttachedData,
+    MeleeData
+}
+
+table SkillSyncs{
+    attackerId:uint;
+    targetId:uint;
+    skillId:int;
+    skillType:SkillType;
+    skillData:SkillData;
+    scaleFactor:float;  // 攻击区域缩放系数
+}
+
+root_type SkillSyncs;

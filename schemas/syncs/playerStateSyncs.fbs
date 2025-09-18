@@ -1,0 +1,11 @@
+namespace Game.Syncs;
+
+table PlayerStateSyncs{
+    uid: uint;
+    state: uint;  // 位标记符，用来确定是哪些属性发生了变化
+    hp: float;
+    maxHp: float;
+    level: int;
+}
+
+root_type PlayerStateSyncs;

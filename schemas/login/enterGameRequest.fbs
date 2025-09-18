@@ -1,0 +1,8 @@
+namespace Game.Login;
+
+table EnterGameRequest{
+    uid : uint;
+    mapId : int;
+    characterId : int;  // 本局游戏所选角色的id
+    initHp: float;      // 初始血量,包含外部升级加成
+}

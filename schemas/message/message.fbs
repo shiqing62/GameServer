@@ -1,0 +1,42 @@
+include "../login/loginRequest.fbs";
+include "../login/loginResponse.fbs";
+include "../login/enterGameRequest.fbs";
+include "../login/enterGameResponse.fbs";
+include "../syncs/playerEnterPush.fbs";
+include "../syncs/playerExitRequest.fbs";
+include "../syncs/playerExitPush.fbs";
+include "../syncs/playerMoveRequest.fbs";
+include "../syncs/playerMoveResponse.fbs";
+include "../syncs/playerMovePush.fbs";
+include "../syncs/skillSyncs.fbs";
+include "../syncs/damageSyncsRequest.fbs";
+include "../syncs/damageSyncsPush.fbs";
+include "../syncs/playerStateSyncs.fbs";
+include "../syncs/playerLevelChangeRequest.fbs";
+namespace Game.Message;
+
+union Payload {
+    Game.Login.LoginRequest,
+    Game.Login.LoginResponse,
+    Game.Login.EnterGameRequest,
+    Game.Login.EnterGameResponse,
+    Game.Syncs.PlayerEnterPush,
+    Game.Syncs.PlayerExitRequest,
+    Game.Syncs.PlayerExitPush,
+    Game.Syncs.PlayerMoveRequest,
+    Game.Syncs.PlayerMoveResponse,
+    Game.Syncs.PlayerMovePush,
+    Game.Syncs.SkillSyncs,
+    Game.Syncs.DamageSyncsRequest,
+    Game.Syncs.DamageSyncsPush,
+    Game.Syncs.PlayerStateSyncs,
+    Game.Syncs.PlayerLevelChangeRequest
+}
+
+table Message {
+    msgId: int;
+    payload: Payload;
+    timeStamp: uint;
+}
+
+root_type Message;

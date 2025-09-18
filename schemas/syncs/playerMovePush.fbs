@@ -1,0 +1,12 @@
+include "../Common/Vec3.fbs";
+namespace Game.Syncs;
+
+table PlayerMove{
+    uid: uint;
+    pos: Game.Common.Vec3;
+    dir: Game.Common.Vec3;
+}
+
+table PlayerMovePush{
+    playersPos:[PlayerMove];
+}
