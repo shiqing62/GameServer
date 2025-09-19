@@ -9,7 +9,6 @@ export { MeleeData } from './syncs/melee-data.js';
 export { PlayerEnterPush } from './syncs/player-enter-push.js';
 export { PlayerExitPush } from './syncs/player-exit-push.js';
 export { PlayerExitRequest } from './syncs/player-exit-request.js';
-export { PlayerLevelChangeRequest } from './syncs/player-level-change-request.js';
 export { PlayerMove } from './syncs/player-move.js';
 export { PlayerMovePush } from './syncs/player-move-push.js';
 export { PlayerMoveRequest } from './syncs/player-move-request.js';

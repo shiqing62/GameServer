@@ -13,7 +13,6 @@ const exitGameHandler = require('./handlers/exitGameHandler.js');
 const playerMoveHandler = require('./handlers/playerMoveHandler');
 const skillSyncsHandler = require('./handlers/skillSyncsHandler.js');
 const damageSyncsHandler = require('./handlers/damageSyncsHandler.js');
-const levelChangeHandler = require('./handlers/playerLevelChangeHandler.js');
 const playerStateSyncsHandler = require('./handlers/playerStateSyncsHandler.js');
 
 // 引入 FBS 生成的请求结构
@@ -65,10 +64,6 @@ wss.on('connection',function connection (ws){
             case PayloadType.Game_Syncs_PlayerStateSyncs:
                 const stateSyncsData = message.payload(new PlayerStateSyncs());
                 playerStateSyncsHandler.handle(ws,stateSyncsData,players);
-                break;
-            case Payload.Game_Syncs_PlayerLevelChangeRequest:  // 等级变更请求
-                const levelChangeReq = message.payload(new PlayerLevelChangeRequest());
-                levelChangeHandler.handle(ws,levelChangeReq,players);
                 break;
             default:
                 console.log('Unknown payload type:', payloadType);

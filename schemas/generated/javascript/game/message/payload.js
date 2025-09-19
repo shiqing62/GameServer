@@ -14,7 +14,6 @@ var damage_syncs_request_js_1 = require("../../game/syncs/damage-syncs-request.j
 var player_enter_push_js_1 = require("../../game/syncs/player-enter-push.js");
 var player_exit_push_js_1 = require("../../game/syncs/player-exit-push.js");
 var player_exit_request_js_1 = require("../../game/syncs/player-exit-request.js");
-var player_level_change_request_js_1 = require("../../game/syncs/player-level-change-request.js");
 var player_move_push_js_1 = require("../../game/syncs/player-move-push.js");
 var player_move_request_js_1 = require("../../game/syncs/player-move-request.js");
 var player_move_response_js_1 = require("../../game/syncs/player-move-response.js");
@@ -37,7 +36,6 @@ var Payload;
     Payload[Payload["Game_Syncs_DamageSyncsRequest"] = 12] = "Game_Syncs_DamageSyncsRequest";
     Payload[Payload["Game_Syncs_DamageSyncsPush"] = 13] = "Game_Syncs_DamageSyncsPush";
     Payload[Payload["Game_Syncs_PlayerStateSyncs"] = 14] = "Game_Syncs_PlayerStateSyncs";
-    Payload[Payload["Game_Syncs_PlayerLevelChangeRequest"] = 15] = "Game_Syncs_PlayerLevelChangeRequest";
 })(Payload || (exports.Payload = Payload = {}));
 function unionToPayload(type, accessor) {
     switch (Payload[type]) {
@@ -56,7 +54,6 @@ function unionToPayload(type, accessor) {
         case 'Game_Syncs_DamageSyncsRequest': return accessor(new damage_syncs_request_js_1.DamageSyncsRequest());
         case 'Game_Syncs_DamageSyncsPush': return accessor(new damage_syncs_push_js_1.DamageSyncsPush());
         case 'Game_Syncs_PlayerStateSyncs': return accessor(new player_state_syncs_js_1.PlayerStateSyncs());
-        case 'Game_Syncs_PlayerLevelChangeRequest': return accessor(new player_level_change_request_js_1.PlayerLevelChangeRequest());
         default: return null;
     }
 }
@@ -77,7 +74,6 @@ function unionListToPayload(type, accessor, index) {
         case 'Game_Syncs_DamageSyncsRequest': return accessor(index, new damage_syncs_request_js_1.DamageSyncsRequest());
         case 'Game_Syncs_DamageSyncsPush': return accessor(index, new damage_syncs_push_js_1.DamageSyncsPush());
         case 'Game_Syncs_PlayerStateSyncs': return accessor(index, new player_state_syncs_js_1.PlayerStateSyncs());
-        case 'Game_Syncs_PlayerLevelChangeRequest': return accessor(index, new player_level_change_request_js_1.PlayerLevelChangeRequest());
         default: return null;
     }
 }

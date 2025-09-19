@@ -29,6 +29,9 @@ function handle(ws,payload,players){
         level: targetPlayer.level
     };
 
+    // 将数据同步响应给自己
+    send(ws,MsgIds.ServerPushId.PlayerStateSyncs,stateSyncsData);
+
     // 将数据同步给视野内的玩家
     for (const [otherUid,otherPlayer] of players.entries()){
         if (otherUid === uid) continue;

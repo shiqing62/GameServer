@@ -7,7 +7,6 @@ const MsgIds = {
         SkillSyncs: 3001,
         DamageSyncs: 3002,
         PlayerStateSyncs: 3003,
-        LevelChange: 4001,
     },
 
     ResponseId:{

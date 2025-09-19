@@ -12,7 +12,6 @@ include "../syncs/skillSyncs.fbs";
 include "../syncs/damageSyncsRequest.fbs";
 include "../syncs/damageSyncsPush.fbs";
 include "../syncs/playerStateSyncs.fbs";
-include "../syncs/playerLevelChangeRequest.fbs";
 namespace Game.Message;
 
 union Payload {
@@ -30,7 +29,6 @@ union Payload {
     Game.Syncs.DamageSyncsRequest,
     Game.Syncs.DamageSyncsPush,
     Game.Syncs.PlayerStateSyncs,
-    Game.Syncs.PlayerLevelChangeRequest
 }
 
 table Message {
