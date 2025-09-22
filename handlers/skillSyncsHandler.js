@@ -4,6 +4,7 @@ const {SkillType} = require("../schemas/generated/javascript/game/syncs/skill-ty
 const {RandomPointData} = require("../schemas/generated/javascript/game/syncs/random-point-data");
 const {ProjectileData} = require("../schemas/generated/javascript/game/syncs/projectile-data");
 const {MeleeData} = require("../schemas/generated/javascript/game/syncs/melee-data");
+const {AttachedData} = require("../schemas/generated/javascript/game/syncs/attached-data");
 
 function handle(ws,payload,players)
 {
@@ -41,6 +42,14 @@ function handle(ws,payload,players)
                 startPos:{x: meleeData.startPos().x(),y: meleeData.startPos().y(),z: meleeData.startPos().z()},
                 direction: {x: meleeData.direction().x(),y: meleeData.direction().y(),z: meleeData.direction().z()},
                 lifeTime: meleeData.lifeTime()
+            };
+            break;
+        case SkillType.Attached:
+            const attachedData = new AttachedData();
+            payload.skillData(attachedData);
+            skillSyncsData.skillData = {
+                anchorPos:{x: attachedData.anchorPos().x(),y: attachedData.anchorPos().y(),z: attachedData.anchorPos().z()},
+                lifeTime: attachedData.lifeTime()
             };
             break;
     }

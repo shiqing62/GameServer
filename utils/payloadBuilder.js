@@ -14,7 +14,8 @@ const {DamageSyncsPush} = require("../schemas/generated/javascript/game/syncs/da
 const {SkillType} = require("../schemas/generated/javascript/game/syncs/skill-type.js");
 const {RandomPointData} = require("../schemas/generated/javascript/game/syncs/random-point-data.js");
 const {ProjectileData} = require("../schemas/generated/javascript/game/syncs/projectile-data.js");
-const {MeleeData} = require("../schemas/generated/javascript/game/syncs/melee-data");
+const {MeleeData} = require("../schemas/generated/javascript/game/syncs/melee-data.js");
+const {AttachedData} = require("../schemas/generated/javascript/game/syncs/attached-data.js");
 const {PlayerStateSyncs} = require("../schemas/generated/javascript/game/syncs/player-state-syncs.js");
 const {PlayerStateFlags} = require("./playerStateFlags.js");
 const {PlayerMove} = require("../schemas/generated/javascript/game/syncs/player-move.js");
@@ -59,7 +60,6 @@ const payloadBuilder = {
         payloadType:PayloadType.Game_Syncs_PlayerExitPush,
         build:(builder,payload) => {
             const playerUId = payload.playerUId;
-            console.log("--->>>从handler获取到的uid: "+playerUId);
             // 构建exitGamePush
             PlayerExitPush.startPlayerExitPush(builder);
             PlayerExitPush.addUid(builder,playerUId);
@@ -175,6 +175,18 @@ const payloadBuilder = {
 
                     skillDataOffset = MeleeData.endMeleeData(builder);
                     skillDataType = SkillData.MeleeData;
+                    break;
+                case SkillType.Attached:
+                    const attachedAnchorPos = skillData.anchorPos;
+                    const attachedLifeTime = skillData.lifeTime;
+                    const attachedAnchorPosOffset = Vec3.createVec3(builder,attachedAnchorPos.x,attachedAnchorPos.y,attachedAnchorPos.z);
+
+                    AttachedData.startAttachedData(builder);
+                    AttachedData.addAnchorPos(builder,attachedAnchorPosOffset);
+                    AttachedData.addLifeTime(builder,attachedLifeTime);
+
+                    skillDataOffset = AttachedData.endAttachedData(builder);
+                    skillDataType = SkillData.Attached;
                     break;
             }
             SkillSyncs.startSkillSyncs(builder);

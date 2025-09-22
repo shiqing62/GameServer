@@ -4,6 +4,9 @@
 
 import * as flatbuffers from 'flatbuffers';
 
+import { Vec3 } from '../../game/common/vec3.js';
+
+
 export class AttachedData {
   bb: flatbuffers.ByteBuffer|null = null;
   bb_pos = 0;
@@ -22,17 +25,26 @@ static getSizePrefixedRootAsAttachedData(bb:flatbuffers.ByteBuffer, obj?:Attache
   return (obj || new AttachedData()).__init(bb.readInt32(bb.position()) + bb.position(), bb);
 }
 
-isActive():boolean {
+anchorPos(obj?:Vec3):Vec3|null {
   const offset = this.bb!.__offset(this.bb_pos, 4);
-  return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
+  return offset ? (obj || new Vec3()).__init(this.bb!.__indirect(this.bb_pos + offset), this.bb!) : null;
+}
+
+lifeTime():number {
+  const offset = this.bb!.__offset(this.bb_pos, 6);
+  return offset ? this.bb!.readFloat32(this.bb_pos + offset) : 0.0;
 }
 
 static startAttachedData(builder:flatbuffers.Builder) {
-  builder.startObject(1);
+  builder.startObject(2);
 }
 
-static addIsActive(builder:flatbuffers.Builder, isActive:boolean) {
-  builder.addFieldInt8(0, +isActive, +false);
+static addAnchorPos(builder:flatbuffers.Builder, anchorPosOffset:flatbuffers.Offset) {
+  builder.addFieldOffset(0, anchorPosOffset, 0);
+}
+
+static addLifeTime(builder:flatbuffers.Builder, lifeTime:number) {
+  builder.addFieldFloat32(1, lifeTime, 0.0);
 }
 
 static endAttachedData(builder:flatbuffers.Builder):flatbuffers.Offset {
@@ -40,9 +52,10 @@ static endAttachedData(builder:flatbuffers.Builder):flatbuffers.Offset {
   return offset;
 }
 
-static createAttachedData(builder:flatbuffers.Builder, isActive:boolean):flatbuffers.Offset {
+static createAttachedData(builder:flatbuffers.Builder, anchorPosOffset:flatbuffers.Offset, lifeTime:number):flatbuffers.Offset {
   AttachedData.startAttachedData(builder);
-  AttachedData.addIsActive(builder, isActive);
+  AttachedData.addAnchorPos(builder, anchorPosOffset);
+  AttachedData.addLifeTime(builder, lifeTime);
   return AttachedData.endAttachedData(builder);
 }
 }

@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AttachedData = void 0;
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 var flatbuffers = require("flatbuffers");
+var vec3_js_1 = require("../../game/common/vec3.js");
 var AttachedData = /** @class */ (function () {
     function AttachedData() {
         this.bb = null;
@@ -21,23 +22,31 @@ var AttachedData = /** @class */ (function () {
         bb.setPosition(bb.position() + flatbuffers.SIZE_PREFIX_LENGTH);
         return (obj || new AttachedData()).__init(bb.readInt32(bb.position()) + bb.position(), bb);
     };
-    AttachedData.prototype.isActive = function () {
+    AttachedData.prototype.anchorPos = function (obj) {
         var offset = this.bb.__offset(this.bb_pos, 4);
-        return offset ? !!this.bb.readInt8(this.bb_pos + offset) : false;
+        return offset ? (obj || new vec3_js_1.Vec3()).__init(this.bb.__indirect(this.bb_pos + offset), this.bb) : null;
+    };
+    AttachedData.prototype.lifeTime = function () {
+        var offset = this.bb.__offset(this.bb_pos, 6);
+        return offset ? this.bb.readFloat32(this.bb_pos + offset) : 0.0;
     };
     AttachedData.startAttachedData = function (builder) {
-        builder.startObject(1);
+        builder.startObject(2);
     };
-    AttachedData.addIsActive = function (builder, isActive) {
-        builder.addFieldInt8(0, +isActive, +false);
+    AttachedData.addAnchorPos = function (builder, anchorPosOffset) {
+        builder.addFieldOffset(0, anchorPosOffset, 0);
+    };
+    AttachedData.addLifeTime = function (builder, lifeTime) {
+        builder.addFieldFloat32(1, lifeTime, 0.0);
     };
     AttachedData.endAttachedData = function (builder) {
         var offset = builder.endObject();
         return offset;
     };
-    AttachedData.createAttachedData = function (builder, isActive) {
+    AttachedData.createAttachedData = function (builder, anchorPosOffset, lifeTime) {
         AttachedData.startAttachedData(builder);
-        AttachedData.addIsActive(builder, isActive);
+        AttachedData.addAnchorPos(builder, anchorPosOffset);
+        AttachedData.addLifeTime(builder, lifeTime);
         return AttachedData.endAttachedData(builder);
     };
     return AttachedData;

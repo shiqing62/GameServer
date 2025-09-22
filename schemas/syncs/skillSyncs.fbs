@@ -23,7 +23,8 @@ table RandomPointData{
 
 // 实时跟随类技能数据
 table AttachedData{
-    isActive:bool;  // 显示状态:true时显示,false时消失
+    anchorPos:Game.Common.Vec3;  // 相较于角色实例的锚点
+    lifeTime:float;
 }
 
 // 近战类技能数据
