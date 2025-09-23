@@ -23,6 +23,15 @@ const {PlayerMoveResponse} = require("../schemas/generated/javascript/game/syncs
 const {SkillData} = require("../schemas/generated/javascript/game/syncs/skill-data.js");
 const {SkillSyncs} = require("../schemas/generated/javascript/game/syncs/skill-syncs.js");
 const {PlayerExitPush} = require("../schemas/generated/javascript/game/syncs/player-exit-push");
+const {ParamValue} = require("../schemas/generated/javascript/game/syncs/param-value");
+const {IntValue} = require("../schemas/generated/javascript/game/syncs/int-value");
+const {UIntValue} = require("../schemas/generated/javascript/game/syncs/uint-value");
+const {FloatValue} = require("../schemas/generated/javascript/game/syncs/float-value");
+const {BoolValue} = require("../schemas/generated/javascript/game/syncs/bool-value");
+const {Vec3Value} = require("../schemas/generated/javascript/game/syncs/vec3-value");
+const {Float4} = require("../schemas/generated/javascript/game/common/float4");
+const {Float4Value} = require("../schemas/generated/javascript/game/syncs/float4-value");
+const {Param} = require("../schemas/generated/javascript/game/syncs/param");
 
 const payloadBuilder = {
     // 登录响应
@@ -130,7 +139,7 @@ const payloadBuilder = {
     [MsgIds.ServerPushId.SkillSyncs]:{
         payloadType: PayloadType.Game_Syncs_SkillSyncs,
         build:(builder,payload) => {
-            const {attackerId,targetId,skillId,skillType,skillData,scaleFactor} = payload;
+            const {attackerId,targetId,skillId,skillType,skillData,scaleFactor,extraParams} = payload;
             let skillDataOffset = null;
             let skillDataType = null;
             switch (skillType){
@@ -186,9 +195,73 @@ const payloadBuilder = {
                     AttachedData.addLifeTime(builder,attachedLifeTime);
 
                     skillDataOffset = AttachedData.endAttachedData(builder);
-                    skillDataType = SkillData.Attached;
+                    skillDataType = SkillData.AttachedData;
                     break;
             }
+
+            // 构建 extraParams
+            let extraParamsVectorOffset = null;
+            if (Array.isArray(extraParams) && extraParams.length > 0)
+            {
+                const paramOffsets = [];
+                for (let i = 0; i < extraParams.length; i++) {
+                    const p = extraParams[i];
+                    // 构建union member
+                    let pValueOffset = null;
+                    switch(p.paramValueType){
+                        case ParamValue.IntValue:
+                            IntValue.startIntValue(builder);
+                            IntValue.addV(builder,p.paramValue);
+                            pValueOffset = IntValue.endIntValue(builder);
+                            break;
+                        case ParamValue.UIntValue:
+                            UIntValue.startUIntValue(builder);
+                            UIntValue.addV(builder,p.paramValue);
+                            pValueOffset = UIntValue.endUIntValue(builder);
+                            break;
+                        case ParamValue.FloatValue:
+                            FloatValue.startFloatValue(builder);
+                            FloatValue.addV(builder,p.paramValue);
+                            pValueOffset = FloatValue.endFloatValue(builder);
+                            break;
+                        case ParamValue.BoolValue:
+                            BoolValue.startBoolValue(builder);
+                            BoolValue.addV(builder,!!p.paramValue);
+                            pValueOffset = BoolValue.endBoolValue(builder);
+                            break;
+                        case ParamValue.Vec3Value:
+                            const vec3 = p.paramValue;
+                            const vec3Offset = Vec3.createVec3(builder,vec3.x,vec3.y,vec3.z);
+                            Vec3Value.startVec3Value(builder);
+                            Vec3Value.addV(builder,vec3Offset);
+                            pValueOffset = Vec3Value.endVec3Value(builder);
+                            break;
+                        case ParamValue.Float4Value:
+                            const float4 = p.paramValue;
+                            const float4Offset = Float4.createFloat4(builder,float4.x,float4.y,float4.z,float4.w);
+                            Float4Value.startFloat4Value(builder);
+                            Float4Value.addV(builder,float4Offset);
+                            pValueOffset = Float4Value.endFloat4Value(builder);
+                            break;
+                        default:
+                            console.warn('Unknown ParamValueType while building: ',p.paramValueType);
+                            continue;
+                    }
+                    // 构建Param表，包括paramType,paramValueType,paramValue
+                    Param.startParam(builder);
+                    Param.addParamType(builder,p.paramType);
+                    Param.addParamValueType(builder,p.paramValueType);
+                    Param.addParamValue(builder,pValueOffset);
+                    const paramOffset = Param.endParam(builder);
+
+                    paramOffsets.push(paramOffset);
+                }
+
+                // 创建vector
+                extraParamsVectorOffset = SkillSyncs.createExtraParamsVector(builder,paramOffsets);
+            }
+
+            // 构建最终 SkillSyncs
             SkillSyncs.startSkillSyncs(builder);
             SkillSyncs.addAttackerId(builder,attackerId);
             SkillSyncs.addTargetId(builder,targetId);
@@ -197,6 +270,9 @@ const payloadBuilder = {
             SkillSyncs.addSkillDataType(builder,skillDataType);
             SkillSyncs.addSkillData(builder,skillDataOffset);
             SkillSyncs.addScaleFactor(builder,scaleFactor);
+            if (extraParamsVectorOffset != null){
+                SkillSyncs.addExtraParams(builder,extraParamsVectorOffset);
+            }
             return SkillSyncs.endSkillSyncs(builder);
         }
     },

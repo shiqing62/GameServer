@@ -1,4 +1,5 @@
 include "../Common/Vec3.fbs";
+include "../Common/Float4.fbs";
 namespace Game.Syncs;
 
 enum SkillType : byte{
@@ -41,6 +42,40 @@ union SkillData{
     MeleeData
 }
 
+// 参数类型
+enum ParamType:byte {
+    TargetPos,      // 终点位置_Vec3
+    Quaternion,     // 用于表示旋转_Float4
+    CurveAnchor,    // 曲线锚点_float(x轴上的偏移量)
+    LifeTime,       // 二段式技能生命周期_float
+    SkillInstanceId,    // 技能实例id_uint
+    SkillEffectId,  // 技能特效编号_int
+    SkillAmount,    // 技能数量_int
+    SkillState,     // 技能状态_uint(位运算匹配flags,开始,进行中,结束)
+    SkillVariant,   // 技能形态_int(横扫,突刺...)
+}
+
+table IntValue{ v: int; }
+table UIntValue { v: uint; }
+table FloatValue{ v: float; }
+table BoolValue{ v: bool; }
+table Vec3Value{ v: Game.Common.Vec3; }
+table Float4Value{ v: Game.Common.Float4; }
+
+union ParamValue{
+    IntValue,
+    UIntValue,
+    FloatValue,
+    BoolValue,
+    Vec3Value,
+    Float4Value
+}
+
+table Param {
+    paramType: ParamType;
+    paramValue: ParamValue;
+}
+
 table SkillSyncs{
     attackerId:uint;
     targetId:uint;
@@ -48,6 +83,7 @@ table SkillSyncs{
     skillType:SkillType;
     skillData:SkillData;
     scaleFactor:float;  // 攻击区域缩放系数
+    extraParams:[Param];      // 扩展参数:泛型参数集合
 }
 
 root_type SkillSyncs;

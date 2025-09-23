@@ -2,5 +2,14 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
-export { Float4 } from './common/float4.js';
-export { Vec3 } from './common/vec3.js';
+export enum ParamType {
+  TargetPos = 0,
+  Quaternion = 1,
+  CurveAnchor = 2,
+  LifeTime = 3,
+  SkillInstanceId = 4,
+  SkillEffectId = 5,
+  SkillAmount = 6,
+  SkillState = 7,
+  SkillVariant = 8
+}

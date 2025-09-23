@@ -4,6 +4,7 @@
 
 import * as flatbuffers from 'flatbuffers';
 
+import { Param } from '../../game/syncs/param.js';
 import { SkillData, unionToSkillData, unionListToSkillData } from '../../game/syncs/skill-data.js';
 import { SkillType } from '../../game/syncs/skill-type.js';
 
@@ -61,8 +62,18 @@ scaleFactor():number {
   return offset ? this.bb!.readFloat32(this.bb_pos + offset) : 0.0;
 }
 
+extraParams(index: number, obj?:Param):Param|null {
+  const offset = this.bb!.__offset(this.bb_pos, 18);
+  return offset ? (obj || new Param()).__init(this.bb!.__indirect(this.bb!.__vector(this.bb_pos + offset) + index * 4), this.bb!) : null;
+}
+
+extraParamsLength():number {
+  const offset = this.bb!.__offset(this.bb_pos, 18);
+  return offset ? this.bb!.__vector_len(this.bb_pos + offset) : 0;
+}
+
 static startSkillSyncs(builder:flatbuffers.Builder) {
-  builder.startObject(7);
+  builder.startObject(8);
 }
 
 static addAttackerId(builder:flatbuffers.Builder, attackerId:number) {
@@ -93,6 +104,22 @@ static addScaleFactor(builder:flatbuffers.Builder, scaleFactor:number) {
   builder.addFieldFloat32(6, scaleFactor, 0.0);
 }
 
+static addExtraParams(builder:flatbuffers.Builder, extraParamsOffset:flatbuffers.Offset) {
+  builder.addFieldOffset(7, extraParamsOffset, 0);
+}
+
+static createExtraParamsVector(builder:flatbuffers.Builder, data:flatbuffers.Offset[]):flatbuffers.Offset {
+  builder.startVector(4, data.length, 4);
+  for (let i = data.length - 1; i >= 0; i--) {
+    builder.addOffset(data[i]!);
+  }
+  return builder.endVector();
+}
+
+static startExtraParamsVector(builder:flatbuffers.Builder, numElems:number) {
+  builder.startVector(4, numElems, 4);
+}
+
 static endSkillSyncs(builder:flatbuffers.Builder):flatbuffers.Offset {
   const offset = builder.endObject();
   return offset;
@@ -106,7 +133,7 @@ static finishSizePrefixedSkillSyncsBuffer(builder:flatbuffers.Builder, offset:fl
   builder.finish(offset, undefined, true);
 }
 
-static createSkillSyncs(builder:flatbuffers.Builder, attackerId:number, targetId:number, skillId:number, skillType:SkillType, skillDataType:SkillData, skillDataOffset:flatbuffers.Offset, scaleFactor:number):flatbuffers.Offset {
+static createSkillSyncs(builder:flatbuffers.Builder, attackerId:number, targetId:number, skillId:number, skillType:SkillType, skillDataType:SkillData, skillDataOffset:flatbuffers.Offset, scaleFactor:number, extraParamsOffset:flatbuffers.Offset):flatbuffers.Offset {
   SkillSyncs.startSkillSyncs(builder);
   SkillSyncs.addAttackerId(builder, attackerId);
   SkillSyncs.addTargetId(builder, targetId);
@@ -115,6 +142,7 @@ static createSkillSyncs(builder:flatbuffers.Builder, attackerId:number, targetId
   SkillSyncs.addSkillDataType(builder, skillDataType);
   SkillSyncs.addSkillData(builder, skillDataOffset);
   SkillSyncs.addScaleFactor(builder, scaleFactor);
+  SkillSyncs.addExtraParams(builder, extraParamsOffset);
   return SkillSyncs.endSkillSyncs(builder);
 }
 }

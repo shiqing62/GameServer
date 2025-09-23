@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SkillSyncs = void 0;
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 var flatbuffers = require("flatbuffers");
+var param_js_1 = require("../../game/syncs/param.js");
 var skill_data_js_1 = require("../../game/syncs/skill-data.js");
 var skill_type_js_1 = require("../../game/syncs/skill-type.js");
 var SkillSyncs = /** @class */ (function () {
@@ -51,8 +52,16 @@ var SkillSyncs = /** @class */ (function () {
         var offset = this.bb.__offset(this.bb_pos, 16);
         return offset ? this.bb.readFloat32(this.bb_pos + offset) : 0.0;
     };
+    SkillSyncs.prototype.extraParams = function (index, obj) {
+        var offset = this.bb.__offset(this.bb_pos, 18);
+        return offset ? (obj || new param_js_1.Param()).__init(this.bb.__indirect(this.bb.__vector(this.bb_pos + offset) + index * 4), this.bb) : null;
+    };
+    SkillSyncs.prototype.extraParamsLength = function () {
+        var offset = this.bb.__offset(this.bb_pos, 18);
+        return offset ? this.bb.__vector_len(this.bb_pos + offset) : 0;
+    };
     SkillSyncs.startSkillSyncs = function (builder) {
-        builder.startObject(7);
+        builder.startObject(8);
     };
     SkillSyncs.addAttackerId = function (builder, attackerId) {
         builder.addFieldInt32(0, attackerId, 0);
@@ -75,6 +84,19 @@ var SkillSyncs = /** @class */ (function () {
     SkillSyncs.addScaleFactor = function (builder, scaleFactor) {
         builder.addFieldFloat32(6, scaleFactor, 0.0);
     };
+    SkillSyncs.addExtraParams = function (builder, extraParamsOffset) {
+        builder.addFieldOffset(7, extraParamsOffset, 0);
+    };
+    SkillSyncs.createExtraParamsVector = function (builder, data) {
+        builder.startVector(4, data.length, 4);
+        for (var i = data.length - 1; i >= 0; i--) {
+            builder.addOffset(data[i]);
+        }
+        return builder.endVector();
+    };
+    SkillSyncs.startExtraParamsVector = function (builder, numElems) {
+        builder.startVector(4, numElems, 4);
+    };
     SkillSyncs.endSkillSyncs = function (builder) {
         var offset = builder.endObject();
         return offset;
@@ -85,7 +107,7 @@ var SkillSyncs = /** @class */ (function () {
     SkillSyncs.finishSizePrefixedSkillSyncsBuffer = function (builder, offset) {
         builder.finish(offset, undefined, true);
     };
-    SkillSyncs.createSkillSyncs = function (builder, attackerId, targetId, skillId, skillType, skillDataType, skillDataOffset, scaleFactor) {
+    SkillSyncs.createSkillSyncs = function (builder, attackerId, targetId, skillId, skillType, skillDataType, skillDataOffset, scaleFactor, extraParamsOffset) {
         SkillSyncs.startSkillSyncs(builder);
         SkillSyncs.addAttackerId(builder, attackerId);
         SkillSyncs.addTargetId(builder, targetId);
@@ -94,6 +116,7 @@ var SkillSyncs = /** @class */ (function () {
         SkillSyncs.addSkillDataType(builder, skillDataType);
         SkillSyncs.addSkillData(builder, skillDataOffset);
         SkillSyncs.addScaleFactor(builder, scaleFactor);
+        SkillSyncs.addExtraParams(builder, extraParamsOffset);
         return SkillSyncs.endSkillSyncs(builder);
     };
     return SkillSyncs;

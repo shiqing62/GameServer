@@ -1,0 +1,8 @@
+namespace Game.Common;
+
+struct Float4 {
+    x: float;
+    y: float;
+    z: float;
+    w: float;
+}
