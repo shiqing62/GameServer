@@ -1,0 +1,23 @@
+include "../Common/Vec3.fbs";
+namespace Game.Map;
+
+// 单个摆件
+table Prop {
+    name: string;
+    pos: Game.Common.Vec3;
+    size: Game.Common.Vec3;
+}
+
+// 一个区块，包括多个摆件
+table Chunk {
+    x: int;     // chunkId (vector2Int) -->> x
+    y: int;     // chunkId (vector2Int) -->> y
+    props: [Prop];
+}
+
+// 整个地图，chunks按照(x,y)排序，用于key查找
+table Map{
+    chunks: [Chunk];
+}
+
+root_type Map;

@@ -4,6 +4,8 @@
 
 export { AttachedData } from './syncs/attached-data.js';
 export { BoolValue } from './syncs/bool-value.js';
+export { DamageSyncsPush } from './syncs/damage-syncs-push.js';
+export { DamageSyncsRequest } from './syncs/damage-syncs-request.js';
 export { Float4Value } from './syncs/float4-value.js';
 export { FloatValue } from './syncs/float-value.js';
 export { IntValue } from './syncs/int-value.js';
@@ -11,6 +13,14 @@ export { MeleeData } from './syncs/melee-data.js';
 export { Param } from './syncs/param.js';
 export { ParamType } from './syncs/param-type.js';
 export { ParamValue } from './syncs/param-value.js';
+export { PlayerEnterPush } from './syncs/player-enter-push.js';
+export { PlayerExitPush } from './syncs/player-exit-push.js';
+export { PlayerExitRequest } from './syncs/player-exit-request.js';
+export { PlayerMove } from './syncs/player-move.js';
+export { PlayerMovePush } from './syncs/player-move-push.js';
+export { PlayerMoveRequest } from './syncs/player-move-request.js';
+export { PlayerMoveResponse } from './syncs/player-move-response.js';
+export { PlayerStateSyncs } from './syncs/player-state-syncs.js';
 export { ProjectileData } from './syncs/projectile-data.js';
 export { RandomPointData } from './syncs/random-point-data.js';
 export { SkillData } from './syncs/skill-data.js';

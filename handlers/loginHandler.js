@@ -7,7 +7,7 @@ function handle(ws){
     const timestamp = Date.now() & 0xFFFFF;
     const randomPart = Math.floor(Math.random() * 0xFFF);
     const uid = ((timestamp << 12) | randomPart) >>> 0;
-    console.log('---uid: ',uid);
+    console.log('--->>>uid: ',uid);
     send(ws,MsgIds.ResponseId.Login,{uid});
 }
 

@@ -14,6 +14,7 @@ const playerMoveHandler = require('./handlers/playerMoveHandler');
 const skillSyncsHandler = require('./handlers/skillSyncsHandler.js');
 const damageSyncsHandler = require('./handlers/damageSyncsHandler.js');
 const playerStateSyncsHandler = require('./handlers/playerStateSyncsHandler.js');
+const dropHandler = require('./handlers/dropHandler.js');
 
 // 引入 FBS 生成的请求结构
 const {EnterGameRequest} = require('./schemas/generated/javascript/game/login/enter-game-request.js');
@@ -26,9 +27,7 @@ const {PlayerExitRequest} = require("./schemas/generated/javascript/game/syncs/p
 
 const players = new Map();
 const wss = new WebSocket.Server({ host: "0.0.0.0", port: 8080});
-// 其他玩家信息同步间隔
-const viewRangeWidth = 1600;  // 可视范围宽
-const viewRangeHeight = 900;  // 可视范围高
+
 
 wss.on('connection',function connection (ws){
     console.log("--->>>client connection!!!!")
@@ -89,8 +88,8 @@ setInterval(()=>{
     for (const [uid, player] of players.entries()) {
         if (!player.ws || player.ws.readyState !== WebSocket.OPEN) continue;
 
-        const halfWidth = viewRangeWidth / 2; // 宽的一半
-        const halfHeight = viewRangeHeight / 2; // 高的一半
+        const halfWidth = GAME_CONSTANTS.VIEW_RANGE_WIDTH / 2; // 宽的一半
+        const halfHeight = GAME_CONSTANTS.VIEW_RANGE_HEIGHT / 2; // 高的一半
 
         // 当前玩家坐标
         const { x: px, y: pz } = player.pos;
@@ -113,5 +112,10 @@ setInterval(()=>{
         }
     }
 },GAME_CONSTANTS.SYNCS_INTERVAL_MS);
+
+// 掉落逻辑
+setInterval(()=>{
+    dropHandler.handle(players);
+},30*1000);
 
 

@@ -12,6 +12,11 @@ include "../syncs/skillSyncs.fbs";
 include "../syncs/damageSyncsRequest.fbs";
 include "../syncs/damageSyncsPush.fbs";
 include "../syncs/playerStateSyncs.fbs";
+include "../drop/dropItemPush.fbs";
+include "../drop/pickupRequest.fbs";
+include "../drop/pickupResponse.fbs";
+include "../drop/pickupPush.fbs";
+
 namespace Game.Message;
 
 union Payload {
@@ -29,6 +34,10 @@ union Payload {
     Game.Syncs.DamageSyncsRequest,
     Game.Syncs.DamageSyncsPush,
     Game.Syncs.PlayerStateSyncs,
+    Game.Drop.DropItemPush,
+    Game.Drop.PickupRequest,
+    Game.Drop.PickupResponse,
+    Game.Drop.PickupPush,
 }
 
 table Message {

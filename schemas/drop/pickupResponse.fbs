@@ -1,0 +1,6 @@
+namespace Game.Drop;
+
+table PickupResponse {
+    itemId: int;    // 拾取的道具id
+    instanceId: int;    // 道具的实例id
+}

@@ -7,12 +7,14 @@ const MsgIds = {
         SkillSyncs: 3001,
         DamageSyncs: 3002,
         PlayerStateSyncs: 3003,
+        PickupDropItem: 4001,
     },
 
     ResponseId:{
         Login: 1001,
         EnterGame: 1002,
         PlayerMove: 2003,
+        PickupDropItem: 4001,
     },
 
     ServerPushId:{
@@ -23,6 +25,7 @@ const MsgIds = {
         SkillSyncs: 3001,   // 技能同步
         DamageSyncs: 3002,  // 伤害同步
         PlayerStateSyncs: 3003,  // 玩家状态同步,包括Hp,Level......
+        DropItem: 4001,     // 掉落道具
     }
 };
 

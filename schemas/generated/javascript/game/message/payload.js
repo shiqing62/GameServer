@@ -5,6 +5,10 @@ exports.Payload = void 0;
 exports.unionToPayload = unionToPayload;
 exports.unionListToPayload = unionListToPayload;
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
+var drop_item_push_js_1 = require("../../game/drop/drop-item-push.js");
+var pickup_push_js_1 = require("../../game/drop/pickup-push.js");
+var pickup_request_js_1 = require("../../game/drop/pickup-request.js");
+var pickup_response_js_1 = require("../../game/drop/pickup-response.js");
 var enter_game_request_js_1 = require("../../game/login/enter-game-request.js");
 var enter_game_response_js_1 = require("../../game/login/enter-game-response.js");
 var login_request_js_1 = require("../../game/login/login-request.js");
@@ -36,6 +40,10 @@ var Payload;
     Payload[Payload["Game_Syncs_DamageSyncsRequest"] = 12] = "Game_Syncs_DamageSyncsRequest";
     Payload[Payload["Game_Syncs_DamageSyncsPush"] = 13] = "Game_Syncs_DamageSyncsPush";
     Payload[Payload["Game_Syncs_PlayerStateSyncs"] = 14] = "Game_Syncs_PlayerStateSyncs";
+    Payload[Payload["Game_Drop_DropItemPush"] = 15] = "Game_Drop_DropItemPush";
+    Payload[Payload["Game_Drop_PickupRequest"] = 16] = "Game_Drop_PickupRequest";
+    Payload[Payload["Game_Drop_PickupResponse"] = 17] = "Game_Drop_PickupResponse";
+    Payload[Payload["Game_Drop_PickupPush"] = 18] = "Game_Drop_PickupPush";
 })(Payload || (exports.Payload = Payload = {}));
 function unionToPayload(type, accessor) {
     switch (Payload[type]) {
@@ -54,6 +62,10 @@ function unionToPayload(type, accessor) {
         case 'Game_Syncs_DamageSyncsRequest': return accessor(new damage_syncs_request_js_1.DamageSyncsRequest());
         case 'Game_Syncs_DamageSyncsPush': return accessor(new damage_syncs_push_js_1.DamageSyncsPush());
         case 'Game_Syncs_PlayerStateSyncs': return accessor(new player_state_syncs_js_1.PlayerStateSyncs());
+        case 'Game_Drop_DropItemPush': return accessor(new drop_item_push_js_1.DropItemPush());
+        case 'Game_Drop_PickupRequest': return accessor(new pickup_request_js_1.PickupRequest());
+        case 'Game_Drop_PickupResponse': return accessor(new pickup_response_js_1.PickupResponse());
+        case 'Game_Drop_PickupPush': return accessor(new pickup_push_js_1.PickupPush());
         default: return null;
     }
 }
@@ -74,6 +86,10 @@ function unionListToPayload(type, accessor, index) {
         case 'Game_Syncs_DamageSyncsRequest': return accessor(index, new damage_syncs_request_js_1.DamageSyncsRequest());
         case 'Game_Syncs_DamageSyncsPush': return accessor(index, new damage_syncs_push_js_1.DamageSyncsPush());
         case 'Game_Syncs_PlayerStateSyncs': return accessor(index, new player_state_syncs_js_1.PlayerStateSyncs());
+        case 'Game_Drop_DropItemPush': return accessor(index, new drop_item_push_js_1.DropItemPush());
+        case 'Game_Drop_PickupRequest': return accessor(index, new pickup_request_js_1.PickupRequest());
+        case 'Game_Drop_PickupResponse': return accessor(index, new pickup_response_js_1.PickupResponse());
+        case 'Game_Drop_PickupPush': return accessor(index, new pickup_push_js_1.PickupPush());
         default: return null;
     }
 }

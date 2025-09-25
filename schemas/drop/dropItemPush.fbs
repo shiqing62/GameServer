@@ -1,0 +1,10 @@
+include "../Common/Vec3.fbs";
+namespace Game.Drop;
+
+table DropItemPush{
+    itemId: int;        // 具体的道具id,对应客户端的weaponId
+    instanceId: int;    // 实例id,全局唯一标识
+    chunkX: int;        // 掉落地块的chunk_x
+    chunkY: int;        // 掉落地块的chunk_y
+    pos: Game.Common.Vec3;
+}

@@ -2,4 +2,6 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
-export { Vec3 } from './common/vec3.js';
+export { Chunk } from './map/chunk.js';
+export { Map } from './map/map.js';
+export { Prop } from './map/prop.js';

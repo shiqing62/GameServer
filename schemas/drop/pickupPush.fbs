@@ -1,0 +1,7 @@
+namespace Game.Drop;
+
+table PickupPush {
+    uid: uint;      // 拾取者的uid
+    itemId: int;    // 拾取的道具id
+    instanceId: int;    // 道具的实例id
+}

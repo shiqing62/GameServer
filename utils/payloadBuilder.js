@@ -32,6 +32,7 @@ const {Vec3Value} = require("../schemas/generated/javascript/game/syncs/vec3-val
 const {Float4} = require("../schemas/generated/javascript/game/common/float4");
 const {Float4Value} = require("../schemas/generated/javascript/game/syncs/float4-value");
 const {Param} = require("../schemas/generated/javascript/game/syncs/param");
+const {DropItemPush} = require("../schemas/generated/javascript/game/drop/drop-item-push");
 
 const payloadBuilder = {
     // 登录响应
@@ -315,7 +316,25 @@ const payloadBuilder = {
             DamageSyncsPush.addHp(builder,damageSyncsData.hp)
             return DamageSyncsPush.endDamageSyncsPush(builder);
         }
-    }
+    },
+
+    // 掉落道具
+    [MsgIds.ServerPushId.DropItem]:{
+        payloadType: PayloadType.Game_Drop_DropItemPush,
+        build: (builder,payload) =>{
+            const {itemId,instanceId,chunkX,chunkY,pos} = payload;
+            const posOffset = Vec3.createVec3(builder,pos.x,pos.y,pos.z);
+
+            DropItemPush.startDropItemPush(builder);
+            DropItemPush.addItemId(builder,itemId);
+            DropItemPush.addInstanceId(builder,instanceId);
+            DropItemPush.addChunkX(builder,chunkX);
+            DropItemPush.addChunkY(builder,chunkY);
+            DropItemPush.addPos(builder,posOffset);
+
+            return DropItemPush.endDropItemPush(builder);
+        }
+    },
 };
 
 // 接口: 构建玩家数据

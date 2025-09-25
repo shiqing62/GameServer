@@ -2,4 +2,4 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
-export { Vec3 } from './common/vec3.js';
+export { PickupResponse } from './drop/pickup-response.js';
