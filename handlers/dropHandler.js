@@ -8,7 +8,6 @@ let curInstanceId = min_int - 1;    // 初始为0,第一次返回1
 
 // 掉落物品池,weight: 权重
 const dropItemPool= [
-    {id: 2000, name: "PU_Beam",weight: 100},
     {id: 2001, name: "PU_FrostNova",weight: 100},
     {id: 2002, name: "PU_SpeedUP",weight: 100},
     {id: 2003, name: "PU_Rage",weight: 100},
@@ -33,7 +32,12 @@ function handle(players){
     const chunk_x = Math.floor(Math.random() * GAME_CONSTANTS.CHUNK_COUNT_X);
     const chunk_y = Math.floor(Math.random() * GAME_CONSTANTS.CHUNK_COUNT_Y);
     //step4: 根据地块随机出一个避开摆件的坐标
-    const pos = mapHandler.getRandomPos(chunk_x,chunk_y);
+    // const pos = mapHandler.getRandomPos(chunk_x,chunk_y);
+    const pos = {
+        x: 60,
+        y: 0,
+        z: 80,
+    };
     // 构建掉落物品数据
     const dropData = {
         itemId: itemId,

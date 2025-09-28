@@ -33,6 +33,8 @@ const {Float4} = require("../schemas/generated/javascript/game/common/float4");
 const {Float4Value} = require("../schemas/generated/javascript/game/syncs/float4-value");
 const {Param} = require("../schemas/generated/javascript/game/syncs/param");
 const {DropItemPush} = require("../schemas/generated/javascript/game/drop/drop-item-push");
+const {PickupResponse} = require("../schemas/generated/javascript/game/drop/pickup-response");
+const {PickupPush} = require("../schemas/generated/javascript/game/drop/pickup-push");
 
 const payloadBuilder = {
     // 登录响应
@@ -333,6 +335,35 @@ const payloadBuilder = {
             DropItemPush.addPos(builder,posOffset);
 
             return DropItemPush.endDropItemPush(builder);
+        }
+    },
+
+    // 拾取响应
+    [MsgIds.ResponseId.PickupDropItem]:{
+        payloadType: PayloadType.Game_Drop_PickupResponse,
+        build: (builder,payload) =>{
+            const {itemId,instanceId} = payload;
+
+            PickupResponse.startPickupResponse(builder);
+            PickupResponse.addItemId(builder,itemId);
+            PickupResponse.addInstanceId(builder,instanceId);
+
+            return PickupResponse.endPickupResponse(builder);
+        }
+    },
+
+    // 其他玩家拾取推送
+    [MsgIds.ServerPushId.PickupDropItem]:{
+        payloadType: PayloadType.Game_Drop_PickupPush,
+        build: (builder,payload) => {
+            const {uid,itemId,instanceId} = payload;
+
+            PickupPush.startPickupPush(builder);
+            PickupPush.addUid(builder,uid);
+            PickupPush.addItemId(builder,itemId);
+            PickupPush.addInstanceId(builder,instanceId);
+
+            return PickupPush.endPickupPush(builder);
         }
     },
 };

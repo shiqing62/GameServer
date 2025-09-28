@@ -1,31 +1,35 @@
 const MsgIds = {
+    // 1xxxx
     RequestId:{
-        Login: 1001,
-        EnterGame: 1002,
-        ExitGame : 1003,
-        PlayerMove: 2003,
-        SkillSyncs: 3001,
-        DamageSyncs: 3002,
-        PlayerStateSyncs: 3003,
-        PickupDropItem: 4001,
+        Login: 11001,
+        EnterGame: 11002,
+        ExitGame : 11003,
+        PlayerMove: 12003,
+        SkillSyncs: 13001,
+        DamageSyncs: 13002,
+        PlayerStateSyncs: 13003,
+        PickupDropItem: 14001,
     },
 
+    // 2xxxx
     ResponseId:{
-        Login: 1001,
-        EnterGame: 1002,
-        PlayerMove: 2003,
-        PickupDropItem: 4001,
+        Login: 21001,
+        EnterGame: 21002,
+        PlayerMove: 22003,
+        PickupDropItem: 24001,
     },
 
+    // 3xxxx
     ServerPushId:{
-        PlayerEnter: 2001,  // 玩家进入时通知给相互视野内的其他玩家
-        PlayerExit: 2002,   // 离开
-        PlayerMove: 20031,   // 玩家移动
-        PlayerAttack: 2004,
-        SkillSyncs: 3001,   // 技能同步
-        DamageSyncs: 3002,  // 伤害同步
-        PlayerStateSyncs: 3003,  // 玩家状态同步,包括Hp,Level......
-        DropItem: 4001,     // 掉落道具
+        PlayerEnter: 32001,  // 玩家进入时通知给相互视野内的其他玩家
+        PlayerExit: 32002,   // 离开
+        PlayerMove: 32003,   // 玩家移动
+        PlayerAttack: 32004,
+        SkillSyncs: 33001,   // 技能同步
+        DamageSyncs: 33002,  // 伤害同步
+        PlayerStateSyncs: 33003,  // 玩家状态同步,包括Hp,Level......
+        DropItem: 34001,     // 掉落道具
+        PickupDropItem: 34002,
     }
 };
 
