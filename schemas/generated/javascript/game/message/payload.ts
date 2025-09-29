@@ -6,6 +6,7 @@ import { DropItemPush } from '../../game/drop/drop-item-push.js';
 import { PickupPush } from '../../game/drop/pickup-push.js';
 import { PickupRequest } from '../../game/drop/pickup-request.js';
 import { PickupResponse } from '../../game/drop/pickup-response.js';
+import { GMCommand } from '../../game/gm/gmcommand.js';
 import { EnterGameRequest } from '../../game/login/enter-game-request.js';
 import { EnterGameResponse } from '../../game/login/enter-game-response.js';
 import { LoginRequest } from '../../game/login/login-request.js';
@@ -41,13 +42,14 @@ export enum Payload {
   Game_Drop_DropItemPush = 15,
   Game_Drop_PickupRequest = 16,
   Game_Drop_PickupResponse = 17,
-  Game_Drop_PickupPush = 18
+  Game_Drop_PickupPush = 18,
+  Game_GM_GMCommand = 19
 }
 
 export function unionToPayload(
   type: Payload,
-  accessor: (obj:DamageSyncsPush|DamageSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs) => DamageSyncsPush|DamageSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|null
-): DamageSyncsPush|DamageSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|null {
+  accessor: (obj:DamageSyncsPush|DamageSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs) => DamageSyncsPush|DamageSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|null
+): DamageSyncsPush|DamageSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|null {
   switch(Payload[type]) {
     case 'NONE': return null; 
     case 'Game_Login_LoginRequest': return accessor(new LoginRequest())! as LoginRequest;
@@ -68,15 +70,16 @@ export function unionToPayload(
     case 'Game_Drop_PickupRequest': return accessor(new PickupRequest())! as PickupRequest;
     case 'Game_Drop_PickupResponse': return accessor(new PickupResponse())! as PickupResponse;
     case 'Game_Drop_PickupPush': return accessor(new PickupPush())! as PickupPush;
+    case 'Game_GM_GMCommand': return accessor(new GMCommand())! as GMCommand;
     default: return null;
   }
 }
 
 export function unionListToPayload(
   type: Payload, 
-  accessor: (index: number, obj:DamageSyncsPush|DamageSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs) => DamageSyncsPush|DamageSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|null, 
+  accessor: (index: number, obj:DamageSyncsPush|DamageSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs) => DamageSyncsPush|DamageSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|null, 
   index: number
-): DamageSyncsPush|DamageSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|null {
+): DamageSyncsPush|DamageSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|null {
   switch(Payload[type]) {
     case 'NONE': return null; 
     case 'Game_Login_LoginRequest': return accessor(index, new LoginRequest())! as LoginRequest;
@@ -97,6 +100,7 @@ export function unionListToPayload(
     case 'Game_Drop_PickupRequest': return accessor(index, new PickupRequest())! as PickupRequest;
     case 'Game_Drop_PickupResponse': return accessor(index, new PickupResponse())! as PickupResponse;
     case 'Game_Drop_PickupPush': return accessor(index, new PickupPush())! as PickupPush;
+    case 'Game_GM_GMCommand': return accessor(index, new GMCommand())! as GMCommand;
     default: return null;
   }
 }

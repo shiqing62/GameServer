@@ -9,6 +9,7 @@ var drop_item_push_js_1 = require("../../game/drop/drop-item-push.js");
 var pickup_push_js_1 = require("../../game/drop/pickup-push.js");
 var pickup_request_js_1 = require("../../game/drop/pickup-request.js");
 var pickup_response_js_1 = require("../../game/drop/pickup-response.js");
+var gmcommand_js_1 = require("../../game/gm/gmcommand.js");
 var enter_game_request_js_1 = require("../../game/login/enter-game-request.js");
 var enter_game_response_js_1 = require("../../game/login/enter-game-response.js");
 var login_request_js_1 = require("../../game/login/login-request.js");
@@ -44,6 +45,7 @@ var Payload;
     Payload[Payload["Game_Drop_PickupRequest"] = 16] = "Game_Drop_PickupRequest";
     Payload[Payload["Game_Drop_PickupResponse"] = 17] = "Game_Drop_PickupResponse";
     Payload[Payload["Game_Drop_PickupPush"] = 18] = "Game_Drop_PickupPush";
+    Payload[Payload["Game_GM_GMCommand"] = 19] = "Game_GM_GMCommand";
 })(Payload || (exports.Payload = Payload = {}));
 function unionToPayload(type, accessor) {
     switch (Payload[type]) {
@@ -66,6 +68,7 @@ function unionToPayload(type, accessor) {
         case 'Game_Drop_PickupRequest': return accessor(new pickup_request_js_1.PickupRequest());
         case 'Game_Drop_PickupResponse': return accessor(new pickup_response_js_1.PickupResponse());
         case 'Game_Drop_PickupPush': return accessor(new pickup_push_js_1.PickupPush());
+        case 'Game_GM_GMCommand': return accessor(new gmcommand_js_1.GMCommand());
         default: return null;
     }
 }
@@ -90,6 +93,7 @@ function unionListToPayload(type, accessor, index) {
         case 'Game_Drop_PickupRequest': return accessor(index, new pickup_request_js_1.PickupRequest());
         case 'Game_Drop_PickupResponse': return accessor(index, new pickup_response_js_1.PickupResponse());
         case 'Game_Drop_PickupPush': return accessor(index, new pickup_push_js_1.PickupPush());
+        case 'Game_GM_GMCommand': return accessor(index, new gmcommand_js_1.GMCommand());
         default: return null;
     }
 }

@@ -1,0 +1,22 @@
+include "../Common/Vec3.fbs";
+namespace Game.GM;
+
+enum GMType: byte{
+    DropItem,
+}
+
+union GMData{
+    DropItemData
+}
+
+table DropItemData {
+    itemId: int;
+    pos: Game.Common.Vec3;
+}
+
+table GMCommand {
+    gmType:GMType;
+    gmData:GMData;
+}
+
+root_type GMCommand;

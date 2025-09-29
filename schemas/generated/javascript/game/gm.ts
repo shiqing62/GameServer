@@ -2,5 +2,7 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
-export { Float4 } from './common/float4.js';
-export { Vec3 } from './common/vec3.js';
+export { DropItemData } from './gm/drop-item-data.js';
+export { GMCommand } from './gm/gmcommand.js';
+export { GMData } from './gm/gmdata.js';
+export { GMType } from './gm/gmtype.js';

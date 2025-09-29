@@ -67,7 +67,7 @@ function getRandomItemId()
     return dropItemPool[0].id;
 }
 
-function getNextInstanceId () {
+function getNextInstanceId() {
     if (curInstanceId >= max_int) {
         curInstanceId = min_int; // 到达上限就循环回1
     } else {
@@ -76,4 +76,4 @@ function getNextInstanceId () {
     return curInstanceId;
 }
 
-module.exports = {handle};
+module.exports = {handle,getNextInstanceId};

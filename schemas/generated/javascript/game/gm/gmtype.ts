@@ -2,5 +2,6 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
-export { Float4 } from './common/float4.js';
-export { Vec3 } from './common/vec3.js';
+export enum GMType {
+  DropItem = 0
+}

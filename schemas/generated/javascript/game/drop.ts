@@ -2,4 +2,7 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
+export { DropItemPush } from './drop/drop-item-push.js';
+export { PickupPush } from './drop/pickup-push.js';
+export { PickupRequest } from './drop/pickup-request.js';
 export { PickupResponse } from './drop/pickup-response.js';

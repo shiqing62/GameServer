@@ -16,6 +16,7 @@ const damageSyncsHandler = require('./handlers/damageSyncsHandler.js');
 const playerStateSyncsHandler = require('./handlers/playerStateSyncsHandler.js');
 const dropHandler = require('./handlers/dropHandler.js');
 const pickupHandler = require('./handlers/pickupHandler.js');
+const gmHandler = require('./handlers/gmCommandHandler.js');
 
 // 引入 FBS 生成的请求结构
 const {EnterGameRequest} = require('./schemas/generated/javascript/game/login/enter-game-request.js');
@@ -26,6 +27,7 @@ const {PlayerLevelChangeRequest} = require("./schemas/generated/javascript/game/
 const {PlayerStateSyncs} = require("./schemas/generated/javascript/game/syncs/player-state-syncs.js");
 const {PlayerExitRequest} = require("./schemas/generated/javascript/game/syncs/player-exit-request.js");
 const {PickupRequest} = require("./schemas/generated/javascript/game/drop/pickup-request.js");
+const {GMCommand} = require("./schemas/generated/javascript/game/gm/gmcommand.js");
 
 const players = new Map();
 const wss = new WebSocket.Server({ host: "0.0.0.0", port: 8080});
@@ -69,6 +71,10 @@ wss.on('connection',function connection (ws){
             case PayloadType.Game_Drop_PickupRequest:
                 const pickupData = message.payload(new PickupRequest());
                 pickupHandler.handle(ws,pickupData,players);
+                break;
+            case Payload.Game_GM_GMCommand:
+                const gmData = message.payload(new GMCommand());
+                gmHandler.handle(ws,gmData,players);
                 break;
             default:
                 console.log('Unknown payload type:', payloadType);
