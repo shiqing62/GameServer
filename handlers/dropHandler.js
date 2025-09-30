@@ -21,7 +21,10 @@ const dropItemPool= [
     {id: 2011, name: "PU_TimeGap",weight: 100},
     {id: 2012, name: "PU_HealthZone",weight: 100},
     {id: 2013, name: "PU_MagicBeam",weight: 100},
-]
+];
+
+// 掉落物存储容器
+const dropItems = new Map();
 
 function handle(players){
     //step1: 随机出一个道具id
@@ -32,12 +35,7 @@ function handle(players){
     const chunk_x = Math.floor(Math.random() * GAME_CONSTANTS.CHUNK_COUNT_X);
     const chunk_y = Math.floor(Math.random() * GAME_CONSTANTS.CHUNK_COUNT_Y);
     //step4: 根据地块随机出一个避开摆件的坐标
-    // const pos = mapHandler.getRandomPos(chunk_x,chunk_y);
-    const pos = {
-        x: 60,
-        y: 0,
-        z: 80,
-    };
+    const pos = mapHandler.getRandomPos(chunk_x,chunk_y);
     // 构建掉落物品数据
     const dropData = {
         itemId: itemId,
@@ -46,14 +44,22 @@ function handle(players){
         chunkY: chunk_y,
         pos: pos
     };
+
+    dropItems.set(instanceId,dropData);
+
     // 通知给全体玩家
-    for (const [otherUid,player] of players.entries()){
+    for (const [_,player] of players.entries()){
         send(player.ws,MsgIds.ServerPushId.DropItem,dropData);
     }
 }
 
 function getRandomItemId()
 {
+    if (dropItemPool.length === 0)
+    {
+        throw new Error("dropItemPool is empty!");
+    }
+
     const totalWeight = dropItemPool.reduce((sum,item) => sum + item.weight,0);
     let rnd = Math.random() * totalWeight;
     for (const item of dropItemPool){
@@ -76,4 +82,4 @@ function getNextInstanceId() {
     return curInstanceId;
 }
 
-module.exports = {handle,getNextInstanceId};
+module.exports = {handle,getNextInstanceId,dropItems};

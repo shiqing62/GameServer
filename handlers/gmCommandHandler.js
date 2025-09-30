@@ -30,6 +30,9 @@ function handleDropCmd(dropItemData,players){
             z: pos.z(),
         }
     };
+
+    dropHandler.dropItems.set(instanceId,dropData);
+
     // 通知给全体玩家
     for (const [otherUid,player] of players.entries()){
         send(player.ws,MsgIds.ServerPushId.DropItem,dropData);
