@@ -16,6 +16,8 @@ var login_request_js_1 = require("../../game/login/login-request.js");
 var login_response_js_1 = require("../../game/login/login-response.js");
 var damage_syncs_push_js_1 = require("../../game/syncs/damage-syncs-push.js");
 var damage_syncs_request_js_1 = require("../../game/syncs/damage-syncs-request.js");
+var de_buff_syncs_push_js_1 = require("../../game/syncs/de-buff-syncs-push.js");
+var de_buff_syncs_request_js_1 = require("../../game/syncs/de-buff-syncs-request.js");
 var player_enter_push_js_1 = require("../../game/syncs/player-enter-push.js");
 var player_exit_push_js_1 = require("../../game/syncs/player-exit-push.js");
 var player_exit_request_js_1 = require("../../game/syncs/player-exit-request.js");
@@ -41,11 +43,13 @@ var Payload;
     Payload[Payload["Game_Syncs_DamageSyncsRequest"] = 12] = "Game_Syncs_DamageSyncsRequest";
     Payload[Payload["Game_Syncs_DamageSyncsPush"] = 13] = "Game_Syncs_DamageSyncsPush";
     Payload[Payload["Game_Syncs_PlayerStateSyncs"] = 14] = "Game_Syncs_PlayerStateSyncs";
-    Payload[Payload["Game_Drop_DropItemPush"] = 15] = "Game_Drop_DropItemPush";
-    Payload[Payload["Game_Drop_PickupRequest"] = 16] = "Game_Drop_PickupRequest";
-    Payload[Payload["Game_Drop_PickupResponse"] = 17] = "Game_Drop_PickupResponse";
-    Payload[Payload["Game_Drop_PickupPush"] = 18] = "Game_Drop_PickupPush";
-    Payload[Payload["Game_GM_GMCommand"] = 19] = "Game_GM_GMCommand";
+    Payload[Payload["Game_Syncs_DeBuffSyncsRequest"] = 15] = "Game_Syncs_DeBuffSyncsRequest";
+    Payload[Payload["Game_Syncs_DeBuffSyncsPush"] = 16] = "Game_Syncs_DeBuffSyncsPush";
+    Payload[Payload["Game_Drop_DropItemPush"] = 17] = "Game_Drop_DropItemPush";
+    Payload[Payload["Game_Drop_PickupRequest"] = 18] = "Game_Drop_PickupRequest";
+    Payload[Payload["Game_Drop_PickupResponse"] = 19] = "Game_Drop_PickupResponse";
+    Payload[Payload["Game_Drop_PickupPush"] = 20] = "Game_Drop_PickupPush";
+    Payload[Payload["Game_GM_GMCommand"] = 21] = "Game_GM_GMCommand";
 })(Payload || (exports.Payload = Payload = {}));
 function unionToPayload(type, accessor) {
     switch (Payload[type]) {
@@ -64,6 +68,8 @@ function unionToPayload(type, accessor) {
         case 'Game_Syncs_DamageSyncsRequest': return accessor(new damage_syncs_request_js_1.DamageSyncsRequest());
         case 'Game_Syncs_DamageSyncsPush': return accessor(new damage_syncs_push_js_1.DamageSyncsPush());
         case 'Game_Syncs_PlayerStateSyncs': return accessor(new player_state_syncs_js_1.PlayerStateSyncs());
+        case 'Game_Syncs_DeBuffSyncsRequest': return accessor(new de_buff_syncs_request_js_1.DeBuffSyncsRequest());
+        case 'Game_Syncs_DeBuffSyncsPush': return accessor(new de_buff_syncs_push_js_1.DeBuffSyncsPush());
         case 'Game_Drop_DropItemPush': return accessor(new drop_item_push_js_1.DropItemPush());
         case 'Game_Drop_PickupRequest': return accessor(new pickup_request_js_1.PickupRequest());
         case 'Game_Drop_PickupResponse': return accessor(new pickup_response_js_1.PickupResponse());
@@ -89,6 +95,8 @@ function unionListToPayload(type, accessor, index) {
         case 'Game_Syncs_DamageSyncsRequest': return accessor(index, new damage_syncs_request_js_1.DamageSyncsRequest());
         case 'Game_Syncs_DamageSyncsPush': return accessor(index, new damage_syncs_push_js_1.DamageSyncsPush());
         case 'Game_Syncs_PlayerStateSyncs': return accessor(index, new player_state_syncs_js_1.PlayerStateSyncs());
+        case 'Game_Syncs_DeBuffSyncsRequest': return accessor(index, new de_buff_syncs_request_js_1.DeBuffSyncsRequest());
+        case 'Game_Syncs_DeBuffSyncsPush': return accessor(index, new de_buff_syncs_push_js_1.DeBuffSyncsPush());
         case 'Game_Drop_DropItemPush': return accessor(index, new drop_item_push_js_1.DropItemPush());
         case 'Game_Drop_PickupRequest': return accessor(index, new pickup_request_js_1.PickupRequest());
         case 'Game_Drop_PickupResponse': return accessor(index, new pickup_response_js_1.PickupResponse());

@@ -9,6 +9,7 @@ const MsgIds = {
         DamageSyncs: 13002,
         PlayerStateSyncs: 13003,
         PickupDropItem: 14001,
+        DeBuffSyncs: 15001,
     },
 
     // 2xxxx
@@ -30,6 +31,7 @@ const MsgIds = {
         PlayerStateSyncs: 33003,  // 玩家状态同步,包括Hp,Level......
         DropItem: 34001,     // 掉落道具
         PickupDropItem: 34002,
+        DeBuffSyncs: 35001,
     }
 };
 

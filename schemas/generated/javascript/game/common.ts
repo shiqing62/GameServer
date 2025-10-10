@@ -3,6 +3,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
 export { BoolValue } from './common/bool-value.js';
+export { DeBuffParam } from './common/de-buff-param.js';
+export { DeBuffParamType } from './common/de-buff-param-type.js';
 export { Float4 } from './common/float4.js';
 export { Float4Value } from './common/float4-value.js';
 export { FloatValue } from './common/float-value.js';

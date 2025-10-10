@@ -2,5 +2,9 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
-export { DeBuffAction } from './syncs/de-buff-action.js';
-export { DeBuffSyncsPush } from './syncs/de-buff-syncs-push.js';
+export enum DeBuffParamType {
+  Duration = 0,
+  SlowRatio = 1,
+  KnockBackDirection = 2,
+  KnockBackForce = 3
+}

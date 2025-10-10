@@ -1,0 +1,17 @@
+include "../Common/DeBuffParam.fbs";
+namespace Game.Syncs;
+
+enum DeBuffAction : byte{
+    Apply,
+    Remove,
+}
+
+table DeBuffSyncsPush{
+    attackerId: uint;   // debuff赋予者
+    targetId: uint;     // debuff接受者
+    debuffId: int;
+    action: DeBuffAction;
+    params:[Game.Common.DeBuffParam];      // 额外参数:泛型参数集合
+}
+
+root_type DeBuffSyncsPush;

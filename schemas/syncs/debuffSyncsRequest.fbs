@@ -1,10 +1,11 @@
+include "../Common/DeBuffParam.fbs";
 namespace Game.Syncs;
 
 table DeBuffSyncsRequest{
-    attackerId: uint;
-    targetId: uint;
+    attackerId: uint;   // debuff赋予者
+    targetId: uint;     // debuff接受者
     debuffId: int;
-    params:[ParamValue];      // 额外参数:泛型参数集合
+    params:[Game.Common.DeBuffParam];      // debuff参数:泛型参数集合
 }
 
 root_type DeBuffSyncsRequest;

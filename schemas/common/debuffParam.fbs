@@ -1,0 +1,14 @@
+include "./Params.fbs";
+namespace Game.Common;
+
+enum DeBuffParamType:byte {
+    Duration,   // debuff持续时间_float
+    SlowRatio,  // 减速比例_float
+    KnockBackDirection,     // 击退方向_Vec3
+    KnockBackForce,         //击退的力_float
+}
+
+table DeBuffParam {
+    paramType: DeBuffParamType;
+    paramValue: Game.Common.ParamValue;
+}

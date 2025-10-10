@@ -35,6 +35,9 @@ const {Param} = require("../schemas/generated/javascript/game/syncs/param");
 const {DropItemPush} = require("../schemas/generated/javascript/game/drop/drop-item-push");
 const {PickupResponse} = require("../schemas/generated/javascript/game/drop/pickup-response");
 const {PickupPush} = require("../schemas/generated/javascript/game/drop/pickup-push");
+const {DeBuffAction} = require("../schemas/generated/javascript/game/syncs/de-buff-action");
+const {DeBuffSyncsPush} = require("../schemas/generated/javascript/game/syncs/de-buff-syncs-push");
+const {DeBuffParam} = require("../schemas/generated/javascript/game/common/de-buff-param");
 
 const payloadBuilder = {
     // 登录响应
@@ -317,6 +320,86 @@ const payloadBuilder = {
             DamageSyncsPush.addPos(builder,posOffset);
             DamageSyncsPush.addHp(builder,damageSyncsData.hp)
             return DamageSyncsPush.endDamageSyncsPush(builder);
+        }
+    },
+
+    // debuff同步
+    [MsgIds.ServerPushId.DebuffSyncs]:{
+        payloadType: PayloadType.Game_Syncs_DeBuffSyncsPush,
+        build:(builder,payload) =>{
+            const {attackerId,targetId,debuffId,action,params} = payload;
+
+            // 构建params
+            let paramsVectorOffset = null;
+            if (Array.isArray(params) && params.length > 0)
+            {
+                const paramOffsets = [];
+                for (let i = 0; i < params.length; i++) {
+                    const p = params[i];
+                    // 构建union member
+                    let pValueOffset = null;
+                    switch (p.paramValueType)
+                    {
+                        case ParamValue.IntValue:
+                            IntValue.startIntValue(builder);
+                            IntValue.addV(builder,p.paramValue);
+                            pValueOffset = IntValue.endIntValue(builder);
+                            break;
+                        case ParamValue.UIntValue:
+                            UIntValue.startUIntValue(builder);
+                            UIntValue.addV(builder,p.paramValue);
+                            pValueOffset = UIntValue.endUIntValue(builder);
+                            break;
+                        case ParamValue.FloatValue:
+                            FloatValue.startFloatValue(builder);
+                            FloatValue.addV(builder,p.paramValue);
+                            pValueOffset = FloatValue.endFloatValue(builder);
+                            break;
+                        case ParamValue.BoolValue:
+                            BoolValue.startBoolValue(builder);
+                            BoolValue.addV(builder,!!p.paramValue);
+                            pValueOffset = BoolValue.endBoolValue(builder);
+                            break;
+                        case ParamValue.Vec3Value:
+                            const vec3 = p.paramValue;
+                            const vec3Offset = Vec3.createVec3(builder,vec3.x,vec3.y,vec3.z);
+                            Vec3Value.startVec3Value(builder);
+                            Vec3Value.addV(builder,vec3Offset);
+                            pValueOffset = Vec3Value.endVec3Value(builder);
+                            break;
+                        case ParamValue.Float4Value:
+                            const float4 = p.paramValue;
+                            const float4Offset = Float4.createFloat4(builder,float4.x,float4.y,float4.z,float4.w);
+                            Float4Value.startFloat4Value(builder);
+                            Float4Value.addV(builder,float4Offset);
+                            pValueOffset = Float4Value.endFloat4Value(builder);
+                            break;
+                        default:
+                            console.warn('Unknown ParamValueType while building: ',p.paramValueType);
+                            continue;
+                    }
+
+                    // 构建 DeBuffParam 表
+                    DeBuffParam.startDeBuffParam(builder);
+                    DeBuffParam.addParamType(builder,p.paramType);
+                    DeBuffParam.addParamValueType(builder,p.paramValueType);
+                    DeBuffParam.addParamValue(builder,pValueOffset);
+                    const paramOffset = DeBuffParam.endDeBuffParam(builder);
+                    paramOffsets.push(paramOffset);
+                }
+
+                // 创建vector
+                paramsVectorOffset = DeBuffSyncsPush.createParamsVector(builder,paramOffsets);
+            }
+
+            DeBuffSyncsPush.startDeBuffSyncsPush(builder);
+            DeBuffSyncsPush.addAttackerId(builder,attackerId);
+            DeBuffSyncsPush.addTargetId(builder,targetId);
+            DeBuffSyncsPush.addDebuffId(builder,debuffId);
+            DeBuffSyncsPush.addAction(builder,action);
+            DeBuffSyncsPush.addParams(builder,paramsVectorOffset);
+
+            return DeBuffSyncsPush.endDeBuffSyncsPush(builder);
         }
     },
 

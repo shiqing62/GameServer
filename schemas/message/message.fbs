@@ -12,6 +12,8 @@ include "../syncs/skillSyncs.fbs";
 include "../syncs/damageSyncsRequest.fbs";
 include "../syncs/damageSyncsPush.fbs";
 include "../syncs/playerStateSyncs.fbs";
+include "../syncs/debuffSyncsRequest.fbs";
+include "../syncs/debuffSyncsPush.fbs";
 include "../drop/dropItemPush.fbs";
 include "../drop/pickupRequest.fbs";
 include "../drop/pickupResponse.fbs";
@@ -35,6 +37,8 @@ union Payload {
     Game.Syncs.DamageSyncsRequest,
     Game.Syncs.DamageSyncsPush,
     Game.Syncs.PlayerStateSyncs,
+    Game.Syncs.DeBuffSyncsRequest,
+    Game.Syncs.DeBuffSyncsPush,
     Game.Drop.DropItemPush,
     Game.Drop.PickupRequest,
     Game.Drop.PickupResponse,
