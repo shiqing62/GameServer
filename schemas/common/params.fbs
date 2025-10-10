@@ -1,0 +1,19 @@
+include "./Vec3.fbs";
+include "./Float4.fbs";
+namespace Game.Common;
+
+table IntValue{ v: int; }
+table UIntValue { v: uint; }
+table FloatValue{ v: float; }
+table BoolValue{ v: bool; }
+table Vec3Value{ v: Game.Common.Vec3; }
+table Float4Value{ v: Game.Common.Float4; }
+
+union ParamValue{
+    IntValue,
+    UIntValue,
+    FloatValue,
+    BoolValue,
+    Vec3Value,
+    Float4Value
+}

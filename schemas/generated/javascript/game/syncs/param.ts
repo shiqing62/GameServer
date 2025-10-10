@@ -4,8 +4,8 @@
 
 import * as flatbuffers from 'flatbuffers';
 
+import { ParamValue, unionToParamValue, unionListToParamValue } from '../../game/common/param-value.js';
 import { ParamType } from '../../game/syncs/param-type.js';
-import { ParamValue, unionToParamValue, unionListToParamValue } from '../../game/syncs/param-value.js';
 
 
 export class Param {

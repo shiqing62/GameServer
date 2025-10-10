@@ -1,0 +1,10 @@
+namespace Game.Syncs;
+
+table DeBuffSyncsRequest{
+    attackerId: uint;
+    targetId: uint;
+    debuffId: int;
+    params:[ParamValue];      // 额外参数:泛型参数集合
+}
+
+root_type DeBuffSyncsRequest;

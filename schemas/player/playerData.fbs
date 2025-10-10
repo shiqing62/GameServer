@@ -9,6 +9,7 @@ table PlayerData{
     score: int;  // 得分
     ranking: int;  // 排名
     pos: Game.Common.Vec3;  // 角色的位置
+
     dir: Game.Common.Vec3;  // 角色的朝向
     level: int;
     maxHp: float;   // 血量上限

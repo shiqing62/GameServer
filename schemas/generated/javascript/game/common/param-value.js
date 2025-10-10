@@ -5,12 +5,12 @@ exports.ParamValue = void 0;
 exports.unionToParamValue = unionToParamValue;
 exports.unionListToParamValue = unionListToParamValue;
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
-var bool_value_js_1 = require("../../game/syncs/bool-value.js");
-var float4_value_js_1 = require("../../game/syncs/float4-value.js");
-var float_value_js_1 = require("../../game/syncs/float-value.js");
-var int_value_js_1 = require("../../game/syncs/int-value.js");
-var uint_value_js_1 = require("../../game/syncs/uint-value.js");
-var vec3_value_js_1 = require("../../game/syncs/vec3-value.js");
+var bool_value_js_1 = require("../../game/common/bool-value.js");
+var float4_value_js_1 = require("../../game/common/float4-value.js");
+var float_value_js_1 = require("../../game/common/float-value.js");
+var int_value_js_1 = require("../../game/common/int-value.js");
+var uint_value_js_1 = require("../../game/common/uint-value.js");
+var vec3_value_js_1 = require("../../game/common/vec3-value.js");
 var ParamValue;
 (function (ParamValue) {
     ParamValue[ParamValue["NONE"] = 0] = "NONE";

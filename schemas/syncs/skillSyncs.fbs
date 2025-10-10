@@ -1,5 +1,6 @@
 include "../Common/Vec3.fbs";
 include "../Common/Float4.fbs";
+include "../Common/Params.fbs";
 namespace Game.Syncs;
 
 enum SkillType : byte{
@@ -55,25 +56,10 @@ enum ParamType:byte {
     SkillVariant,   // 技能形态_int(横扫,突刺...)
 }
 
-table IntValue{ v: int; }
-table UIntValue { v: uint; }
-table FloatValue{ v: float; }
-table BoolValue{ v: bool; }
-table Vec3Value{ v: Game.Common.Vec3; }
-table Float4Value{ v: Game.Common.Float4; }
-
-union ParamValue{
-    IntValue,
-    UIntValue,
-    FloatValue,
-    BoolValue,
-    Vec3Value,
-    Float4Value
-}
 
 table Param {
     paramType: ParamType;
-    paramValue: ParamValue;
+    paramValue: Game.Common.ParamValue;
 }
 
 table SkillSyncs{

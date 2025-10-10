@@ -4,8 +4,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Param = void 0;
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 var flatbuffers = require("flatbuffers");
+var param_value_js_1 = require("../../game/common/param-value.js");
 var param_type_js_1 = require("../../game/syncs/param-type.js");
-var param_value_js_1 = require("../../game/syncs/param-value.js");
 var Param = /** @class */ (function () {
     function Param() {
         this.bb = null;

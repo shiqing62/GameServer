@@ -2,12 +2,12 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
-import { BoolValue } from '../../game/syncs/bool-value.js';
-import { Float4Value } from '../../game/syncs/float4-value.js';
-import { FloatValue } from '../../game/syncs/float-value.js';
-import { IntValue } from '../../game/syncs/int-value.js';
-import { UIntValue } from '../../game/syncs/uint-value.js';
-import { Vec3Value } from '../../game/syncs/vec3-value.js';
+import { BoolValue } from '../../game/common/bool-value.js';
+import { Float4Value } from '../../game/common/float4-value.js';
+import { FloatValue } from '../../game/common/float-value.js';
+import { IntValue } from '../../game/common/int-value.js';
+import { UIntValue } from '../../game/common/uint-value.js';
+import { Vec3Value } from '../../game/common/vec3-value.js';
 
 
 export enum ParamValue {

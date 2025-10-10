@@ -6,13 +6,13 @@ const {ProjectileData} = require("../schemas/generated/javascript/game/syncs/pro
 const {MeleeData} = require("../schemas/generated/javascript/game/syncs/melee-data");
 const {AttachedData} = require("../schemas/generated/javascript/game/syncs/attached-data");
 const {Param} = require("../schemas/generated/javascript/game/syncs/param");
-const {ParamValue} = require("../schemas/generated/javascript/game/syncs/param-value");
-const {IntValue} = require("../schemas/generated/javascript/game/syncs/int-value");
-const {UIntValue} = require("../schemas/generated/javascript/game/syncs/uint-value");
-const {FloatValue} = require("../schemas/generated/javascript/game/syncs/float-value");
-const {BoolValue} = require("../schemas/generated/javascript/game/syncs/bool-value");
-const {Vec3Value} = require("../schemas/generated/javascript/game/syncs/vec3-value");
-const {Float4Value} = require("../schemas/generated/javascript/game/syncs/float4-value");
+const {ParamValue} = require("../schemas/generated/javascript/game/common/param-value");
+const {IntValue} = require("../schemas/generated/javascript/game/common/int-value");
+const {UIntValue} = require("../schemas/generated/javascript/game/common/uint-value");
+const {FloatValue} = require("../schemas/generated/javascript/game/common/float-value");
+const {BoolValue} = require("../schemas/generated/javascript/game/common/bool-value");
+const {Vec3Value} = require("../schemas/generated/javascript/game/common/vec3-value");
+const {Float4Value} = require("../schemas/generated/javascript/game/common/float4-value");
 
 function handle(ws,payload,players)
 {

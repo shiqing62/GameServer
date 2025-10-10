@@ -2,5 +2,12 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
+export { BoolValue } from './common/bool-value.js';
 export { Float4 } from './common/float4.js';
+export { Float4Value } from './common/float4-value.js';
+export { FloatValue } from './common/float-value.js';
+export { IntValue } from './common/int-value.js';
+export { ParamValue } from './common/param-value.js';
+export { UIntValue } from './common/uint-value.js';
 export { Vec3 } from './common/vec3.js';
+export { Vec3Value } from './common/vec3-value.js';
