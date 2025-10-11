@@ -4,7 +4,8 @@
 
 export enum DeBuffParamType {
   Duration = 0,
-  SlowRatio = 1,
-  KnockBackDirection = 2,
-  KnockBackForce = 3
+  InstanceId = 1,
+  SlowRatio = 2,
+  KnockBackDirection = 3,
+  KnockBackForce = 4
 }

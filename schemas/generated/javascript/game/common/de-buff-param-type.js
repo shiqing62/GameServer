@@ -6,7 +6,8 @@ exports.DeBuffParamType = void 0;
 var DeBuffParamType;
 (function (DeBuffParamType) {
     DeBuffParamType[DeBuffParamType["Duration"] = 0] = "Duration";
-    DeBuffParamType[DeBuffParamType["SlowRatio"] = 1] = "SlowRatio";
-    DeBuffParamType[DeBuffParamType["KnockBackDirection"] = 2] = "KnockBackDirection";
-    DeBuffParamType[DeBuffParamType["KnockBackForce"] = 3] = "KnockBackForce";
+    DeBuffParamType[DeBuffParamType["InstanceId"] = 1] = "InstanceId";
+    DeBuffParamType[DeBuffParamType["SlowRatio"] = 2] = "SlowRatio";
+    DeBuffParamType[DeBuffParamType["KnockBackDirection"] = 3] = "KnockBackDirection";
+    DeBuffParamType[DeBuffParamType["KnockBackForce"] = 4] = "KnockBackForce";
 })(DeBuffParamType || (exports.DeBuffParamType = DeBuffParamType = {}));

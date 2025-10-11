@@ -3,6 +3,7 @@ namespace Game.Common;
 
 enum DeBuffParamType:byte {
     Duration,   // debuff持续时间_float
+    InstanceId, // debuff实例id,用于判断此debuff是覆盖还是叠加
     SlowRatio,  // 减速比例_float
     KnockBackDirection,     // 击退方向_Vec3
     KnockBackForce,         //击退的力_float
