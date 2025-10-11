@@ -8,7 +8,15 @@ const {FloatValue} = require("../schemas/generated/javascript/game/common/float-
 const {BoolValue} = require("../schemas/generated/javascript/game/common/bool-value");
 const {Vec3Value} = require("../schemas/generated/javascript/game/common/vec3-value");
 const {Float4Value} = require("../schemas/generated/javascript/game/common/float4-value");
+const {debuffManager} = require("../managers/debuffManager.js");
+const {DeBuffParamType} = require("../schemas/generated/javascript/game/common/de-buff-param-type");
 
+let debuffManagerRef = null;
+
+function init(debuffManager)
+{
+    debuffManagerRef = debuffManager;
+}
 
 function handle(ws,payload,players){
     const attackerId = payload.attackerId();
@@ -25,6 +33,7 @@ function handle(ws,payload,players){
     // 解析 params 数组
     const params = [];
     const len = payload.paramsLength();
+    let duration = 0;
     for (let i = 0; i < len; i++) {
         const p = payload.params(i);
         const pType = p.paramType();
@@ -70,6 +79,11 @@ function handle(ws,payload,players){
             paramType: pType,
             paramValue: actualValue
         });
+
+        if (pType === DeBuffParamType.Duration)
+        {
+            duration = actualValue;
+        }
     }
 
     // 构建DeBuff数据
@@ -81,10 +95,35 @@ function handle(ws,payload,players){
         params:params,
     };
 
+
+    const debuffData = {
+        debuffId: debuffId,
+        duration: duration,
+    };
+    // 添加到服务器维护的DeBuffList
+    debuffManager.addDeBuff(attackerId,targetId,debuffData);
+    // 通知给与debuff被施加者相互视野内的玩家
     //TODO 筛选出debuff接受者视野内的玩家
     for (const [_, player] of players.entries()) {
         send(player.ws,MsgIds.ServerPushId.DeBuffSyncs,debuffSyncsData);
     }
 }
 
-module.exports = {handle};
+function removeDeBuff(targetId,debuffId,players)
+{
+    // 构建DeBuff数据
+    const debuffSyncsData = {
+        attackerId: 0,
+        targetId: targetId,
+        debuffId: debuffId,
+        action: DeBuffAction.Remove,
+        params: {},
+    };
+
+    // 通知给与debuff被施加者相互视野内的玩家
+    for (const [_, player] of players.entries()) {
+        send(player.ws,MsgIds.ServerPushId.DeBuffSyncs,debuffSyncsData);
+    }
+}
+
+module.exports = {handle,removeDeBuff,init};

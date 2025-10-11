@@ -19,6 +19,9 @@ const pickupHandler = require('./handlers/pickupHandler.js');
 const gmHandler = require('./handlers/gmCommandHandler.js');
 const debuffHandler = require('./handlers/debuffSyncsHandler.js');
 
+// 引入manager
+const {DeBuffManager} = require("./managers/debuffManager.js");
+
 // 引入 FBS 生成的请求结构
 const {EnterGameRequest} = require('./schemas/generated/javascript/game/login/enter-game-request.js');
 const {PlayerMoveRequest} = require("./schemas/generated/javascript/game/syncs/player-move-request.js");
@@ -32,6 +35,11 @@ const {DeBuffSyncsRequest} = require("./schemas/generated/javascript/game/syncs/
 
 const players = new Map();
 const wss = new WebSocket.Server({ host: "0.0.0.0", port: 8080});
+
+// 初始化manager并注入players
+const debuffManager = new DeBuffManager(players);
+// 将manager引入handler
+debuffHandler.init(debuffManager);
 
 
 wss.on('connection',function connection (ws){

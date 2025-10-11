@@ -6,6 +6,7 @@ const GAME_CONSTANTS = {
     CHUNK_COUNT_Y: 20,      // 纵向地块数量
     VIEW_RANGE_WIDTH: 1600,     // 可视范围宽
     VIEW_RANGE_HEIGHT: 900,     // 可视范围高
+    DEBUFF_TICK_INTERVAL_MS: 100,   // debuff检查间隔
 };
 
 module.exports = {GAME_CONSTANTS};

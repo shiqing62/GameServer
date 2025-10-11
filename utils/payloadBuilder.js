@@ -324,7 +324,7 @@ const payloadBuilder = {
     },
 
     // debuff同步
-    [MsgIds.ServerPushId.DebuffSyncs]:{
+    [MsgIds.ServerPushId.DeBuffSyncs]:{
         payloadType: PayloadType.Game_Syncs_DeBuffSyncsPush,
         build:(builder,payload) =>{
             const {attackerId,targetId,debuffId,action,params} = payload;
