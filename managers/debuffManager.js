@@ -14,11 +14,11 @@ class DeBuffManager{
      * 给某个玩家添加debuff
      * @param attackerId - debuff施加者
      * @param targetId - 被施加目标
-     * @param debuffData - {debuffId,duration}
+     * @param debuffData - {debuffId,duration,instanceId}
      */
     addDeBuff(attackerId,targetId,debuffData){
         const now = Date.now();
-        const {debuffId,duration} = debuffData;
+        const {debuffId,duration,instanceId} = debuffData;
 
         let targetList = this.activeDeBuffs.get(targetId);
         if (!targetList){
@@ -26,9 +26,10 @@ class DeBuffManager{
             this.activeDeBuffs.set(targetId,targetList);
         }
 
+        // 如果instanceId === 0 -->> 覆盖
         // 检查是否有同类的debuff
         const existing = targetList.find(d => d.debuffId === debuffId);
-        if (existing){
+        if (existing && instanceId === 0){
             // 如果已有,覆盖掉原debuff的作用时间
             existing.startTime = now;
             existing.duration = duration;

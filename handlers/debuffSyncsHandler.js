@@ -33,6 +33,7 @@ function handle(ws,payload,players){
     const params = [];
     const len = payload.paramsLength();
     let duration = 0;
+    let instanceId = 0;
     for (let i = 0; i < len; i++) {
         const p = payload.params(i);
         const pType = p.paramType();
@@ -83,6 +84,11 @@ function handle(ws,payload,players){
         {
             duration = actualValue;
         }
+
+        if (pType === DeBuffParamType.InstanceId)
+        {
+            instanceId = actualValue;
+        }
     }
 
     // 构建DeBuff数据
@@ -98,6 +104,7 @@ function handle(ws,payload,players){
     const debuffData = {
         debuffId: debuffId,
         duration: duration,
+        instanceId: instanceId,
     };
     // 添加到服务器维护的DeBuffList
     debuffManagerRef.addDeBuff(attackerId,targetId,debuffData);
