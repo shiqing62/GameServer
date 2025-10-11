@@ -8,7 +8,6 @@ const {FloatValue} = require("../schemas/generated/javascript/game/common/float-
 const {BoolValue} = require("../schemas/generated/javascript/game/common/bool-value");
 const {Vec3Value} = require("../schemas/generated/javascript/game/common/vec3-value");
 const {Float4Value} = require("../schemas/generated/javascript/game/common/float4-value");
-const {debuffManager} = require("../managers/debuffManager.js");
 const {DeBuffParamType} = require("../schemas/generated/javascript/game/common/de-buff-param-type");
 
 let debuffManagerRef = null;
@@ -101,7 +100,7 @@ function handle(ws,payload,players){
         duration: duration,
     };
     // 添加到服务器维护的DeBuffList
-    debuffManager.addDeBuff(attackerId,targetId,debuffData);
+    debuffManagerRef.addDeBuff(attackerId,targetId,debuffData);
     // 通知给与debuff被施加者相互视野内的玩家
     //TODO 筛选出debuff接受者视野内的玩家
     for (const [_, player] of players.entries()) {
