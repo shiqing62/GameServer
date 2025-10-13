@@ -77,6 +77,7 @@ function handle(ws,payload,players){
 
         params.push({
             paramType: pType,
+            paramValueType: pValueType,
             paramValue: actualValue
         });
 
