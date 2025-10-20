@@ -19,6 +19,8 @@ include "../drop/pickupRequest.fbs";
 include "../drop/pickupResponse.fbs";
 include "../drop/pickupPush.fbs";
 include "../gm/gmCommand.fbs";
+include "../boss/bossStateSyncsPush.fbs";
+include "../boss/bossSnapshotSyncsPush.fbs";
 
 namespace Game.Message;
 
@@ -44,6 +46,8 @@ union Payload {
     Game.Drop.PickupResponse,
     Game.Drop.PickupPush,
     Game.GM.GMCommand,
+    Game.Boss.BossStateSyncsPush,
+    Game.Boss.BossSnapshotSyncsPush,
 }
 
 table Message {

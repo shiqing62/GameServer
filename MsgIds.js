@@ -10,6 +10,7 @@ const MsgIds = {
         PlayerStateSyncs: 13003,
         PickupDropItem: 14001,
         DeBuffSyncs: 15001,
+
     },
 
     // 2xxxx
@@ -32,6 +33,9 @@ const MsgIds = {
         DropItem: 34001,     // 掉落道具
         PickupDropItem: 34002,
         DeBuffSyncs: 35001,
+        BossStateSyncs: 36001,  // boss状态同步
+        BossSnapshotSyncs: 36002,  // boss实时信息同步
+        BossDamageSyncs: 36003, // boss造成的伤害同步
     }
 };
 

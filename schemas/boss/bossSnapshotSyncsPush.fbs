@@ -1,0 +1,12 @@
+include "../Common/Vec3.fbs";
+namespace Game.Boss;
+
+// 同步boss实时数据
+table BossSnapshotSyncsPush{
+    bossId: int;
+    hp: float;
+    pos: Game.Common.Vec3;
+    direction: Game.Common.Vec3;
+}
+
+root_type BossSnapshotSyncsPush;

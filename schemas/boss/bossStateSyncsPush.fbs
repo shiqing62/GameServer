@@ -1,0 +1,19 @@
+include "../Common/Vec3.fbs";
+namespace Game.Boss;
+
+enum BossState:byte {
+    Spawn,
+    Idle,
+    Chase,
+    Attack,
+    Dead
+}
+
+// 同步boss状态
+table BossStateSyncsPush{
+    bossId: int;
+    bossState: BossState;
+    skillId: int;
+}
+
+root_type BossStateSyncsPush;

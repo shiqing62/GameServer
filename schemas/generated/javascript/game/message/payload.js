@@ -5,6 +5,8 @@ exports.Payload = void 0;
 exports.unionToPayload = unionToPayload;
 exports.unionListToPayload = unionListToPayload;
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
+var boss_snapshot_syncs_push_js_1 = require("../../game/boss/boss-snapshot-syncs-push.js");
+var boss_state_syncs_push_js_1 = require("../../game/boss/boss-state-syncs-push.js");
 var drop_item_push_js_1 = require("../../game/drop/drop-item-push.js");
 var pickup_push_js_1 = require("../../game/drop/pickup-push.js");
 var pickup_request_js_1 = require("../../game/drop/pickup-request.js");
@@ -50,6 +52,8 @@ var Payload;
     Payload[Payload["Game_Drop_PickupResponse"] = 19] = "Game_Drop_PickupResponse";
     Payload[Payload["Game_Drop_PickupPush"] = 20] = "Game_Drop_PickupPush";
     Payload[Payload["Game_GM_GMCommand"] = 21] = "Game_GM_GMCommand";
+    Payload[Payload["Game_Boss_BossStateSyncsPush"] = 22] = "Game_Boss_BossStateSyncsPush";
+    Payload[Payload["Game_Boss_BossSnapshotSyncsPush"] = 23] = "Game_Boss_BossSnapshotSyncsPush";
 })(Payload || (exports.Payload = Payload = {}));
 function unionToPayload(type, accessor) {
     switch (Payload[type]) {
@@ -75,6 +79,8 @@ function unionToPayload(type, accessor) {
         case 'Game_Drop_PickupResponse': return accessor(new pickup_response_js_1.PickupResponse());
         case 'Game_Drop_PickupPush': return accessor(new pickup_push_js_1.PickupPush());
         case 'Game_GM_GMCommand': return accessor(new gmcommand_js_1.GMCommand());
+        case 'Game_Boss_BossStateSyncsPush': return accessor(new boss_state_syncs_push_js_1.BossStateSyncsPush());
+        case 'Game_Boss_BossSnapshotSyncsPush': return accessor(new boss_snapshot_syncs_push_js_1.BossSnapshotSyncsPush());
         default: return null;
     }
 }
@@ -102,6 +108,8 @@ function unionListToPayload(type, accessor, index) {
         case 'Game_Drop_PickupResponse': return accessor(index, new pickup_response_js_1.PickupResponse());
         case 'Game_Drop_PickupPush': return accessor(index, new pickup_push_js_1.PickupPush());
         case 'Game_GM_GMCommand': return accessor(index, new gmcommand_js_1.GMCommand());
+        case 'Game_Boss_BossStateSyncsPush': return accessor(index, new boss_state_syncs_push_js_1.BossStateSyncsPush());
+        case 'Game_Boss_BossSnapshotSyncsPush': return accessor(index, new boss_snapshot_syncs_push_js_1.BossSnapshotSyncsPush());
         default: return null;
     }
 }

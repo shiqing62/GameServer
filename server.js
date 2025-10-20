@@ -21,6 +21,8 @@ const debuffHandler = require('./handlers/debuffSyncsHandler.js');
 
 // 引入manager
 const {DeBuffManager} = require("./managers/debuffManager.js");
+const {BossManager} = require('./managers/bossManager.js');
+const {PlayerManager} = require('./managers/playerManager.js');
 
 // 引入 FBS 生成的请求结构
 const {EnterGameRequest} = require('./schemas/generated/javascript/game/login/enter-game-request.js');
@@ -40,6 +42,11 @@ const wss = new WebSocket.Server({ host: "0.0.0.0", port: 8080});
 const debuffManager = new DeBuffManager(players);
 // 将manager引入handler
 debuffHandler.init(debuffManager);
+
+// 初始化playerManager
+const playerManager = new PlayerManager(players);
+// 初始化bossManager
+const bossManger = new BossManager(players,playerManager);
 
 
 wss.on('connection',function connection (ws){
@@ -142,5 +149,10 @@ setInterval(()=>{
 setInterval(()=>{
     dropHandler.handle(players);
 },30*1000);
+
+// boss生成逻辑
+setInterval(()=>{
+    bossManger.spawnBoss();
+},60*1000);
 
 

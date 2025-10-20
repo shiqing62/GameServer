@@ -2,6 +2,8 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
+import { BossSnapshotSyncsPush } from '../../game/boss/boss-snapshot-syncs-push.js';
+import { BossStateSyncsPush } from '../../game/boss/boss-state-syncs-push.js';
 import { DropItemPush } from '../../game/drop/drop-item-push.js';
 import { PickupPush } from '../../game/drop/pickup-push.js';
 import { PickupRequest } from '../../game/drop/pickup-request.js';
@@ -47,13 +49,15 @@ export enum Payload {
   Game_Drop_PickupRequest = 18,
   Game_Drop_PickupResponse = 19,
   Game_Drop_PickupPush = 20,
-  Game_GM_GMCommand = 21
+  Game_GM_GMCommand = 21,
+  Game_Boss_BossStateSyncsPush = 22,
+  Game_Boss_BossSnapshotSyncsPush = 23
 }
 
 export function unionToPayload(
   type: Payload,
-  accessor: (obj:DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs) => DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|null
-): DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|null {
+  accessor: (obj:BossSnapshotSyncsPush|BossStateSyncsPush|DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs) => BossSnapshotSyncsPush|BossStateSyncsPush|DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|null
+): BossSnapshotSyncsPush|BossStateSyncsPush|DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|null {
   switch(Payload[type]) {
     case 'NONE': return null; 
     case 'Game_Login_LoginRequest': return accessor(new LoginRequest())! as LoginRequest;
@@ -77,15 +81,17 @@ export function unionToPayload(
     case 'Game_Drop_PickupResponse': return accessor(new PickupResponse())! as PickupResponse;
     case 'Game_Drop_PickupPush': return accessor(new PickupPush())! as PickupPush;
     case 'Game_GM_GMCommand': return accessor(new GMCommand())! as GMCommand;
+    case 'Game_Boss_BossStateSyncsPush': return accessor(new BossStateSyncsPush())! as BossStateSyncsPush;
+    case 'Game_Boss_BossSnapshotSyncsPush': return accessor(new BossSnapshotSyncsPush())! as BossSnapshotSyncsPush;
     default: return null;
   }
 }
 
 export function unionListToPayload(
   type: Payload, 
-  accessor: (index: number, obj:DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs) => DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|null, 
+  accessor: (index: number, obj:BossSnapshotSyncsPush|BossStateSyncsPush|DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs) => BossSnapshotSyncsPush|BossStateSyncsPush|DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|null, 
   index: number
-): DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|null {
+): BossSnapshotSyncsPush|BossStateSyncsPush|DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|null {
   switch(Payload[type]) {
     case 'NONE': return null; 
     case 'Game_Login_LoginRequest': return accessor(index, new LoginRequest())! as LoginRequest;
@@ -109,6 +115,8 @@ export function unionListToPayload(
     case 'Game_Drop_PickupResponse': return accessor(index, new PickupResponse())! as PickupResponse;
     case 'Game_Drop_PickupPush': return accessor(index, new PickupPush())! as PickupPush;
     case 'Game_GM_GMCommand': return accessor(index, new GMCommand())! as GMCommand;
+    case 'Game_Boss_BossStateSyncsPush': return accessor(index, new BossStateSyncsPush())! as BossStateSyncsPush;
+    case 'Game_Boss_BossSnapshotSyncsPush': return accessor(index, new BossSnapshotSyncsPush())! as BossSnapshotSyncsPush;
     default: return null;
   }
 }

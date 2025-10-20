@@ -38,6 +38,8 @@ const {PickupPush} = require("../schemas/generated/javascript/game/drop/pickup-p
 const {DeBuffAction} = require("../schemas/generated/javascript/game/syncs/de-buff-action");
 const {DeBuffSyncsPush} = require("../schemas/generated/javascript/game/syncs/de-buff-syncs-push");
 const {DeBuffParam} = require("../schemas/generated/javascript/game/common/de-buff-param");
+const {BossStateSyncsPush} = require("../schemas/generated/javascript/game/boss/boss-state-syncs-push");
+const {BossSnapshotSyncsPush} = require("../schemas/generated/javascript/game/boss/boss-snapshot-syncs-push");
 
 const payloadBuilder = {
     // 登录响应
@@ -447,6 +449,42 @@ const payloadBuilder = {
             PickupPush.addInstanceId(builder,instanceId);
 
             return PickupPush.endPickupPush(builder);
+        }
+    },
+
+    // boss状态同步推送
+    [MsgIds.ServerPushId.BossStateSyncs]:{
+        payloadType: PayloadType.Game_Boss_BossStateSyncsPush,
+        build: (builder,payload) => {
+            const {bossId,bossState,skillId} = payload;
+
+            BossStateSyncsPush.startBossStateSyncsPush(builder);
+            BossStateSyncsPush.addBossId(builder,bossId);
+            BossStateSyncsPush.addBossState(builder,bossState);
+            if (skillId !== 0)
+            {
+                BossStateSyncsPush.addSkillId(builder,skillId);
+            }
+
+            return BossStateSyncsPush.endBossStateSyncsPush(builder);
+        }
+    },
+
+    // boss实时状态同步推送
+    [MsgIds.ServerPushId.BossSnapshotSyncs]:{
+        payloadType: PayloadType.Game_Boss_BossSnapshotSyncsPush,
+        build: (builder,payload) => {
+            const {bossId,bossHp,bossPos,bossDirection} = payload;
+            const posOffset = Vec3.createVec3(builder,bossPos.x,bossPos.y,bossPos.z);
+            const dirOffset = Vec3.createVec3(builder,bossDirection.x,bossDirection.y,bossDirection.z);
+
+            BossSnapshotSyncsPush.startBossSnapshotSyncsPush(builder);
+            BossSnapshotSyncsPush.addBossId(builder,bossId);
+            BossSnapshotSyncsPush.addHp(builder,bossHp);
+            BossSnapshotSyncsPush.addPos(builder,posOffset);
+            BossSnapshotSyncsPush.addDirection(builder,dirOffset);
+
+            return BossSnapshotSyncsPush.endBossSnapshotSyncsPush(builder);
         }
     },
 };
