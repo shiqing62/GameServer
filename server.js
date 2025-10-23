@@ -90,7 +90,7 @@ wss.on('connection',function connection (ws){
                 break;
             case PayloadType.Game_Syncs_DeBuffSyncsRequest:
                 const debuffData = message.payload(new DeBuffSyncsRequest());
-                debuffHandler.handle(ws,debuffData,players)
+                debuffHandler.handle(ws,debuffData,players);
                 break;
             case Payload.Game_GM_GMCommand:
                 const gmData = message.payload(new GMCommand());
