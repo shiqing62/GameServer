@@ -55,4 +55,28 @@ function snapshotSyncsHandle(payload,players){
     }
 }
 
-module.exports = {stateSyncsHandle,snapshotSyncsHandle};
+// 同步boss对玩家的造成伤害
+function damageToPlayerSyncsHandle(payload,players)
+{
+    const targetPlayerUId = payload.uid;
+    const targetPlayer = players.get(targetPlayerUId);
+    if (!targetPlayer)
+    {
+        console.warn("TargetPlayer 不存在, targetPlayerUId: ",targetPlayerUId);
+        return;
+    }
+
+    const damage = payload.damage;
+    const skillId = payload.skillId;
+
+    const damageSyncs = {
+        uid: targetPlayerUId,
+        skillId: skillId,
+        damage: damage
+    }
+
+    // 通知给目标玩家-->>玩家客户端发起playerStateSyncsReq,stateFlag = hp;
+    send(targetPlayer.ws,MsgIds.ResponseId.TakeBossDamage,damageSyncs);
+}
+
+module.exports = {stateSyncsHandle,snapshotSyncsHandle,damageToPlayerSyncsHandle};

@@ -34,6 +34,7 @@ const {PlayerExitRequest} = require("./schemas/generated/javascript/game/syncs/p
 const {PickupRequest} = require("./schemas/generated/javascript/game/drop/pickup-request.js");
 const {GMCommand} = require("./schemas/generated/javascript/game/gm/gmcommand.js");
 const {DeBuffSyncsRequest} = require("./schemas/generated/javascript/game/syncs/de-buff-syncs-request.js");
+const {TakeBossDamageRequest} = require("./schemas/generated/javascript/game/boss/take-boss-damage-request");
 
 const players = new Map();
 const wss = new WebSocket.Server({ host: "0.0.0.0", port: 8080});
@@ -95,6 +96,10 @@ wss.on('connection',function connection (ws){
             case Payload.Game_GM_GMCommand:
                 const gmData = message.payload(new GMCommand());
                 gmHandler.handle(ws,gmData,players);
+                break;
+            case Payload.Game_Boss_TakeBossDamageRequest:
+                const takeBossDamageData = message.payload(new TakeBossDamageRequest());
+                bossManger.calculateDamage(takeBossDamageData);
                 break;
             default:
                 console.log('Unknown payload type:', payloadType);

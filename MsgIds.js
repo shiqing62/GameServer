@@ -10,7 +10,7 @@ const MsgIds = {
         PlayerStateSyncs: 13003,
         PickupDropItem: 14001,
         DeBuffSyncs: 15001,
-
+        TakeBossDamage: 16003,
     },
 
     // 2xxxx
@@ -19,6 +19,7 @@ const MsgIds = {
         EnterGame: 21002,
         PlayerMove: 22003,
         PickupDropItem: 24001,
+        TakeBossDamage: 26003,
     },
 
     // 3xxxx

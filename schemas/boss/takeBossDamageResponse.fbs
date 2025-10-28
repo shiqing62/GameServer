@@ -1,0 +1,10 @@
+namespace Game.Boss;
+
+// 服务器计算xx技能的伤害之后响应给客户端
+table TakeBossDamageResponse{
+    uid: uint;
+    damage: float;
+    skillId: int;
+}
+
+root_type TakeBossDamageResponse;

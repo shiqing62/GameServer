@@ -441,7 +441,7 @@ class BossManager {
         const skills = boss.skills || [];
         // 过滤: 满足距离
         const candidates = skills.filter(s => {
-            if (distance > s.skillRange) return false;
+            if (distance > s.castRange) return false;
             return true;
         });
 
@@ -457,6 +457,29 @@ class BossManager {
         }
 
         return candidates[0];
+    }
+
+    // 计算某个技能的伤害
+    calculateDamage(payload) {
+        const skillId = payload.skillId();
+        const targetPlayerUId = payload.uid();
+        let damage = 0;
+        const boss = this.activeBoss;
+        if (!boss) return;
+
+        const skill = boss.skills.find(s => s.skillId === skillId);
+        if (!skill) return;
+
+        damage = skill.skillDamage;
+
+        const takeDamageData = {
+            uid: targetPlayerUId,
+            skillId: skillId,
+            damage: damage,
+        }
+
+        // 通过handle广播伤害
+        bossSyncsHandler.damageToPlayerSyncsHandle(takeDamageData,this.players);
     }
 }
 

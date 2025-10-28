@@ -2,6 +2,4 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
-export { BossSnapshotSyncsPush } from './boss/boss-snapshot-syncs-push.js';
-export { BossState } from './boss/boss-state.js';
-export { BossStateSyncsPush } from './boss/boss-state-syncs-push.js';
+export { TakeBossDamageResponse } from './boss/take-boss-damage-response.js';

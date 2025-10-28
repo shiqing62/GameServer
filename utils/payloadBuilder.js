@@ -40,6 +40,7 @@ const {DeBuffSyncsPush} = require("../schemas/generated/javascript/game/syncs/de
 const {DeBuffParam} = require("../schemas/generated/javascript/game/common/de-buff-param");
 const {BossStateSyncsPush} = require("../schemas/generated/javascript/game/boss/boss-state-syncs-push");
 const {BossSnapshotSyncsPush} = require("../schemas/generated/javascript/game/boss/boss-snapshot-syncs-push");
+const {TakeBossDamageResponse} = require("../schemas/generated/javascript/game/boss/take-boss-damage-response");
 
 const payloadBuilder = {
     // 登录响应
@@ -485,6 +486,21 @@ const payloadBuilder = {
             BossSnapshotSyncsPush.addDirection(builder,dirOffset);
 
             return BossSnapshotSyncsPush.endBossSnapshotSyncsPush(builder);
+        }
+    },
+
+    // boss造成的伤害响应
+    [MsgIds.ResponseId.TakeBossDamage]:{
+        payloadType: PayloadType.Game_Boss_TakeBossDamageResponse,
+        build: (builder,payload) =>{
+            const {uid,skillId,damage} = payload;
+
+            TakeBossDamageResponse.startTakeBossDamageResponse(builder);
+            TakeBossDamageResponse.addUid(builder,uid);
+            TakeBossDamageResponse.addSkillId(builder,skillId);
+            TakeBossDamageResponse.addDamage(builder,damage);
+
+            return TakeBossDamageResponse.endTakeBossDamageResponse(builder);
         }
     },
 };
