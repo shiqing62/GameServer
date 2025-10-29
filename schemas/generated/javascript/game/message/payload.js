@@ -7,6 +7,7 @@ exports.unionListToPayload = unionListToPayload;
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 var boss_snapshot_syncs_push_js_1 = require("../../game/boss/boss-snapshot-syncs-push.js");
 var boss_state_syncs_push_js_1 = require("../../game/boss/boss-state-syncs-push.js");
+var deal_boss_damage_request_js_1 = require("../../game/boss/deal-boss-damage-request.js");
 var take_boss_damage_request_js_1 = require("../../game/boss/take-boss-damage-request.js");
 var take_boss_damage_response_js_1 = require("../../game/boss/take-boss-damage-response.js");
 var drop_item_push_js_1 = require("../../game/drop/drop-item-push.js");
@@ -58,6 +59,7 @@ var Payload;
     Payload[Payload["Game_Boss_BossSnapshotSyncsPush"] = 23] = "Game_Boss_BossSnapshotSyncsPush";
     Payload[Payload["Game_Boss_TakeBossDamageRequest"] = 24] = "Game_Boss_TakeBossDamageRequest";
     Payload[Payload["Game_Boss_TakeBossDamageResponse"] = 25] = "Game_Boss_TakeBossDamageResponse";
+    Payload[Payload["Game_Boss_DealBossDamageRequest"] = 26] = "Game_Boss_DealBossDamageRequest";
 })(Payload || (exports.Payload = Payload = {}));
 function unionToPayload(type, accessor) {
     switch (Payload[type]) {
@@ -87,6 +89,7 @@ function unionToPayload(type, accessor) {
         case 'Game_Boss_BossSnapshotSyncsPush': return accessor(new boss_snapshot_syncs_push_js_1.BossSnapshotSyncsPush());
         case 'Game_Boss_TakeBossDamageRequest': return accessor(new take_boss_damage_request_js_1.TakeBossDamageRequest());
         case 'Game_Boss_TakeBossDamageResponse': return accessor(new take_boss_damage_response_js_1.TakeBossDamageResponse());
+        case 'Game_Boss_DealBossDamageRequest': return accessor(new deal_boss_damage_request_js_1.DealBossDamageRequest());
         default: return null;
     }
 }
@@ -118,6 +121,7 @@ function unionListToPayload(type, accessor, index) {
         case 'Game_Boss_BossSnapshotSyncsPush': return accessor(index, new boss_snapshot_syncs_push_js_1.BossSnapshotSyncsPush());
         case 'Game_Boss_TakeBossDamageRequest': return accessor(index, new take_boss_damage_request_js_1.TakeBossDamageRequest());
         case 'Game_Boss_TakeBossDamageResponse': return accessor(index, new take_boss_damage_response_js_1.TakeBossDamageResponse());
+        case 'Game_Boss_DealBossDamageRequest': return accessor(index, new deal_boss_damage_request_js_1.DealBossDamageRequest());
         default: return null;
     }
 }

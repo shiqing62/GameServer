@@ -86,7 +86,7 @@ class BossManager {
 
     update(deltaTime) {
         const boss = this.activeBoss;
-        if (!boss || boss.bossState === BossState.Dead) {
+        if (!boss) {
             return;
         }
 
@@ -362,7 +362,11 @@ class BossManager {
     }
 
     doDead() {
-
+        // 将boss dead的状态同步给所有客户端
+        this.stateSyncs();
+        // 清除boss
+        this.activeBoss = null;
+        //TODO 掉落奖励
     }
 
     stateSyncs(skillId = 0)
@@ -459,8 +463,8 @@ class BossManager {
         return candidates[0];
     }
 
-    // 计算某个技能的伤害
-    calculateDamage(payload) {
+    // 计算boss某个技能对player的伤害
+    calculateBossDamage(payload) {
         const skillId = payload.skillId();
         const targetPlayerUId = payload.uid();
         let damage = 0;
@@ -480,6 +484,23 @@ class BossManager {
 
         // 通过handle广播伤害
         bossSyncsHandler.damageToPlayerSyncsHandle(takeDamageData,this.players);
+    }
+
+    // 计算player对boss造成的伤害
+    calculatePlayerDamage(payload){
+        const boss = this.activeBoss;
+        if (!boss) return;
+
+        const skillId = payload.skillId();
+        const attackerId = payload.uid();
+        const damage = payload.damage();
+        console.log(`--->>>对boss造成伤害, skillId: ${skillId},  damage: ${damage},  剩余血量: ${boss.hp}`);
+        boss.hp -= damage;
+        boss.hp = Math.max(boss.hp,0);
+
+        if (boss.hp <= 0){
+            boss.bossState = BossState.Dead;
+        }
     }
 }
 

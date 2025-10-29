@@ -23,6 +23,7 @@ include "../boss/bossStateSyncsPush.fbs";
 include "../boss/bossSnapshotSyncsPush.fbs";
 include "../boss/takeBossDamageRequest.fbs";
 include "../boss/takeBossDamageResponse.fbs";
+include "../boss/dealBossDamageRequest.fbs";
 
 
 namespace Game.Message;
@@ -53,6 +54,7 @@ union Payload {
     Game.Boss.BossSnapshotSyncsPush,
     Game.Boss.TakeBossDamageRequest,
     Game.Boss.TakeBossDamageResponse,
+    Game.Boss.DealBossDamageRequest,
 }
 
 table Message {

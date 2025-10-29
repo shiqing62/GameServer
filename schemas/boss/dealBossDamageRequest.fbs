@@ -1,0 +1,10 @@
+namespace Game.Boss;
+
+// 玩家对boss造成伤害的请求
+table DealBossDamageRequest{
+    uid: uint;
+    skillId: int;
+    damage: float;
+}
+
+root_type DealBossDamageRequest;
