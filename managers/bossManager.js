@@ -262,7 +262,7 @@ class BossManager {
         const distToTarget = Math.sqrt(dxt * dxt + dzt * dzt);
 
         // 停止追击判定
-        if (distToTarget <= 2){
+        if (distToTarget <= 3.5){
             // 停止移动，只更新朝向
             const normX = dxt / (distToTarget || 0.0001);
             const normZ = dzt / (distToTarget || 0.0001);
@@ -475,6 +475,7 @@ class BossManager {
         if (!skill) return;
 
         damage = skill.skillDamage;
+        console.log("--->>>对玩家造成伤害: ",damage);
 
         const takeDamageData = {
             uid: targetPlayerUId,

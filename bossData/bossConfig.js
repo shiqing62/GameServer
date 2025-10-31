@@ -18,7 +18,7 @@ const BossConfig = {
                 skillId: 1011,      // 普攻1
                 effectId: 1011,
                 skillDamage: 20,
-                castRange: 2,       // 释放距离
+                castRange: 4,       // 释放距离
                 coolDown: 2.5,
                 duration: 2.067,
                 precastTime: 0.25,  // 技能前摇
@@ -27,7 +27,7 @@ const BossConfig = {
                 skillId: 1012,      // 普攻2
                 effectId: 1012,
                 skillDamage: 20,
-                castRange: 2,
+                castRange: 4,
                 coolDown: 2.5,
                 duration: 1.867,
                 weight: 50
@@ -35,10 +35,10 @@ const BossConfig = {
                 skillId: 1013,      // skill
                 effectId: 1013,
                 skillDamage: 50,
-                castRange: 2,
+                castRange: 4,
                 coolDown: 5,
                 duration: 1.667,
-                weight: 80
+                weight: 200
             },
         ],
     },
