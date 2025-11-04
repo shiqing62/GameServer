@@ -358,6 +358,7 @@ class BossManager {
             // 攻击完成后回到idle状态---boss再次锁定目标
             boss.pendingSkill = null;
             boss.bossState = BossState.Idle;
+            //TODO 重新选择 targetPlayer
         }
     }
 
