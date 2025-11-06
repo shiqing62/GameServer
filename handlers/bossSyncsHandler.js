@@ -33,7 +33,7 @@ function stateSyncsHandle(payload,players)
         skillId: payload.skillId,
     };
 
-    console.log("--->>>boss都同步给哪些players: ",targetPlayers.length);
+    console.log("--->>>bossState: ",bossState);
     for (const player of targetPlayers)
     {
         send(player.ws,MsgIds.ServerPushId.BossStateSyncs,stateSyncs);
@@ -49,6 +49,7 @@ function snapshotSyncsHandle(payload,players){
         bossPos: payload.pos,
         bossDirection: payload.direction,
     }
+    console.log("--->>>实时同步：",payload.direction);
     for (const player of targetPlayers)
     {
         send(player.ws,MsgIds.ServerPushId.BossSnapshotSyncs,snapshotSyncs);

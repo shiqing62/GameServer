@@ -36,6 +36,7 @@ const {GMCommand} = require("./schemas/generated/javascript/game/gm/gmcommand.js
 const {DeBuffSyncsRequest} = require("./schemas/generated/javascript/game/syncs/de-buff-syncs-request.js");
 const {TakeBossDamageRequest} = require("./schemas/generated/javascript/game/boss/take-boss-damage-request");
 const {DealBossDamageRequest} = require("./schemas/generated/javascript/game/boss/deal-boss-damage-request");
+const {BossMgr} = require("./bossData/bossMgr");
 
 const players = new Map();
 const wss = new WebSocket.Server({ host: "0.0.0.0", port: 8080});
@@ -48,7 +49,8 @@ debuffHandler.init(debuffManager);
 // 初始化playerManager
 const playerManager = new PlayerManager(players);
 // 初始化bossManager
-const bossManger = new BossManager(players,playerManager);
+// const bossManger = new BossManager(players,playerManager);
+const bossMgr = new BossMgr(players,playerManager);
 
 
 wss.on('connection',function connection (ws){
@@ -100,11 +102,11 @@ wss.on('connection',function connection (ws){
                 break;
             case Payload.Game_Boss_TakeBossDamageRequest:
                 const takeBossDamageData = message.payload(new TakeBossDamageRequest());
-                bossManger.calculateBossDamage(takeBossDamageData);
+                bossMgr.calculateBossDamage(takeBossDamageData);
                 break;
             case Payload.Game_Boss_DealBossDamageRequest:
                 const dealBossDamageData = message.payload(new DealBossDamageRequest());
-                bossManger.calculatePlayerDamage(dealBossDamageData);
+                bossMgr.calculatePlayerDamage(dealBossDamageData);
                 break;
             default:
                 console.log('Unknown payload type:', payloadType);
@@ -162,7 +164,7 @@ setInterval(()=>{
 
 // boss生成逻辑
 setInterval(()=>{
-    bossManger.spawnBoss();
+    bossMgr.spawnBoss();
 },60*1000);
 
 
