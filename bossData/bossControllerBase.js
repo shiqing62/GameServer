@@ -54,7 +54,8 @@ class BossControllerBase{
         return {
             bossId: this.bossId,
             bossState: this.bossState,
-            skillId: skillId
+            skillId: skillId,
+            targetUid: this.targetPlayer ?. uid ?? 0,
         };
     }
 

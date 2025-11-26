@@ -9,7 +9,7 @@ const chunkSize = 32;
 
 class BossMgr{
     constructor(players,playerManager) {
-        this.players = players;
+        this.players = players; 
         this.playerManager = playerManager;
         this.activeBossController = null;
         this.pathfinder = null;
@@ -33,10 +33,11 @@ class BossMgr{
         // 随机出chunk_x,chunk_y,bossId
         // const chunk_x = Math.floor(Math.random() * GAME_CONSTANTS.CHUNK_COUNT_X);
         // const chunk_y = Math.floor(Math.random() * GAME_CONSTANTS.CHUNK_COUNT_Y);
-        const chunk_x = 1;
-        const chunk_y = 1;
-        const bossId = 101;
-        const spawnPos = mapHandler.getRandomPos(chunk_x, chunk_y);
+        // const spawnPos = mapHandler.getRandomPos(chunk_x, chunk_y);
+        const chunk_x = 10;
+        const chunk_y = 10;
+        const bossId = 103;
+        const spawnPos = {x: 332,y: 0,z: 335};
         // 初始化寻路器
         const obstacles = mapHandler.getObstaclesWithNeighbors(chunk_x,chunk_y);
         const chunkOrigin = {x: chunk_x * chunkSize, z: chunk_y * chunkSize};

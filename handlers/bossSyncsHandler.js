@@ -31,6 +31,7 @@ function stateSyncsHandle(payload,players)
         bossId: payload.bossId,
         bossState: bossState,
         skillId: payload.skillId,
+        targetUid: payload.targetUid
     };
 
     console.log("--->>>bossState: ",bossState);

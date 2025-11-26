@@ -10,8 +10,8 @@ function handle(ws,payload,players){
     console.log("---uid: ",uid);
     const charId = payload.characterId();
     const initHp = payload.initHp();
-    const posX = 48;
-    const posZ = 48;
+    const posX = 333;
+    const posZ = 333;
     // 初始化一个角色的数据
     const selfPlayerData = new PlayerDataWrapper(null,ws,{
         uid: uid,

@@ -40,8 +40,13 @@ skillId():number {
   return offset ? this.bb!.readInt32(this.bb_pos + offset) : 0;
 }
 
+targetUid():number {
+  const offset = this.bb!.__offset(this.bb_pos, 10);
+  return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
+}
+
 static startBossStateSyncsPush(builder:flatbuffers.Builder) {
-  builder.startObject(3);
+  builder.startObject(4);
 }
 
 static addBossId(builder:flatbuffers.Builder, bossId:number) {
@@ -54,6 +59,10 @@ static addBossState(builder:flatbuffers.Builder, bossState:BossState) {
 
 static addSkillId(builder:flatbuffers.Builder, skillId:number) {
   builder.addFieldInt32(2, skillId, 0);
+}
+
+static addTargetUid(builder:flatbuffers.Builder, targetUid:number) {
+  builder.addFieldInt32(3, targetUid, 0);
 }
 
 static endBossStateSyncsPush(builder:flatbuffers.Builder):flatbuffers.Offset {
@@ -69,11 +78,12 @@ static finishSizePrefixedBossStateSyncsPushBuffer(builder:flatbuffers.Builder, o
   builder.finish(offset, undefined, true);
 }
 
-static createBossStateSyncsPush(builder:flatbuffers.Builder, bossId:number, bossState:BossState, skillId:number):flatbuffers.Offset {
+static createBossStateSyncsPush(builder:flatbuffers.Builder, bossId:number, bossState:BossState, skillId:number, targetUid:number):flatbuffers.Offset {
   BossStateSyncsPush.startBossStateSyncsPush(builder);
   BossStateSyncsPush.addBossId(builder, bossId);
   BossStateSyncsPush.addBossState(builder, bossState);
   BossStateSyncsPush.addSkillId(builder, skillId);
+  BossStateSyncsPush.addTargetUid(builder, targetUid);
   return BossStateSyncsPush.endBossStateSyncsPush(builder);
 }
 }

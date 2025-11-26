@@ -14,6 +14,7 @@ table BossStateSyncsPush{
     bossId: int;
     bossState: BossState;
     skillId: int;
+    targetUid: uint;    // 目标玩家的uid
 }
 
 root_type BossStateSyncsPush;

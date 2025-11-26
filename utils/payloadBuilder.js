@@ -457,7 +457,7 @@ const payloadBuilder = {
     [MsgIds.ServerPushId.BossStateSyncs]:{
         payloadType: PayloadType.Game_Boss_BossStateSyncsPush,
         build: (builder,payload) => {
-            const {bossId,bossState,skillId} = payload;
+            const {bossId,bossState,skillId,targetUid} = payload;
 
             BossStateSyncsPush.startBossStateSyncsPush(builder);
             BossStateSyncsPush.addBossId(builder,bossId);
@@ -465,6 +465,10 @@ const payloadBuilder = {
             if (skillId !== 0)
             {
                 BossStateSyncsPush.addSkillId(builder,skillId);
+            }
+            if (targetUid !== 0)
+            {
+                BossStateSyncsPush.addTargetUid(builder,targetUid);
             }
 
             return BossStateSyncsPush.endBossStateSyncsPush(builder);

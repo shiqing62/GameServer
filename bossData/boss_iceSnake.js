@@ -9,7 +9,7 @@ class BossIceSnake extends BossControllerBase{
         this.cfg = {
             bossId: 103,
             maxHp: 10000,
-            chaseRange: {x: 0, y: 0},
+            chaseRange: {x: 1600, y: 900},
             moveSpeed: 0,
             spawnDuration: 1.083,
             skillList:[
@@ -21,7 +21,7 @@ class BossIceSnake extends BossControllerBase{
                     coolDown: 2.5,
                     duration: 0.833,
                     precastTime: 0.25,
-                    weight: 50
+                    weight: 100
                 },
                 {
                     // 远程攻击--投掷
@@ -31,27 +31,27 @@ class BossIceSnake extends BossControllerBase{
                     coolDown: 2.5,
                     duration: 0.833,
                     precastTime: 0.25,
-                    weight: 50
+                    weight: 0
                 },
                 {
                     // 持续喷
                     skillId: 1033,
                     skillDamage: 20,
                     castRange: 20,
-                    coolDown: 2.5,
-                    duration: 0.833,
+                    coolDown: 5,
+                    duration: 3.083,
                     precastTime: 0.25,
-                    weight: 50
+                    weight: 0
                 },
                 {
                     // 钻地下潜
                     skillId: 1034,
                     skillDamage: 20,
                     castRange: 5,
-                    coolDown: 2.5,
-                    duration: 0.833,
+                    coolDown: 10,
+                    duration: 4.85,
                     precastTime: 0.25,
-                    weight: 50
+                    weight: 0
                 }
             ],
 
@@ -137,4 +137,22 @@ class BossIceSnake extends BossControllerBase{
     async doDead(deltaTime){
 
     }
+
+    chooseSkill(distance){
+        const skills = this.skills || [];
+        const candidates = skills.filter(s => distance <= s.castRange);
+        if (candidates.length === 0) return null;
+        const totalWeight = candidates.reduce((sum, s) => sum + (s.weight || 1), 0);
+        let r = Math.random() * totalWeight;
+        for (const s of candidates){
+            const w = s.weight || 1;
+            if (r < w){
+                return s;
+            }
+            r -= w;
+        }
+        return candidates[0];
+    }
 }
+
+module.exports = {BossIceSnake};

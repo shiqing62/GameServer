@@ -34,8 +34,12 @@ var BossStateSyncsPush = /** @class */ (function () {
         var offset = this.bb.__offset(this.bb_pos, 8);
         return offset ? this.bb.readInt32(this.bb_pos + offset) : 0;
     };
+    BossStateSyncsPush.prototype.targetUid = function () {
+        var offset = this.bb.__offset(this.bb_pos, 10);
+        return offset ? this.bb.readUint32(this.bb_pos + offset) : 0;
+    };
     BossStateSyncsPush.startBossStateSyncsPush = function (builder) {
-        builder.startObject(3);
+        builder.startObject(4);
     };
     BossStateSyncsPush.addBossId = function (builder, bossId) {
         builder.addFieldInt32(0, bossId, 0);
@@ -45,6 +49,9 @@ var BossStateSyncsPush = /** @class */ (function () {
     };
     BossStateSyncsPush.addSkillId = function (builder, skillId) {
         builder.addFieldInt32(2, skillId, 0);
+    };
+    BossStateSyncsPush.addTargetUid = function (builder, targetUid) {
+        builder.addFieldInt32(3, targetUid, 0);
     };
     BossStateSyncsPush.endBossStateSyncsPush = function (builder) {
         var offset = builder.endObject();
@@ -56,11 +63,12 @@ var BossStateSyncsPush = /** @class */ (function () {
     BossStateSyncsPush.finishSizePrefixedBossStateSyncsPushBuffer = function (builder, offset) {
         builder.finish(offset, undefined, true);
     };
-    BossStateSyncsPush.createBossStateSyncsPush = function (builder, bossId, bossState, skillId) {
+    BossStateSyncsPush.createBossStateSyncsPush = function (builder, bossId, bossState, skillId, targetUid) {
         BossStateSyncsPush.startBossStateSyncsPush(builder);
         BossStateSyncsPush.addBossId(builder, bossId);
         BossStateSyncsPush.addBossState(builder, bossState);
         BossStateSyncsPush.addSkillId(builder, skillId);
+        BossStateSyncsPush.addTargetUid(builder, targetUid);
         return BossStateSyncsPush.endBossStateSyncsPush(builder);
     };
     return BossStateSyncsPush;
