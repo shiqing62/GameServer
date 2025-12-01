@@ -3,6 +3,7 @@ namespace Game.Boss;
 // 服务器计算xx技能的伤害之后响应给客户端
 table TakeBossDamageResponse{
     uid: uint;
+    bossId: int;
     damage: float;
     skillId: int;
 }

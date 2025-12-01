@@ -25,18 +25,25 @@ var TakeBossDamageRequest = /** @class */ (function () {
         var offset = this.bb.__offset(this.bb_pos, 4);
         return offset ? this.bb.readUint32(this.bb_pos + offset) : 0;
     };
-    TakeBossDamageRequest.prototype.skillId = function () {
+    TakeBossDamageRequest.prototype.bossId = function () {
         var offset = this.bb.__offset(this.bb_pos, 6);
         return offset ? this.bb.readInt32(this.bb_pos + offset) : 0;
     };
+    TakeBossDamageRequest.prototype.skillId = function () {
+        var offset = this.bb.__offset(this.bb_pos, 8);
+        return offset ? this.bb.readInt32(this.bb_pos + offset) : 0;
+    };
     TakeBossDamageRequest.startTakeBossDamageRequest = function (builder) {
-        builder.startObject(2);
+        builder.startObject(3);
     };
     TakeBossDamageRequest.addUid = function (builder, uid) {
         builder.addFieldInt32(0, uid, 0);
     };
+    TakeBossDamageRequest.addBossId = function (builder, bossId) {
+        builder.addFieldInt32(1, bossId, 0);
+    };
     TakeBossDamageRequest.addSkillId = function (builder, skillId) {
-        builder.addFieldInt32(1, skillId, 0);
+        builder.addFieldInt32(2, skillId, 0);
     };
     TakeBossDamageRequest.endTakeBossDamageRequest = function (builder) {
         var offset = builder.endObject();
@@ -48,9 +55,10 @@ var TakeBossDamageRequest = /** @class */ (function () {
     TakeBossDamageRequest.finishSizePrefixedTakeBossDamageRequestBuffer = function (builder, offset) {
         builder.finish(offset, undefined, true);
     };
-    TakeBossDamageRequest.createTakeBossDamageRequest = function (builder, uid, skillId) {
+    TakeBossDamageRequest.createTakeBossDamageRequest = function (builder, uid, bossId, skillId) {
         TakeBossDamageRequest.startTakeBossDamageRequest(builder);
         TakeBossDamageRequest.addUid(builder, uid);
+        TakeBossDamageRequest.addBossId(builder, bossId);
         TakeBossDamageRequest.addSkillId(builder, skillId);
         return TakeBossDamageRequest.endTakeBossDamageRequest(builder);
     };

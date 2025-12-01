@@ -25,25 +25,32 @@ var TakeBossDamageResponse = /** @class */ (function () {
         var offset = this.bb.__offset(this.bb_pos, 4);
         return offset ? this.bb.readUint32(this.bb_pos + offset) : 0;
     };
-    TakeBossDamageResponse.prototype.damage = function () {
+    TakeBossDamageResponse.prototype.bossId = function () {
         var offset = this.bb.__offset(this.bb_pos, 6);
+        return offset ? this.bb.readInt32(this.bb_pos + offset) : 0;
+    };
+    TakeBossDamageResponse.prototype.damage = function () {
+        var offset = this.bb.__offset(this.bb_pos, 8);
         return offset ? this.bb.readFloat32(this.bb_pos + offset) : 0.0;
     };
     TakeBossDamageResponse.prototype.skillId = function () {
-        var offset = this.bb.__offset(this.bb_pos, 8);
+        var offset = this.bb.__offset(this.bb_pos, 10);
         return offset ? this.bb.readInt32(this.bb_pos + offset) : 0;
     };
     TakeBossDamageResponse.startTakeBossDamageResponse = function (builder) {
-        builder.startObject(3);
+        builder.startObject(4);
     };
     TakeBossDamageResponse.addUid = function (builder, uid) {
         builder.addFieldInt32(0, uid, 0);
     };
+    TakeBossDamageResponse.addBossId = function (builder, bossId) {
+        builder.addFieldInt32(1, bossId, 0);
+    };
     TakeBossDamageResponse.addDamage = function (builder, damage) {
-        builder.addFieldFloat32(1, damage, 0.0);
+        builder.addFieldFloat32(2, damage, 0.0);
     };
     TakeBossDamageResponse.addSkillId = function (builder, skillId) {
-        builder.addFieldInt32(2, skillId, 0);
+        builder.addFieldInt32(3, skillId, 0);
     };
     TakeBossDamageResponse.endTakeBossDamageResponse = function (builder) {
         var offset = builder.endObject();
@@ -55,9 +62,10 @@ var TakeBossDamageResponse = /** @class */ (function () {
     TakeBossDamageResponse.finishSizePrefixedTakeBossDamageResponseBuffer = function (builder, offset) {
         builder.finish(offset, undefined, true);
     };
-    TakeBossDamageResponse.createTakeBossDamageResponse = function (builder, uid, damage, skillId) {
+    TakeBossDamageResponse.createTakeBossDamageResponse = function (builder, uid, bossId, damage, skillId) {
         TakeBossDamageResponse.startTakeBossDamageResponse(builder);
         TakeBossDamageResponse.addUid(builder, uid);
+        TakeBossDamageResponse.addBossId(builder, bossId);
         TakeBossDamageResponse.addDamage(builder, damage);
         TakeBossDamageResponse.addSkillId(builder, skillId);
         return TakeBossDamageResponse.endTakeBossDamageResponse(builder);

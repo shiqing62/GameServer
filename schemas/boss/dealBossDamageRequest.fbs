@@ -3,6 +3,7 @@ namespace Game.Boss;
 // 玩家对boss造成伤害的请求
 table DealBossDamageRequest{
     uid: uint;
+    bossId: int;
     skillId: int;
     damage: float;
 }

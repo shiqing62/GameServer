@@ -10,23 +10,26 @@ class BossIceSnake extends BossControllerBase{
             bossId: 103,
             maxHp: 10000,
             chaseRange: {x: 1600, y: 900},
+            get chaseRadius(){
+                return Math.sqrt(this.chaseRange.x * this.chaseRange.x + this.chaseRange.y * this.chaseRange.y) / 2;
+            },
             moveSpeed: 0,
             spawnDuration: 1.083,
             skillList:[
                 {
                     // 撕咬
                     skillId: 1031,
-                    skillDamage: 20,
+                    skillDamage: 31,
                     castRange: 5,
                     coolDown: 2.5,
                     duration: 0.833,
                     precastTime: 0.25,
-                    weight: 100
+                    weight: 0
                 },
                 {
                     // 远程攻击--投掷
                     skillId: 1032,
-                    skillDamage: 20,
+                    skillDamage: 32,
                     castRange: 20,
                     coolDown: 2.5,
                     duration: 0.833,
@@ -36,7 +39,7 @@ class BossIceSnake extends BossControllerBase{
                 {
                     // 持续喷
                     skillId: 1033,
-                    skillDamage: 20,
+                    skillDamage: 33,
                     castRange: 20,
                     coolDown: 5,
                     duration: 3.083,
@@ -46,12 +49,12 @@ class BossIceSnake extends BossControllerBase{
                 {
                     // 钻地下潜
                     skillId: 1034,
-                    skillDamage: 20,
+                    skillDamage: 34,
                     castRange: 5,
                     coolDown: 10,
                     duration: 4.85,
                     precastTime: 0.25,
-                    weight: 0
+                    weight: 9999
                 }
             ],
 

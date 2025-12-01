@@ -497,10 +497,11 @@ const payloadBuilder = {
     [MsgIds.ResponseId.TakeBossDamage]:{
         payloadType: PayloadType.Game_Boss_TakeBossDamageResponse,
         build: (builder,payload) =>{
-            const {uid,skillId,damage} = payload;
+            const {uid,bossId,skillId,damage} = payload;
 
             TakeBossDamageResponse.startTakeBossDamageResponse(builder);
             TakeBossDamageResponse.addUid(builder,uid);
+            TakeBossDamageResponse.addBossId(builder,bossId);
             TakeBossDamageResponse.addSkillId(builder,skillId);
             TakeBossDamageResponse.addDamage(builder,damage);
 

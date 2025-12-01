@@ -25,25 +25,32 @@ var DealBossDamageRequest = /** @class */ (function () {
         var offset = this.bb.__offset(this.bb_pos, 4);
         return offset ? this.bb.readUint32(this.bb_pos + offset) : 0;
     };
-    DealBossDamageRequest.prototype.skillId = function () {
+    DealBossDamageRequest.prototype.bossId = function () {
         var offset = this.bb.__offset(this.bb_pos, 6);
         return offset ? this.bb.readInt32(this.bb_pos + offset) : 0;
     };
-    DealBossDamageRequest.prototype.damage = function () {
+    DealBossDamageRequest.prototype.skillId = function () {
         var offset = this.bb.__offset(this.bb_pos, 8);
+        return offset ? this.bb.readInt32(this.bb_pos + offset) : 0;
+    };
+    DealBossDamageRequest.prototype.damage = function () {
+        var offset = this.bb.__offset(this.bb_pos, 10);
         return offset ? this.bb.readFloat32(this.bb_pos + offset) : 0.0;
     };
     DealBossDamageRequest.startDealBossDamageRequest = function (builder) {
-        builder.startObject(3);
+        builder.startObject(4);
     };
     DealBossDamageRequest.addUid = function (builder, uid) {
         builder.addFieldInt32(0, uid, 0);
     };
+    DealBossDamageRequest.addBossId = function (builder, bossId) {
+        builder.addFieldInt32(1, bossId, 0);
+    };
     DealBossDamageRequest.addSkillId = function (builder, skillId) {
-        builder.addFieldInt32(1, skillId, 0);
+        builder.addFieldInt32(2, skillId, 0);
     };
     DealBossDamageRequest.addDamage = function (builder, damage) {
-        builder.addFieldFloat32(2, damage, 0.0);
+        builder.addFieldFloat32(3, damage, 0.0);
     };
     DealBossDamageRequest.endDealBossDamageRequest = function (builder) {
         var offset = builder.endObject();
@@ -55,9 +62,10 @@ var DealBossDamageRequest = /** @class */ (function () {
     DealBossDamageRequest.finishSizePrefixedDealBossDamageRequestBuffer = function (builder, offset) {
         builder.finish(offset, undefined, true);
     };
-    DealBossDamageRequest.createDealBossDamageRequest = function (builder, uid, skillId, damage) {
+    DealBossDamageRequest.createDealBossDamageRequest = function (builder, uid, bossId, skillId, damage) {
         DealBossDamageRequest.startDealBossDamageRequest(builder);
         DealBossDamageRequest.addUid(builder, uid);
+        DealBossDamageRequest.addBossId(builder, bossId);
         DealBossDamageRequest.addSkillId(builder, skillId);
         DealBossDamageRequest.addDamage(builder, damage);
         return DealBossDamageRequest.endDealBossDamageRequest(builder);

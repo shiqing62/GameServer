@@ -164,7 +164,14 @@ setInterval(()=>{
 
 // boss生成逻辑
 setInterval(()=>{
-    bossMgr.spawnBoss();
+
+    // 随机出chunk_x,chunk_y,bossId
+    // const chunk_x = Math.floor(Math.random() * GAME_CONSTANTS.CHUNK_COUNT_X);
+    // const chunk_y = Math.floor(Math.random() * GAME_CONSTANTS.CHUNK_COUNT_Y);
+    const bossId = Math.random() < 0.5 ? 101 : 103;
+    const chunk_x = 1;
+    const chunk_y = 1;
+    bossMgr.spawnBoss(bossId,chunk_x,chunk_y);
 },60*1000);
 
 

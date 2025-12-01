@@ -50,7 +50,7 @@ function snapshotSyncsHandle(payload,players){
         bossPos: payload.pos,
         bossDirection: payload.direction,
     }
-    console.log("--->>>实时同步：",payload.direction);
+    
     for (const player of targetPlayers)
     {
         send(player.ws,MsgIds.ServerPushId.BossSnapshotSyncs,snapshotSyncs);
@@ -68,11 +68,13 @@ function damageToPlayerSyncsHandle(payload,players)
         return;
     }
 
+    const bossId = payload.bossId;
     const damage = payload.damage;
     const skillId = payload.skillId;
 
     const damageSyncs = {
         uid: targetPlayerUId,
+        bossId: bossId,
         skillId: skillId,
         damage: damage
     }

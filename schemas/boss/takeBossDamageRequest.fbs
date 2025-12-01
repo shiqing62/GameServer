@@ -3,6 +3,7 @@ namespace Game.Boss;
 // 客户端受到boss伤害之后发送到服务器的请求
 table TakeBossDamageRequest{
     uid: uint;
+    bossId: int;
     skillId: int;   // 受到了xx技能的攻击
 }
 

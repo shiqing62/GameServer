@@ -29,30 +29,39 @@ uid():number {
   return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
 }
 
-skillId():number {
+bossId():number {
   const offset = this.bb!.__offset(this.bb_pos, 6);
   return offset ? this.bb!.readInt32(this.bb_pos + offset) : 0;
 }
 
-damage():number {
+skillId():number {
   const offset = this.bb!.__offset(this.bb_pos, 8);
+  return offset ? this.bb!.readInt32(this.bb_pos + offset) : 0;
+}
+
+damage():number {
+  const offset = this.bb!.__offset(this.bb_pos, 10);
   return offset ? this.bb!.readFloat32(this.bb_pos + offset) : 0.0;
 }
 
 static startDealBossDamageRequest(builder:flatbuffers.Builder) {
-  builder.startObject(3);
+  builder.startObject(4);
 }
 
 static addUid(builder:flatbuffers.Builder, uid:number) {
   builder.addFieldInt32(0, uid, 0);
 }
 
+static addBossId(builder:flatbuffers.Builder, bossId:number) {
+  builder.addFieldInt32(1, bossId, 0);
+}
+
 static addSkillId(builder:flatbuffers.Builder, skillId:number) {
-  builder.addFieldInt32(1, skillId, 0);
+  builder.addFieldInt32(2, skillId, 0);
 }
 
 static addDamage(builder:flatbuffers.Builder, damage:number) {
-  builder.addFieldFloat32(2, damage, 0.0);
+  builder.addFieldFloat32(3, damage, 0.0);
 }
 
 static endDealBossDamageRequest(builder:flatbuffers.Builder):flatbuffers.Offset {
@@ -68,9 +77,10 @@ static finishSizePrefixedDealBossDamageRequestBuffer(builder:flatbuffers.Builder
   builder.finish(offset, undefined, true);
 }
 
-static createDealBossDamageRequest(builder:flatbuffers.Builder, uid:number, skillId:number, damage:number):flatbuffers.Offset {
+static createDealBossDamageRequest(builder:flatbuffers.Builder, uid:number, bossId:number, skillId:number, damage:number):flatbuffers.Offset {
   DealBossDamageRequest.startDealBossDamageRequest(builder);
   DealBossDamageRequest.addUid(builder, uid);
+  DealBossDamageRequest.addBossId(builder, bossId);
   DealBossDamageRequest.addSkillId(builder, skillId);
   DealBossDamageRequest.addDamage(builder, damage);
   return DealBossDamageRequest.endDealBossDamageRequest(builder);

@@ -29,21 +29,30 @@ uid():number {
   return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
 }
 
-skillId():number {
+bossId():number {
   const offset = this.bb!.__offset(this.bb_pos, 6);
   return offset ? this.bb!.readInt32(this.bb_pos + offset) : 0;
 }
 
+skillId():number {
+  const offset = this.bb!.__offset(this.bb_pos, 8);
+  return offset ? this.bb!.readInt32(this.bb_pos + offset) : 0;
+}
+
 static startTakeBossDamageRequest(builder:flatbuffers.Builder) {
-  builder.startObject(2);
+  builder.startObject(3);
 }
 
 static addUid(builder:flatbuffers.Builder, uid:number) {
   builder.addFieldInt32(0, uid, 0);
 }
 
+static addBossId(builder:flatbuffers.Builder, bossId:number) {
+  builder.addFieldInt32(1, bossId, 0);
+}
+
 static addSkillId(builder:flatbuffers.Builder, skillId:number) {
-  builder.addFieldInt32(1, skillId, 0);
+  builder.addFieldInt32(2, skillId, 0);
 }
 
 static endTakeBossDamageRequest(builder:flatbuffers.Builder):flatbuffers.Offset {
@@ -59,9 +68,10 @@ static finishSizePrefixedTakeBossDamageRequestBuffer(builder:flatbuffers.Builder
   builder.finish(offset, undefined, true);
 }
 
-static createTakeBossDamageRequest(builder:flatbuffers.Builder, uid:number, skillId:number):flatbuffers.Offset {
+static createTakeBossDamageRequest(builder:flatbuffers.Builder, uid:number, bossId:number, skillId:number):flatbuffers.Offset {
   TakeBossDamageRequest.startTakeBossDamageRequest(builder);
   TakeBossDamageRequest.addUid(builder, uid);
+  TakeBossDamageRequest.addBossId(builder, bossId);
   TakeBossDamageRequest.addSkillId(builder, skillId);
   return TakeBossDamageRequest.endTakeBossDamageRequest(builder);
 }
