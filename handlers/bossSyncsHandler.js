@@ -34,7 +34,6 @@ function stateSyncsHandle(payload,players)
         targetUid: payload.targetUid
     };
 
-    console.log("--->>>bossState: ",bossState);
     for (const player of targetPlayers)
     {
         send(player.ws,MsgIds.ServerPushId.BossStateSyncs,stateSyncs);

@@ -21,8 +21,8 @@ const debuffHandler = require('./handlers/debuffSyncsHandler.js');
 
 // 引入manager
 const {DeBuffManager} = require("./managers/debuffManager.js");
-const {BossManager} = require('./managers/bossManager.js');
 const {PlayerManager} = require('./managers/playerManager.js');
+const {BossManager} = require("./managers/bossManager.js");
 
 // 引入 FBS 生成的请求结构
 const {EnterGameRequest} = require('./schemas/generated/javascript/game/login/enter-game-request.js');
@@ -36,7 +36,6 @@ const {GMCommand} = require("./schemas/generated/javascript/game/gm/gmcommand.js
 const {DeBuffSyncsRequest} = require("./schemas/generated/javascript/game/syncs/de-buff-syncs-request.js");
 const {TakeBossDamageRequest} = require("./schemas/generated/javascript/game/boss/take-boss-damage-request");
 const {DealBossDamageRequest} = require("./schemas/generated/javascript/game/boss/deal-boss-damage-request");
-const {BossMgr} = require("./bossData/bossMgr");
 
 const players = new Map();
 const wss = new WebSocket.Server({ host: "0.0.0.0", port: 8080});
@@ -49,8 +48,7 @@ debuffHandler.init(debuffManager);
 // 初始化playerManager
 const playerManager = new PlayerManager(players);
 // 初始化bossManager
-// const bossManger = new BossManager(players,playerManager);
-const bossMgr = new BossMgr(players,playerManager);
+const bossManager = new BossManager(players,playerManager);
 
 
 wss.on('connection',function connection (ws){
@@ -102,11 +100,11 @@ wss.on('connection',function connection (ws){
                 break;
             case Payload.Game_Boss_TakeBossDamageRequest:
                 const takeBossDamageData = message.payload(new TakeBossDamageRequest());
-                bossMgr.calculateBossDamage(takeBossDamageData);
+                bossManager.calculateBossDamage(takeBossDamageData);
                 break;
             case Payload.Game_Boss_DealBossDamageRequest:
                 const dealBossDamageData = message.payload(new DealBossDamageRequest());
-                bossMgr.calculatePlayerDamage(dealBossDamageData);
+                bossManager.calculatePlayerDamage(dealBossDamageData);
                 break;
             default:
                 console.log('Unknown payload type:', payloadType);
@@ -171,7 +169,7 @@ setInterval(()=>{
     const bossId = Math.random() < 0.5 ? 101 : 103;
     const chunk_x = 1;
     const chunk_y = 1;
-    bossMgr.spawnBoss(bossId,chunk_x,chunk_y);
+    bossManager.spawnBoss(bossId,chunk_x,chunk_y);
 },60*1000);
 
 

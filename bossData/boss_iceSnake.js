@@ -57,7 +57,6 @@ class BossIceSnake extends BossControllerBase{
                     weight: 9999
                 }
             ],
-
         }
 
         // 当前属性
