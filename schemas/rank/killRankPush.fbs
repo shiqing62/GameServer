@@ -1,0 +1,10 @@
+namespace Game.Rank;
+
+struct KillRankInfo {
+    uid: uint;
+    totalKills: int;
+}
+
+table KillRankPush{
+    killRank: [KillRankInfo];
+}

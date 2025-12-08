@@ -24,6 +24,8 @@ include "../boss/bossSnapshotSyncsPush.fbs";
 include "../boss/takeBossDamageRequest.fbs";
 include "../boss/takeBossDamageResponse.fbs";
 include "../boss/dealBossDamageRequest.fbs";
+include "../rank/killRankRequest.fbs";
+include "../rank/killRankPush.fbs";
 
 
 namespace Game.Message;
@@ -55,6 +57,8 @@ union Payload {
     Game.Boss.TakeBossDamageRequest,
     Game.Boss.TakeBossDamageResponse,
     Game.Boss.DealBossDamageRequest,
+    Game.Rank.KillRankRequest,
+    Game.Rank.KillRankPush,
 }
 
 table Message {

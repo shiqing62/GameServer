@@ -41,6 +41,8 @@ const {DeBuffParam} = require("../schemas/generated/javascript/game/common/de-bu
 const {BossStateSyncsPush} = require("../schemas/generated/javascript/game/boss/boss-state-syncs-push");
 const {BossSnapshotSyncsPush} = require("../schemas/generated/javascript/game/boss/boss-snapshot-syncs-push");
 const {TakeBossDamageResponse} = require("../schemas/generated/javascript/game/boss/take-boss-damage-response");
+const {KillRankInfo} = require("../schemas/generated/javascript/game/rank/kill-rank-info");
+const {KillRankPush} = require("../schemas/generated/javascript/game/rank/kill-rank-push");
 
 const payloadBuilder = {
     // 登录响应
@@ -506,6 +508,30 @@ const payloadBuilder = {
             TakeBossDamageResponse.addDamage(builder,damage);
 
             return TakeBossDamageResponse.endTakeBossDamageResponse(builder);
+        }
+    },
+
+    // 同步击杀榜
+    [MsgIds.ServerPushId.KillRankSyncs]: {
+        payloadType: PayloadType.Game_Rank_KillRankPush,
+        build: (builder, payload) => {
+            const {killRank} = payload;
+
+            // 构建struct vector
+            KillRankPush.startKillRankVector(builder,killRank.length);
+
+            // struct vector必须倒序写入
+            for (let i = killRank.length - 1; i >= 0 ; i--) {
+                const {uid, totalKills} = killRank[i];
+                KillRankInfo.createKillRankInfo(builder,uid,totalKills);
+            }
+
+            const killRankVector = builder.endVector();
+
+            // 构建最终的KillRankPush
+            KillRankPush.startKillRankPush(builder);
+            KillRankPush.addKillRank(builder, killRankVector);
+            return KillRankPush.endKillRankPush(builder);
         }
     },
 };

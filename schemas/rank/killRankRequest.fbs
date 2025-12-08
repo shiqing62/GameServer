@@ -1,0 +1,6 @@
+namespace Game.Rank;
+
+table KillRankRequest{
+    uid: uint;
+    killsDelta: int;     // 期间内的累计击杀数
+}

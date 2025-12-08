@@ -36,11 +36,12 @@ const {GMCommand} = require("./schemas/generated/javascript/game/gm/gmcommand.js
 const {DeBuffSyncsRequest} = require("./schemas/generated/javascript/game/syncs/de-buff-syncs-request.js");
 const {TakeBossDamageRequest} = require("./schemas/generated/javascript/game/boss/take-boss-damage-request");
 const {DealBossDamageRequest} = require("./schemas/generated/javascript/game/boss/deal-boss-damage-request");
+const {KillRankRequest} = require("./schemas/generated/javascript/game/rank/kill-rank-request");
 
 const players = new Map();
 const wss = new WebSocket.Server({ host: "0.0.0.0", port: 8080});
 
-// 初始化manager并注入players
+// 初始化deBuffManager并注入players
 const debuffManager = new DeBuffManager(players);
 // 将manager引入handler
 debuffHandler.init(debuffManager);
@@ -49,6 +50,8 @@ debuffHandler.init(debuffManager);
 const playerManager = new PlayerManager(players);
 // 初始化bossManager
 const bossManager = new BossManager(players,playerManager);
+// 初始化rankManger
+const rankManager = new RankManager(players);
 
 
 wss.on('connection',function connection (ws){
@@ -105,6 +108,10 @@ wss.on('connection',function connection (ws){
             case Payload.Game_Boss_DealBossDamageRequest:
                 const dealBossDamageData = message.payload(new DealBossDamageRequest());
                 bossManager.calculatePlayerDamage(dealBossDamageData);
+                break;
+            case Payload.Game_Rank_KillRankRequest:
+                const killRankRequestData = message.payload(new KillRankRequest());
+                rankManager.updateKillRank(killRankRequestData);
                 break;
             default:
                 console.log('Unknown payload type:', payloadType);

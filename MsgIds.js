@@ -37,6 +37,7 @@ const MsgIds = {
         BossStateSyncs: 36001,  // boss状态同步
         BossSnapshotSyncs: 36002,  // boss实时信息同步
         BossDamageSyncs: 36003, // boss造成的伤害同步
+        KillRankSyncs: 37001,   // 击杀榜同步
     }
 };
 
