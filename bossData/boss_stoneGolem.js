@@ -18,23 +18,22 @@ class BossStoneGolem extends BossControllerBase{
                 return Math.sqrt(this.chaseRange.x * this.chaseRange.x + this.chaseRange.y * this.chaseRange.y) / 2;
             },
             skillList:[
-                {
-                    skillId: 1011,
-                    skillDamage: 20,
-                    castRange: 4,       // 释放距离
-                    coolDown: 2.5,
-                    duration: 2.067,
-                    precastTime: 0.25,  // 技能前摇
-                    weight: 50
-                },
-                {
-                    skillId: 1012,
-                    skillDamage: 20,
-                    castRange: 4,
-                    coolDown: 2.5,
-                    duration: 1.867,
-                    weight: 50
-                },
+                // {
+                //     skillId: 1011,
+                //     skillDamage: 20,
+                //     castRange: 4,       // 释放距离
+                //     coolDown: 2.5,
+                //     duration: 2.067,
+                //     weight: 50
+                // },
+                // {
+                //     skillId: 1012,
+                //     skillDamage: 20,
+                //     castRange: 4,
+                //     coolDown: 2.5,
+                //     duration: 1.867,
+                //     weight: 50
+                // },
                 {
                     skillId: 1013,
                     effectId: 1013,
@@ -42,7 +41,7 @@ class BossStoneGolem extends BossControllerBase{
                     castRange: 4,
                     coolDown: 5,
                     duration: 1.667,
-                    weight: 200
+                    weight: 50
                 }
             ],
         };

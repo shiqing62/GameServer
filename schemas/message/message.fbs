@@ -25,6 +25,7 @@ include "../boss/takeBossDamageRequest.fbs";
 include "../boss/takeBossDamageResponse.fbs";
 include "../boss/dealBossDamageRequest.fbs";
 include "../rank/killRankRequest.fbs";
+include "../rank/killRankResponse.fbs";
 include "../rank/killRankPush.fbs";
 
 
@@ -58,6 +59,7 @@ union Payload {
     Game.Boss.TakeBossDamageResponse,
     Game.Boss.DealBossDamageRequest,
     Game.Rank.KillRankRequest,
+    Game.Rank.KillRankResponse,
     Game.Rank.KillRankPush,
 }
 

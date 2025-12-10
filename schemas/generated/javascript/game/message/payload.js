@@ -21,6 +21,7 @@ var login_request_js_1 = require("../../game/login/login-request.js");
 var login_response_js_1 = require("../../game/login/login-response.js");
 var kill_rank_push_js_1 = require("../../game/rank/kill-rank-push.js");
 var kill_rank_request_js_1 = require("../../game/rank/kill-rank-request.js");
+var kill_rank_response_js_1 = require("../../game/rank/kill-rank-response.js");
 var damage_syncs_push_js_1 = require("../../game/syncs/damage-syncs-push.js");
 var damage_syncs_request_js_1 = require("../../game/syncs/damage-syncs-request.js");
 var de_buff_syncs_push_js_1 = require("../../game/syncs/de-buff-syncs-push.js");
@@ -63,7 +64,8 @@ var Payload;
     Payload[Payload["Game_Boss_TakeBossDamageResponse"] = 25] = "Game_Boss_TakeBossDamageResponse";
     Payload[Payload["Game_Boss_DealBossDamageRequest"] = 26] = "Game_Boss_DealBossDamageRequest";
     Payload[Payload["Game_Rank_KillRankRequest"] = 27] = "Game_Rank_KillRankRequest";
-    Payload[Payload["Game_Rank_KillRankPush"] = 28] = "Game_Rank_KillRankPush";
+    Payload[Payload["Game_Rank_KillRankResponse"] = 28] = "Game_Rank_KillRankResponse";
+    Payload[Payload["Game_Rank_KillRankPush"] = 29] = "Game_Rank_KillRankPush";
 })(Payload || (exports.Payload = Payload = {}));
 function unionToPayload(type, accessor) {
     switch (Payload[type]) {
@@ -95,6 +97,7 @@ function unionToPayload(type, accessor) {
         case 'Game_Boss_TakeBossDamageResponse': return accessor(new take_boss_damage_response_js_1.TakeBossDamageResponse());
         case 'Game_Boss_DealBossDamageRequest': return accessor(new deal_boss_damage_request_js_1.DealBossDamageRequest());
         case 'Game_Rank_KillRankRequest': return accessor(new kill_rank_request_js_1.KillRankRequest());
+        case 'Game_Rank_KillRankResponse': return accessor(new kill_rank_response_js_1.KillRankResponse());
         case 'Game_Rank_KillRankPush': return accessor(new kill_rank_push_js_1.KillRankPush());
         default: return null;
     }
@@ -129,6 +132,7 @@ function unionListToPayload(type, accessor, index) {
         case 'Game_Boss_TakeBossDamageResponse': return accessor(index, new take_boss_damage_response_js_1.TakeBossDamageResponse());
         case 'Game_Boss_DealBossDamageRequest': return accessor(index, new deal_boss_damage_request_js_1.DealBossDamageRequest());
         case 'Game_Rank_KillRankRequest': return accessor(index, new kill_rank_request_js_1.KillRankRequest());
+        case 'Game_Rank_KillRankResponse': return accessor(index, new kill_rank_response_js_1.KillRankResponse());
         case 'Game_Rank_KillRankPush': return accessor(index, new kill_rank_push_js_1.KillRankPush());
         default: return null;
     }

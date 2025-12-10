@@ -1,4 +1,4 @@
-const rankSyncsHandler = require("handlers/rankSyncsHandler.js");
+const rankSyncsHandler = require("../handlers/rankSyncsHandler.js");
 
 class RankManager {
     constructor(players) {
@@ -27,9 +27,18 @@ class RankManager {
         // 写回排行榜
         this.killRank.set(uid,newKills);
 
-        // TODO 如果前10名的排名发生了变化
+       // 构建请求者的排名信息
+        const rankInfo = {
+            uid: uid,
+            ranking: 1,
+            totalKills: newKills
+        }
+        // 将请求者的排名信息，总击杀数返回给请求者
+        rankSyncsHandler.killRankSyncs(rankInfo,this.players.get(uid).ws);
+
+        // TODO 如果前10名的排名发生了变化 && 间隔时间到
         const killRank = this.getTopKillRank();
-        rankSyncsHandler.killRankSyncs(killRank,this.players);
+        rankSyncsHandler.killRankPush(killRank,this.players);
     }
 
     /**

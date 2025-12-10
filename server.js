@@ -23,6 +23,7 @@ const debuffHandler = require('./handlers/debuffSyncsHandler.js');
 const {DeBuffManager} = require("./managers/debuffManager.js");
 const {PlayerManager} = require('./managers/playerManager.js');
 const {BossManager} = require("./managers/bossManager.js");
+const {RankManager} = require("./managers/rankManager.js");
 
 // 引入 FBS 生成的请求结构
 const {EnterGameRequest} = require('./schemas/generated/javascript/game/login/enter-game-request.js');

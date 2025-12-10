@@ -84,6 +84,7 @@ class BossManager{
                 controller.bossState = BossState.Dead;
                 controller.doDead(deltaTime);
                 this.handlePostControllerTick(controller,deltaTime);
+                this.bosscontrollers.delete(controller.bossId);
                 continue;
             }
 

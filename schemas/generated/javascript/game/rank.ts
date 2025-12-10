@@ -5,3 +5,4 @@
 export { KillRankInfo } from './rank/kill-rank-info.js';
 export { KillRankPush } from './rank/kill-rank-push.js';
 export { KillRankRequest } from './rank/kill-rank-request.js';
+export { KillRankResponse } from './rank/kill-rank-response.js';

@@ -1,9 +1,20 @@
 const {send} = require("../utils/send.js");
 const MsgIds = require('../MsgIds.js');
 
-function killRankSyncs(payload,players){
-
+function killRankSyncs(payload,ws){
     // 构建同步消息
+    const rankInfo = {
+        uid: payload.uid,
+        ranking: payload.ranking,
+        totalKills: payload.totalKills
+    };
+
+    send(ws,MsgIds.ServerPushId.KillRankResponse,rankInfo);
+}
+
+// 击杀排行推送-->>前10名发生变化&&间隔时间到
+function killRankPush(payload,players){
+    // 构建推送消息
     const killRank = {
         killRank: payload.map(entry => ({
             uid: entry.uid,
@@ -16,4 +27,4 @@ function killRankSyncs(payload,players){
     }
 }
 
-module.exports = {killRankSyncs};
+module.exports = {killRankSyncs,killRankPush};

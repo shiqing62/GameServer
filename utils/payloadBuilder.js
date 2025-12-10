@@ -43,6 +43,7 @@ const {BossSnapshotSyncsPush} = require("../schemas/generated/javascript/game/bo
 const {TakeBossDamageResponse} = require("../schemas/generated/javascript/game/boss/take-boss-damage-response");
 const {KillRankInfo} = require("../schemas/generated/javascript/game/rank/kill-rank-info");
 const {KillRankPush} = require("../schemas/generated/javascript/game/rank/kill-rank-push");
+const {KillRankResponse} = require("../schemas/generated/javascript/game/rank/kill-rank-response");
 
 const payloadBuilder = {
     // 登录响应
@@ -508,6 +509,21 @@ const payloadBuilder = {
             TakeBossDamageResponse.addDamage(builder,damage);
 
             return TakeBossDamageResponse.endTakeBossDamageResponse(builder);
+        }
+    },
+
+    // 推送请求者的击杀榜的信息
+    [MsgIds.ServerPushId.KillRankResponse]: {
+        payloadType: PayloadType.Game_Rank_KillRankResponse,
+        build: (builder, payload) =>{
+            const {uid,ranking,totalKills} = payload;
+
+            KillRankResponse.startKillRankResponse(builder);
+            KillRankResponse.addUid(builder,uid);
+            KillRankResponse.addRanking(builder,ranking);
+            KillRankResponse.addTotalKills(builder,totalKills);
+
+            return KillRankResponse.endKillRankResponse(builder);
         }
     },
 

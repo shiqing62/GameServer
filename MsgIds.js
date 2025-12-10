@@ -20,6 +20,7 @@ const MsgIds = {
         PlayerMove: 22003,
         PickupDropItem: 24001,
         TakeBossDamage: 26003,
+        KillRankResponse: 27001,
     },
 
     // 3xxxx

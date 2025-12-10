@@ -1,0 +1,7 @@
+namespace Game.Rank;
+
+table KillRankResponse{
+    uid: uint;
+    ranking: int;
+    totalKills: int;     // 总击杀数
+}
