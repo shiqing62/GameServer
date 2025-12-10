@@ -4,8 +4,19 @@ class RankManager {
     constructor(players) {
         this.players = players;
         this.killRank = new Map();  // 击杀榜(key: uid, value: totalKillCount)
+        this.pushInvertal = 2000;   // 2000ms同步一次
+        // 创建内部定时器
+        this.startPushTimer();
     }
 
+    /**
+     * 内部自动定时推送排行榜
+     */
+    startPushTimer() {
+        setInterval(() => {
+            this.killRankPush();
+        }, this.pushInvertal);
+    }
 
     /**
      * 更新击杀榜
@@ -35,9 +46,16 @@ class RankManager {
         }
         // 将请求者的排名信息，总击杀数返回给请求者
         rankSyncsHandler.killRankSyncs(rankInfo,this.players.get(uid).ws);
+    }
 
-        // TODO 如果前10名的排名发生了变化 && 间隔时间到
+    /**
+     * 将最新的击杀榜推送给客户端(每2s推送一次)
+     */
+    killRankPush() {
+        // 间隔时间到
         const killRank = this.getTopKillRank();
+        if (killRank.length === 0) return;
+
         rankSyncsHandler.killRankPush(killRank,this.players);
     }
 
