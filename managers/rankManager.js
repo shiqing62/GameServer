@@ -82,7 +82,7 @@ class RankManager {
         if(!this.killRank.has(uid)) return -1;
 
         const sorted = [...this.killRank.entries()].sort((a,b) => b[1] - a[1]);
-        const index = sorted.findIndex((k) => k === uid);
+        const index = sorted.findIndex(([k]) => k === uid);
 
         return index >= 0 ? index + 1 : -1;
     }
