@@ -38,10 +38,13 @@ class RankManager {
         // 写回排行榜
         this.killRank.set(uid,newKills);
 
+        // 获取排名
+        const ranking = this.getRanking(uid);
+
        // 构建请求者的排名信息
         const rankInfo = {
             uid: uid,
-            ranking: 1,
+            ranking: ranking,
             totalKills: newKills
         }
         // 将请求者的排名信息，总击杀数返回给请求者
@@ -68,6 +71,20 @@ class RankManager {
             .sort((a,b) => b[1] - a[1])     // 按killCount倒序
             .slice(0,topN)                                                // 取前n名
             .map(([uid,killCount]) => ({uid,killCount}));
+    }
+
+    /**
+     * 获取指定 uid 在当前 killRank 中的排名
+     * @param uid
+     * @returns {number|null} ranking 若不在榜中返回 -1
+     */
+    getRanking(uid) {
+        if(!this.killRank.has(uid)) return -1;
+
+        const sorted = [...this.killRank.entries()].sort((a,b) => b[1] - a[1]);
+        const index = sorted.findIndex((k) => k === uid);
+
+        return index >= 0 ? index + 1 : -1;
     }
 
     /**
