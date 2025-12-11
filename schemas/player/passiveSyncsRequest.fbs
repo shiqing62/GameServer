@@ -1,0 +1,6 @@
+namespace Game.Player;
+
+table PassiveSyncsRequest{
+    uid: uint;
+    passives: [int];
+}

@@ -2,4 +2,4 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
-export { PlayerData } from './player/player-data.js';
+export { GetPlayerRequest } from './player/get-player-request.js';

@@ -1,0 +1,6 @@
+namespace Game.Player;
+
+table GetPlayerRequest{
+    selfUid: uint;      // 自己的uid
+    targetUid: uint;    // 目标玩家的uid
+}

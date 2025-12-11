@@ -18,6 +18,7 @@ const dropHandler = require('./handlers/dropHandler.js');
 const pickupHandler = require('./handlers/pickupHandler.js');
 const gmHandler = require('./handlers/gmCommandHandler.js');
 const debuffHandler = require('./handlers/debuffSyncsHandler.js');
+const equipSyncsHandler = require('./handlers/equipSyncsHandler.js');
 
 // 引入manager
 const {DeBuffManager} = require("./managers/debuffManager.js");
@@ -38,6 +39,9 @@ const {DeBuffSyncsRequest} = require("./schemas/generated/javascript/game/syncs/
 const {TakeBossDamageRequest} = require("./schemas/generated/javascript/game/boss/take-boss-damage-request");
 const {DealBossDamageRequest} = require("./schemas/generated/javascript/game/boss/deal-boss-damage-request");
 const {KillRankRequest} = require("./schemas/generated/javascript/game/rank/kill-rank-request");
+const {WeaponSyncsRequest} = require("./schemas/generated/javascript/game/player/weapon-syncs-request");
+const {PassiveSyncsRequest} = require("./schemas/generated/javascript/game/player/passive-syncs-request");
+const {GetPlayerRequest} = require("./schemas/generated/javascript/game/player/get-player-request");
 
 const players = new Map();
 const wss = new WebSocket.Server({ host: "0.0.0.0", port: 8080});
@@ -116,6 +120,18 @@ wss.on('connection',function connection (ws){
                 const killRankRequestData = message.payload(new KillRankRequest());
                 rankManager.updateKillRank(killRankRequestData);
                 break;
+            case Payload.Game_Player_WeaponSyncsRequest:
+                const weaponSyncsData = message.payload(new WeaponSyncsRequest());
+                equipSyncsHandler.weaponSyncsHandler(weaponSyncsData,players);
+                break;
+            case Payload.Game_Player_PassiveSyncsRequest:
+                const passiveSyncsData = message.payload(new PassiveSyncsRequest());
+                equipSyncsHandler.passiveSyncsHandler(passiveSyncsData,players)
+                break;
+            case Payload.Game_Player_GetPlayerRequest:
+                const getPlayerRequestData = message.payload(new GetPlayerRequest());
+                playerManager.getPlayerByUid(getPlayerRequestData);
+                break;
             default:
                 console.log('Unknown payload type:', payloadType);
         }
@@ -179,7 +195,7 @@ setInterval(()=>{
     const bossId = Math.random() < 0.5 ? 101 : 103;
     const chunk_x = 1;
     const chunk_y = 1;
-    bossManager.spawnBoss(bossId,chunk_x,chunk_y);
+    // bossManager.spawnBoss(bossId,chunk_x,chunk_y);
 },60*1000);
 
 

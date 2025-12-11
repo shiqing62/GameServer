@@ -1,0 +1,7 @@
+include "../player/playerData.fbs";
+namespace Game.Player;
+
+table GetPlayerResponse{
+    isFind: bool;
+    targetPlayer: Game.Player.PlayerData;
+}

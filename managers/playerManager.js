@@ -1,4 +1,6 @@
 const {GAME_CONSTANTS} = require("../utils/GAME_CONSTANTS");
+const {send} = require("../utils/send");
+const MsgIds = require("../MsgIds");
 
 class PlayerManager{
     constructor(players) {
@@ -52,6 +54,28 @@ class PlayerManager{
         }))
 
         return players;
+    }
+
+    /**
+     * 通过uid查找playerData
+     * @param payload
+     */
+    getPlayerByUid(payload) {
+        const finderUid = payload.selfUid();
+        const finder = this.players.get(finderUid);
+        if (!finder) return;
+
+        const targetUid = payload.targetUid();
+        const target = this.players.get(targetUid) || null;
+
+        // 构建所查找的玩家的数据
+        const findResult = {
+            isFind: target !== null,
+            targetPlay: target,
+        }
+
+        // 返给查找者
+        send(finder.ws,MsgIds.ServerPushId.GetPlayerResponse,findResult);
     }
 }
 

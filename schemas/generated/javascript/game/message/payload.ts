@@ -16,6 +16,10 @@ import { EnterGameRequest } from '../../game/login/enter-game-request.js';
 import { EnterGameResponse } from '../../game/login/enter-game-response.js';
 import { LoginRequest } from '../../game/login/login-request.js';
 import { LoginResponse } from '../../game/login/login-response.js';
+import { GetPlayerRequest } from '../../game/player/get-player-request.js';
+import { GetPlayerResponse } from '../../game/player/get-player-response.js';
+import { PassiveSyncsRequest } from '../../game/player/passive-syncs-request.js';
+import { WeaponSyncsRequest } from '../../game/player/weapon-syncs-request.js';
 import { KillRankPush } from '../../game/rank/kill-rank-push.js';
 import { KillRankRequest } from '../../game/rank/kill-rank-request.js';
 import { KillRankResponse } from '../../game/rank/kill-rank-response.js';
@@ -63,13 +67,17 @@ export enum Payload {
   Game_Boss_DealBossDamageRequest = 26,
   Game_Rank_KillRankRequest = 27,
   Game_Rank_KillRankResponse = 28,
-  Game_Rank_KillRankPush = 29
+  Game_Rank_KillRankPush = 29,
+  Game_Player_WeaponSyncsRequest = 30,
+  Game_Player_PassiveSyncsRequest = 31,
+  Game_Player_GetPlayerRequest = 32,
+  Game_Player_GetPlayerResponse = 33
 }
 
 export function unionToPayload(
   type: Payload,
-  accessor: (obj:BossSnapshotSyncsPush|BossStateSyncsPush|DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DealBossDamageRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|KillRankPush|KillRankRequest|KillRankResponse|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|TakeBossDamageRequest|TakeBossDamageResponse) => BossSnapshotSyncsPush|BossStateSyncsPush|DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DealBossDamageRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|KillRankPush|KillRankRequest|KillRankResponse|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|TakeBossDamageRequest|TakeBossDamageResponse|null
-): BossSnapshotSyncsPush|BossStateSyncsPush|DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DealBossDamageRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|KillRankPush|KillRankRequest|KillRankResponse|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|TakeBossDamageRequest|TakeBossDamageResponse|null {
+  accessor: (obj:BossSnapshotSyncsPush|BossStateSyncsPush|DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DealBossDamageRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|GetPlayerRequest|GetPlayerResponse|KillRankPush|KillRankRequest|KillRankResponse|LoginRequest|LoginResponse|PassiveSyncsRequest|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|TakeBossDamageRequest|TakeBossDamageResponse|WeaponSyncsRequest) => BossSnapshotSyncsPush|BossStateSyncsPush|DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DealBossDamageRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|GetPlayerRequest|GetPlayerResponse|KillRankPush|KillRankRequest|KillRankResponse|LoginRequest|LoginResponse|PassiveSyncsRequest|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|TakeBossDamageRequest|TakeBossDamageResponse|WeaponSyncsRequest|null
+): BossSnapshotSyncsPush|BossStateSyncsPush|DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DealBossDamageRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|GetPlayerRequest|GetPlayerResponse|KillRankPush|KillRankRequest|KillRankResponse|LoginRequest|LoginResponse|PassiveSyncsRequest|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|TakeBossDamageRequest|TakeBossDamageResponse|WeaponSyncsRequest|null {
   switch(Payload[type]) {
     case 'NONE': return null; 
     case 'Game_Login_LoginRequest': return accessor(new LoginRequest())! as LoginRequest;
@@ -101,15 +109,19 @@ export function unionToPayload(
     case 'Game_Rank_KillRankRequest': return accessor(new KillRankRequest())! as KillRankRequest;
     case 'Game_Rank_KillRankResponse': return accessor(new KillRankResponse())! as KillRankResponse;
     case 'Game_Rank_KillRankPush': return accessor(new KillRankPush())! as KillRankPush;
+    case 'Game_Player_WeaponSyncsRequest': return accessor(new WeaponSyncsRequest())! as WeaponSyncsRequest;
+    case 'Game_Player_PassiveSyncsRequest': return accessor(new PassiveSyncsRequest())! as PassiveSyncsRequest;
+    case 'Game_Player_GetPlayerRequest': return accessor(new GetPlayerRequest())! as GetPlayerRequest;
+    case 'Game_Player_GetPlayerResponse': return accessor(new GetPlayerResponse())! as GetPlayerResponse;
     default: return null;
   }
 }
 
 export function unionListToPayload(
   type: Payload, 
-  accessor: (index: number, obj:BossSnapshotSyncsPush|BossStateSyncsPush|DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DealBossDamageRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|KillRankPush|KillRankRequest|KillRankResponse|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|TakeBossDamageRequest|TakeBossDamageResponse) => BossSnapshotSyncsPush|BossStateSyncsPush|DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DealBossDamageRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|KillRankPush|KillRankRequest|KillRankResponse|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|TakeBossDamageRequest|TakeBossDamageResponse|null, 
+  accessor: (index: number, obj:BossSnapshotSyncsPush|BossStateSyncsPush|DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DealBossDamageRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|GetPlayerRequest|GetPlayerResponse|KillRankPush|KillRankRequest|KillRankResponse|LoginRequest|LoginResponse|PassiveSyncsRequest|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|TakeBossDamageRequest|TakeBossDamageResponse|WeaponSyncsRequest) => BossSnapshotSyncsPush|BossStateSyncsPush|DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DealBossDamageRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|GetPlayerRequest|GetPlayerResponse|KillRankPush|KillRankRequest|KillRankResponse|LoginRequest|LoginResponse|PassiveSyncsRequest|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|TakeBossDamageRequest|TakeBossDamageResponse|WeaponSyncsRequest|null, 
   index: number
-): BossSnapshotSyncsPush|BossStateSyncsPush|DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DealBossDamageRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|KillRankPush|KillRankRequest|KillRankResponse|LoginRequest|LoginResponse|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|TakeBossDamageRequest|TakeBossDamageResponse|null {
+): BossSnapshotSyncsPush|BossStateSyncsPush|DamageSyncsPush|DamageSyncsRequest|DeBuffSyncsPush|DeBuffSyncsRequest|DealBossDamageRequest|DropItemPush|EnterGameRequest|EnterGameResponse|GMCommand|GetPlayerRequest|GetPlayerResponse|KillRankPush|KillRankRequest|KillRankResponse|LoginRequest|LoginResponse|PassiveSyncsRequest|PickupPush|PickupRequest|PickupResponse|PlayerEnterPush|PlayerExitPush|PlayerExitRequest|PlayerMovePush|PlayerMoveRequest|PlayerMoveResponse|PlayerStateSyncs|SkillSyncs|TakeBossDamageRequest|TakeBossDamageResponse|WeaponSyncsRequest|null {
   switch(Payload[type]) {
     case 'NONE': return null; 
     case 'Game_Login_LoginRequest': return accessor(index, new LoginRequest())! as LoginRequest;
@@ -141,6 +153,10 @@ export function unionListToPayload(
     case 'Game_Rank_KillRankRequest': return accessor(index, new KillRankRequest())! as KillRankRequest;
     case 'Game_Rank_KillRankResponse': return accessor(index, new KillRankResponse())! as KillRankResponse;
     case 'Game_Rank_KillRankPush': return accessor(index, new KillRankPush())! as KillRankPush;
+    case 'Game_Player_WeaponSyncsRequest': return accessor(index, new WeaponSyncsRequest())! as WeaponSyncsRequest;
+    case 'Game_Player_PassiveSyncsRequest': return accessor(index, new PassiveSyncsRequest())! as PassiveSyncsRequest;
+    case 'Game_Player_GetPlayerRequest': return accessor(index, new GetPlayerRequest())! as GetPlayerRequest;
+    case 'Game_Player_GetPlayerResponse': return accessor(index, new GetPlayerResponse())! as GetPlayerResponse;
     default: return null;
   }
 }

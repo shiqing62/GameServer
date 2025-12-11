@@ -1,0 +1,6 @@
+namespace Game.Player;
+
+table WeaponSyncsRequest{
+    uid: uint;
+    weapons: [int];
+}

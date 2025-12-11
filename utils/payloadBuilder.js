@@ -44,6 +44,7 @@ const {TakeBossDamageResponse} = require("../schemas/generated/javascript/game/b
 const {KillRankInfo} = require("../schemas/generated/javascript/game/rank/kill-rank-info");
 const {KillRankPush} = require("../schemas/generated/javascript/game/rank/kill-rank-push");
 const {KillRankResponse} = require("../schemas/generated/javascript/game/rank/kill-rank-response");
+const {GetPlayerResponse} = require("../schemas/generated/javascript/game/player/get-player-response");
 
 const payloadBuilder = {
     // 登录响应
@@ -548,6 +549,20 @@ const payloadBuilder = {
             KillRankPush.startKillRankPush(builder);
             KillRankPush.addKillRank(builder, killRankVector);
             return KillRankPush.endKillRankPush(builder);
+        }
+    },
+
+    // 通过uid查找某个玩家的响应
+    [MsgIds.ResponseId.GetPlayerResponse]: {
+        payloadType: PayloadType.Game_Player_GetPlayerResponse,
+        build: (builder, payload) => {
+            const {findResult} = payload;
+
+            GetPlayerResponse.startGetPlayerResponse(builder);
+            GetPlayerResponse.addIsFind(builder,findResult.isFind);
+            GetPlayerResponse.addTargetPlayer(builder,findResult.targetPlay);
+
+            return GetPlayerResponse.endGetPlayerResponse(builder);
         }
     },
 };

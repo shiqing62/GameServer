@@ -27,7 +27,10 @@ include "../boss/dealBossDamageRequest.fbs";
 include "../rank/killRankRequest.fbs";
 include "../rank/killRankResponse.fbs";
 include "../rank/killRankPush.fbs";
-
+include "../player/weaponSyncsRequest.fbs";
+include "../player/passiveSyncsRequest.fbs";
+include "../player/getPlayerRequest.fbs";
+include "../player/getPlayerResponse.fbs";
 
 namespace Game.Message;
 
@@ -61,6 +64,10 @@ union Payload {
     Game.Rank.KillRankRequest,
     Game.Rank.KillRankResponse,
     Game.Rank.KillRankPush,
+    Game.Player.WeaponSyncsRequest,
+    Game.Player.PassiveSyncsRequest,
+    Game.Player.GetPlayerRequest,
+    Game.Player.GetPlayerResponse,
 }
 
 table Message {

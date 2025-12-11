@@ -11,6 +11,8 @@ const MsgIds = {
         PickupDropItem: 14001,
         DeBuffSyncs: 15001,
         TakeBossDamage: 16003,
+        WeaponSyncs: 18001,
+        PassiveSyncs: 18002,
     },
 
     // 2xxxx
@@ -21,6 +23,7 @@ const MsgIds = {
         PickupDropItem: 24001,
         TakeBossDamage: 26003,
         KillRankResponse: 27001,
+        GetPlayerResponse: 29001,
     },
 
     // 3xxxx

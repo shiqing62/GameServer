@@ -19,6 +19,10 @@ var enter_game_request_js_1 = require("../../game/login/enter-game-request.js");
 var enter_game_response_js_1 = require("../../game/login/enter-game-response.js");
 var login_request_js_1 = require("../../game/login/login-request.js");
 var login_response_js_1 = require("../../game/login/login-response.js");
+var get_player_request_js_1 = require("../../game/player/get-player-request.js");
+var get_player_response_js_1 = require("../../game/player/get-player-response.js");
+var passive_syncs_request_js_1 = require("../../game/player/passive-syncs-request.js");
+var weapon_syncs_request_js_1 = require("../../game/player/weapon-syncs-request.js");
 var kill_rank_push_js_1 = require("../../game/rank/kill-rank-push.js");
 var kill_rank_request_js_1 = require("../../game/rank/kill-rank-request.js");
 var kill_rank_response_js_1 = require("../../game/rank/kill-rank-response.js");
@@ -66,6 +70,10 @@ var Payload;
     Payload[Payload["Game_Rank_KillRankRequest"] = 27] = "Game_Rank_KillRankRequest";
     Payload[Payload["Game_Rank_KillRankResponse"] = 28] = "Game_Rank_KillRankResponse";
     Payload[Payload["Game_Rank_KillRankPush"] = 29] = "Game_Rank_KillRankPush";
+    Payload[Payload["Game_Player_WeaponSyncsRequest"] = 30] = "Game_Player_WeaponSyncsRequest";
+    Payload[Payload["Game_Player_PassiveSyncsRequest"] = 31] = "Game_Player_PassiveSyncsRequest";
+    Payload[Payload["Game_Player_GetPlayerRequest"] = 32] = "Game_Player_GetPlayerRequest";
+    Payload[Payload["Game_Player_GetPlayerResponse"] = 33] = "Game_Player_GetPlayerResponse";
 })(Payload || (exports.Payload = Payload = {}));
 function unionToPayload(type, accessor) {
     switch (Payload[type]) {
@@ -99,6 +107,10 @@ function unionToPayload(type, accessor) {
         case 'Game_Rank_KillRankRequest': return accessor(new kill_rank_request_js_1.KillRankRequest());
         case 'Game_Rank_KillRankResponse': return accessor(new kill_rank_response_js_1.KillRankResponse());
         case 'Game_Rank_KillRankPush': return accessor(new kill_rank_push_js_1.KillRankPush());
+        case 'Game_Player_WeaponSyncsRequest': return accessor(new weapon_syncs_request_js_1.WeaponSyncsRequest());
+        case 'Game_Player_PassiveSyncsRequest': return accessor(new passive_syncs_request_js_1.PassiveSyncsRequest());
+        case 'Game_Player_GetPlayerRequest': return accessor(new get_player_request_js_1.GetPlayerRequest());
+        case 'Game_Player_GetPlayerResponse': return accessor(new get_player_response_js_1.GetPlayerResponse());
         default: return null;
     }
 }
@@ -134,6 +146,10 @@ function unionListToPayload(type, accessor, index) {
         case 'Game_Rank_KillRankRequest': return accessor(index, new kill_rank_request_js_1.KillRankRequest());
         case 'Game_Rank_KillRankResponse': return accessor(index, new kill_rank_response_js_1.KillRankResponse());
         case 'Game_Rank_KillRankPush': return accessor(index, new kill_rank_push_js_1.KillRankPush());
+        case 'Game_Player_WeaponSyncsRequest': return accessor(index, new weapon_syncs_request_js_1.WeaponSyncsRequest());
+        case 'Game_Player_PassiveSyncsRequest': return accessor(index, new passive_syncs_request_js_1.PassiveSyncsRequest());
+        case 'Game_Player_GetPlayerRequest': return accessor(index, new get_player_request_js_1.GetPlayerRequest());
+        case 'Game_Player_GetPlayerResponse': return accessor(index, new get_player_response_js_1.GetPlayerResponse());
         default: return null;
     }
 }
