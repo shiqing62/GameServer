@@ -73,6 +73,8 @@ wss.on('connection',function connection (ws){
             case PayloadType.Game_Syncs_PlayerExitRequest:  // 玩家请求退出游戏
                 const exitGameReq = message.payload(new PlayerExitRequest());
                 exitGameHandler.handle(ws,exitGameReq,players)
+                // 清除该玩家在排行榜中的信息
+                rankManager.clearKillRankEntry(exitGameReq.uid());
                 break;
             case PayloadType.Game_Syncs_PlayerMoveRequest:  // 玩家移动
                 const moveReq = message.payload(new PlayerMoveRequest());

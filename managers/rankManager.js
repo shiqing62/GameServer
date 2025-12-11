@@ -69,6 +69,18 @@ class RankManager {
             .slice(0,topN)                                                // 取前n名
             .map(([uid,killCount]) => ({uid,killCount}));
     }
+
+    /**
+     * 当玩家死亡或者退出游戏时，清除在排行榜中的记录
+     * @param uid
+     */
+    clearKillRankEntry(uid){
+        if (this.killRank.has(uid)){
+            this.killRank.delete(uid);
+            // 立即同步下去
+            this.killRankPush();
+        }
+    }
 }
 
 module.exports = {RankManager};
