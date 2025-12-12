@@ -557,11 +557,16 @@ const payloadBuilder = {
         payloadType: PayloadType.Game_Player_GetPlayerResponse,
         build: (builder, payload) => {
             const {isFind,targetPlay} = payload;
-            const playerOffset = buildPlayerData(builder,targetPlay);
+            let playerOffset = 0;
+            if (targetPlay){
+                playerOffset = buildPlayerData(builder,targetPlay);
+            }
 
             GetPlayerResponse.startGetPlayerResponse(builder);
             GetPlayerResponse.addIsFind(builder,isFind);
-            GetPlayerResponse.addTargetPlayer(builder,playerOffset);
+            if (playerOffset !== 0) {
+                GetPlayerResponse.addTargetPlayer(builder,playerOffset);
+            }
 
             return GetPlayerResponse.endGetPlayerResponse(builder);
         }

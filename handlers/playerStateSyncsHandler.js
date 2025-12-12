@@ -9,7 +9,7 @@ function handle(ws,payload,players){
     const stateFlags = payload.state();
     const finalHp = payload.hp();   // 变化后的血量
     const maxHp = payload.maxHp();  // 血量的最大值，覆盖掉服务器的原本值
-    const finalLevel = payload.level();
+    const deltaLevel = payload.level();
 
     if (stateFlags & PlayerStateFlags.HP){
         // 服务器执行扣血/回血逻辑
@@ -18,7 +18,7 @@ function handle(ws,payload,players){
     }
     if (stateFlags & PlayerStateFlags.LEVEL){
         // 服务器执行等级变更逻辑
-        targetPlayer.level = finalLevel;
+        targetPlayer.level += deltaLevel;
     }
 
     const stateSyncsData = {
