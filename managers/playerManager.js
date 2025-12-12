@@ -1,5 +1,5 @@
 const {GAME_CONSTANTS} = require("../utils/GAME_CONSTANTS");
-const {send} = require("../utils/send");
+const {send} = require("../utils/send.js");
 const MsgIds = require("../MsgIds");
 
 class PlayerManager{
@@ -75,7 +75,7 @@ class PlayerManager{
         }
 
         // 返给查找者
-        send(finder.ws,MsgIds.ServerPushId.GetPlayerResponse,findResult);
+        send(finder.ws,MsgIds.ResponseId.GetPlayerResponse,findResult);
     }
 }
 
