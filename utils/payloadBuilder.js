@@ -404,7 +404,9 @@ const payloadBuilder = {
             DeBuffSyncsPush.addTargetId(builder,targetId);
             DeBuffSyncsPush.addDebuffId(builder,debuffId);
             DeBuffSyncsPush.addAction(builder,action);
-            DeBuffSyncsPush.addParams(builder,paramsVectorOffset);
+            if (paramsVectorOffset !== null){
+                DeBuffSyncsPush.addParams(builder,paramsVectorOffset);
+            }
 
             return DeBuffSyncsPush.endDeBuffSyncsPush(builder);
         }

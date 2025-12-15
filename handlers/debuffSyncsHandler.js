@@ -124,7 +124,7 @@ function removeDeBuff(targetId,debuffId,players)
         targetId: targetId,
         debuffId: debuffId,
         action: DeBuffAction.Remove,
-        params: {},
+        params: [],
     };
 
     // 通知给与debuff被施加者相互视野内的玩家
