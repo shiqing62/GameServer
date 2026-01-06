@@ -54,7 +54,7 @@ class GameLoop {
         // 按顺序驱动所有system
         for (const system of this.systems) {
             try {
-                system.Update(delta, this.time, this.frame);
+                system.update(delta, this.time, this.frame);
             } catch (err) {
                 console.error(`[GameLoop] System ${system.constructor.name} error`);
             }
@@ -67,4 +67,4 @@ class GameLoop {
 
 }
 
-module.exports = {GameLoop};
+module.exports = GameLoop;
