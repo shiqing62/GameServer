@@ -1,3 +1,8 @@
+// new
+include "../login/login_req.fbs";
+include "../login/login_resp.fbs";
+
+
 include "../login/loginRequest.fbs";
 include "../login/loginResponse.fbs";
 include "../login/enterGameRequest.fbs";
@@ -35,6 +40,9 @@ include "../player/getPlayerResponse.fbs";
 namespace Game.Message;
 
 union Payload {
+    // new
+    Game.Login.LoginReq,
+    Game.Login.LoginResp,
     Game.Login.LoginRequest,
     Game.Login.LoginResponse,
     Game.Login.EnterGameRequest,

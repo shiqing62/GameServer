@@ -34,12 +34,16 @@ class PlayerRepository{
      * 创建新玩家（仅分配uid）
      * @returns {{uid: *}}
      */
-    create(){
+    createPlayer(){
         const uid = this._allocUid();
         const player = new PlayerPersistentData({uid});
 
         this.players.set(uid,player);
         return player;
+    }
+
+    hasPlayer(uid){
+        return this.players.has(uid);
     }
 
 

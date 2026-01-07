@@ -1,0 +1,8 @@
+namespace Game.Login;
+
+table LoginReq{
+    uid: string;              // 玩家唯一ID，首次登录可为空
+    session_token: string;  // 会话凭证，首次登录为空
+}
+
+root_type LoginReq;

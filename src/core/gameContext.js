@@ -6,6 +6,7 @@ class GameContext{
         this.managers = new Map();
         this.handlers = new Map();
         this.services = new Map();
+        this.repositories = new Map();
     }
 
     registerManager(name,instance){
@@ -20,6 +21,10 @@ class GameContext{
         this.services.set(name,instance);
     }
 
+    registerRepository(name,instance){
+        this.repositories.set(name,instance);
+    }
+
     getManager(name){
         return this.managers.get(name);
     }
@@ -30,6 +35,10 @@ class GameContext{
 
     getService(name) {
         return this.services.get(name);
+    }
+
+    getRepository(name){
+        return this.repositories.get(name);
     }
 }
 

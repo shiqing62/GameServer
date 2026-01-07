@@ -1,14 +1,17 @@
 /**
- *
+ * GameServer
  */
 
 const WebSocket = require('ws');
+const flatBuffers = require("flatbuffers");
+const path = require('path');
+const playerDataPath = path.resolve(__dirname, '../data/players.json');
+
 const GameLoop = require('../core/gameLoop.js');
 const GameContext = require('../core/gameContext.js');
-// const {Message} = require('/schemas/generated/javascript/game/message/message.js');
-// const {Payload} = require('/schemas/generated/javascript/game/message/payload.js');
-// const PayloadType = Payload;
 
+// repository
+const PlayerRepository = require('../repositories/playerRepository.js');
 
 // managers
 const DropManager = require('../managers/dropManager.js');
@@ -18,20 +21,32 @@ const SessionManager = require('../managers/sessionManager.js');
 // service
 const MapService = require('../services/mapService.js');
 const NetworkService = require('../services/networkService.js');
+const LoginService = require('../services/loginService.js');
 
 // systems
 const DropSystem = require('../systems/dropSystem.js');
 const SyncSystem = require('../systems/syncSystem.js');
-const flatBuffers = require("flatbuffers");
 
 // handlers
 const DropSyncHandler = require('../handlers/dropSyncHandler.js');
+const LoginHandler = require('../handlers/loginHandler.js');
+
+// Message
+const Message = require('/generated/javascript/game/message/message.js');
+const Payload = require('/generated/javascript/game/message/payload.js');
+const PayloadType = Payload;
+
 
 class GameServer{
 
     start(){
         // context
         const ctx = new GameContext();
+
+        // 声明 & 注册 repositories
+        const playerRepository = new PlayerRepository(playerDataPath);
+
+        ctx.registerRepository('player',playerRepository);
 
         // 声明 & 注册 managers
         const playerManager = new PlayerManager();
@@ -45,17 +60,20 @@ class GameServer{
         // 声明 & 注册 services
         const networkService = new NetworkService(ctx);
         const mapService = new MapService();
+        const loginService = new LoginService(ctx);
 
         ctx.registerService('network',networkService);
         ctx.registerService('map',mapService);
+        ctx.registerService('login',loginService);
 
         // 声明 & 注册 handlers
         const dropSyncHandler = new DropSyncHandler();
+        const loginHandler = new LoginHandler(ctx);
 
         ctx.registerHandler('dropSync',dropSyncHandler);
+        ctx.registerHandler('login',loginHandler);
 
-
-        //systems
+        // systems
         const syncSystem = new SyncSystem(ctx);
         const dropSystem = new DropSystem(ctx);
 
@@ -63,10 +81,7 @@ class GameServer{
         const gameLoop = new GameLoop({
             tickRate:20,
             maxDelta: 0.1,
-            systems:[
-                dropSystem,
-                syncSystem
-            ]
+            systems:[dropSystem, syncSystem]
         });
 
         // websocket server
@@ -102,13 +117,22 @@ class GameServer{
      */
     _dispatchMessage(ctx,ws,data){
         console.log("--->>>处理消息分发！！");
-        // const buf =  new flatBuffers.ByteBuffer(new Uint8Array(data));
-        // const message = Message.getRootAsMessage(buf);
-        // const payloadType = message.payloadType();
-        //
-        // switch (payloadType){
-        //
-        // }
+        const buf =  new flatBuffers.ByteBuffer(new Uint8Array(data));
+        const message = Message.getRootAsMessage(buf);
+        const payloadType = message.payloadType();
+
+
+        switch (payloadType){
+            case PayloadType.Game_Login_LoginReq:
+                const loginHandler = ctx.getHandler('login');
+                loginHandler.handle(ws,message)
+                break;
+
+
+
+            default:
+                console.warn("Unknown payload type; ",payloadType);
+        }
     }
 }
 

@@ -1,0 +1,12 @@
+namespace Game.Login;
+
+table LoginResp{
+    uid: string;
+    session_token: string;  // 新生成的会话凭证
+    is_new: bool = false;   // 是否为新玩家
+
+    error_code: int = 0;    // 0 = 成功
+    error_msg: string;      // 错误描述（仅error_code != 0）
+}
+
+root_type LoginResp;
