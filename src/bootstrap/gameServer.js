@@ -32,8 +32,8 @@ const DropSyncHandler = require('../handlers/dropSyncHandler.js');
 const LoginHandler = require('../handlers/loginHandler.js');
 
 // Message
-const Message = require('../../generated/javascript/game/message/message.js');
-const Payload = require('../../generated/javascript/game/message/payload.js');
+const Message = require('../../generated/javascript/game/message/message').Message;
+const Payload = require('../../generated/javascript/game/message/payload').Payload;
 const PayloadType = Payload;
 
 

@@ -1,5 +1,7 @@
 const flatBuffers = require('../../node_modules/flatbuffers/js/flatbuffers');
 const LoginResp = require('../../generated/javascript/game/login/login-resp').LoginResp;
+const MessageBuilder = require('../core/protocol/messageBuilder.js');
+const PayloadType = require('../../generated/javascript/game/message/payload').Payload;
 
 class LoginService {
     constructor(ctx) {
@@ -62,9 +64,12 @@ class LoginService {
         LoginResp.addIsNew(builder,isNew);
         LoginResp.addErrorCode(builder,0);
 
-        const respOffset = LoginResp.endLoginResp(builder);
+        const loginRespOffset = LoginResp.endLoginResp(builder);
 
-        builder.finish(respOffset);
+        // 用MessageBuilder包装一层
+        const messageOffset = MessageBuilder.warp(PayloadType.Game_Login_LoginResp,loginRespOffset,builder);
+        builder.finish(messageOffset);
+        
         return builder.asUint8Array();
     }
 

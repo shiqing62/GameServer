@@ -12,7 +12,7 @@ class LoginHandler{
     }
 
     handle(ws,message){
-        const payloadBuffer = message.payload();
+        const payloadBuffer = message.payload(new LoginReq());
         const byteBuffer = new flatBuffers.ByteBuffer(payloadBuffer);
         const loginReq = LoginReq.getRootAsLoginReq(byteBuffer);
 
