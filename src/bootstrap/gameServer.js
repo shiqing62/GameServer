@@ -32,8 +32,8 @@ const DropSyncHandler = require('../handlers/dropSyncHandler.js');
 const LoginHandler = require('../handlers/loginHandler.js');
 
 // Message
-const Message = require('/generated/javascript/game/message/message.js');
-const Payload = require('/generated/javascript/game/message/payload.js');
+const Message = require('../../generated/javascript/game/message/message.js');
+const Payload = require('../../generated/javascript/game/message/payload.js');
 const PayloadType = Payload;
 
 
@@ -67,7 +67,7 @@ class GameServer{
         ctx.registerService('login',loginService);
 
         // 声明 & 注册 handlers
-        const dropSyncHandler = new DropSyncHandler();
+        const dropSyncHandler = new DropSyncHandler(ctx);
         const loginHandler = new LoginHandler(ctx);
 
         ctx.registerHandler('dropSync',dropSyncHandler);
@@ -99,16 +99,21 @@ class GameServer{
 
         wss.on('connection',ws => {
             console.log("--->>>connection!!!");
+
             ws.on('message',data => {
                 console.log("--->>>message!!!");
                 this._dispatchMessage(ctx,ws,data);
             });
 
-            ws.close('close',()=>{
+            ws.on('close',() => {
                 if (ws.uid){
                     sessionManager.unbind(ws.uid);
                 }
-            })
+            });
+
+            ws.on('error', err => {
+                console.error("ws error:", err);
+            });
         });
     }
 

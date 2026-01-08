@@ -2,8 +2,8 @@
  * 掉落物同步handler
  */
 class DropSyncHandler{
-    constructor(networkService) {
-        this.networkService = networkService;
+    constructor(ctx) {
+        this.networkService = ctx.getService('network');
     }
 
     handle(evt){
@@ -23,6 +23,7 @@ class DropSyncHandler{
 
     _onSpawn(drop){
         // todo 构建消息数据结构，通过this.networkService统一send
+        console.log("--->>>将掉落生成信息同步给全体玩家！！！");
         const msgId = 1;
         const payload = 1;
         this.networkService.sendToAll(msgId,payload);

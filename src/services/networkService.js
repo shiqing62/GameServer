@@ -34,6 +34,7 @@ class NetworkService{
      * @param payload
      */
     sendToAll(msgId,payload){
+        console.log("--->>>同步给全体玩家！！！");
         for (const session of this.sessionManager.getAllSession()) {
             if (session.ws.readyState !== 1){
                 continue;

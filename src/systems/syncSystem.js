@@ -11,7 +11,7 @@ class SyncSystem{
         this._interval = 0.1;
     }
 
-    update(delta){
+    update(delta,time,frame){
         this._accumulator += delta;
         if (this._accumulator < this._interval) {
             return;

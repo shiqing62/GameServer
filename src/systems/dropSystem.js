@@ -10,7 +10,8 @@ class DropSystem{
         this._interval = 60;    // 间隔
     }
 
-    update(delta,time){
+    update(delta,time,frame){
+        return;
         const now = Date.now();
         this._spawnTimer += delta;
 
