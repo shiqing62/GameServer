@@ -1,0 +1,16 @@
+namespace Game.EnterGame;
+
+/**
+ * 进入游戏世界的响应
+ * 说明：
+ * - 只表示是否成功“进入”
+ * - 不包含世界内其他玩家的数据
+ */
+
+ table EnterGameResp{
+    success: bool;      // 是否进入成功
+    error_code: int;    // 错误码（0 表示成功）
+    scene_id: int;      // 实际进入的场景（服务端可能存在纠正行为）
+ }
+
+ root_type EnterGameResp;

@@ -17,11 +17,13 @@ const PlayerRepository = require('../repositories/playerRepository.js');
 const DropManager = require('../managers/dropManager.js');
 const PlayerManager = require('../managers/playerManager.js');
 const SessionManager = require('../managers/sessionManager.js');
+const SceneManager = require('../managers/sceneManager.js');
 
 // service
 const MapService = require('../services/mapService.js');
 const NetworkService = require('../services/networkService.js');
 const LoginService = require('../services/loginService.js');
+const EnterGameService = require('../services/enterGameService.js');
 
 // systems
 const DropSystem = require('../systems/dropSystem.js');
@@ -30,6 +32,7 @@ const SyncSystem = require('../systems/syncSystem.js');
 // handlers
 const DropSyncHandler = require('../handlers/dropSyncHandler.js');
 const LoginHandler = require('../handlers/loginHandler.js');
+const EnterGameHandler = require('../handlers/enterGameHandler.js');
 
 // Message
 const Message = require('../../generated/javascript/game/message/message').Message;
@@ -52,26 +55,32 @@ class GameServer{
         const playerManager = new PlayerManager();
         const dropManager = new DropManager();
         const sessionManager = new SessionManager();
+        const sceneManager = new SceneManager();
 
         ctx.registerManager('player',playerManager);
         ctx.registerManager('drop',dropManager);
         ctx.registerManager('session',sessionManager);
+        ctx.registerManager('scene',sceneManager);
 
         // 声明 & 注册 services
         const networkService = new NetworkService(ctx);
         const mapService = new MapService();
         const loginService = new LoginService(ctx);
+        const enterGameService = new EnterGameService(ctx);
 
         ctx.registerService('network',networkService);
         ctx.registerService('map',mapService);
         ctx.registerService('login',loginService);
+        ctx.registerService('enterGame',enterGameService);
 
         // 声明 & 注册 handlers
         const dropSyncHandler = new DropSyncHandler(ctx);
         const loginHandler = new LoginHandler(ctx);
+        const enterGameHandler = new EnterGameHandler(ctx);
 
         ctx.registerHandler('dropSync',dropSyncHandler);
         ctx.registerHandler('login',loginHandler);
+        ctx.registerHandler('enterGame',enterGameHandler);
 
         // systems
         const syncSystem = new SyncSystem(ctx);
@@ -132,7 +141,10 @@ class GameServer{
                 const loginHandler = ctx.getHandler('login');
                 loginHandler.handle(ws,message)
                 break;
-
+            case PayloadType.Game_EnterGame_EnterGameReq:
+                const enterGameHandler = ctx.getHandler('enterGame');
+                enterGameHandler.handle(ws,message);
+                break;
 
 
             default:

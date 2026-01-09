@@ -81,9 +81,12 @@ class LoginService {
         LoginResp.addErrorCode(builder,code);
         LoginResp.addErrorMsg(builder,msgOffset);
 
-        const respOffset = LoginResp.endLoginResp(builder);
+        const loginRespOffset = LoginResp.endLoginResp(builder);
 
-        builder.finish(respOffset);
+        // 用MessageBuilder包装一层
+        const messageOffset = MessageBuilder.warp(PayloadType.Game_Login_LoginResp,loginRespOffset,builder);
+        builder.finish(messageOffset);
+
         return builder.asUint8Array();
     }
 }

@@ -1,0 +1,16 @@
+namespace Game.EnterGame;
+
+/**
+ * 客户端请求进入游戏世界
+ * 说明：
+ * - 登录(Login)完成后调用
+ * - 仅表示“进入世界”这一行为
+ * - 不负责后续同步
+ */
+
+ table EnterGameReq{
+    character_id: int;   // 玩家选择的角色ID
+    scene_id: int;       // 场景ID
+ }
+
+ root_type EnterGameReq;

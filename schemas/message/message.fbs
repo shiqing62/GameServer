@@ -1,6 +1,8 @@
 // new
 include "../login/login_req.fbs";
 include "../login/login_resp.fbs";
+include "../enter_game/enter_game_req.fbs";
+include "../enter_game/enter_game_resp.fbs";
 
 /*
 include "../login/loginRequest.fbs";
@@ -44,6 +46,8 @@ union Payload {
     // new
     Game.Login.LoginReq,
     Game.Login.LoginResp,
+    Game.EnterGame.EnterGameReq,
+    Game.EnterGame.EnterGameResp,
     /*
     Game.Login.LoginRequest,
     Game.Login.LoginResponse,

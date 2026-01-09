@@ -2,6 +2,8 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
+import { EnterGameReq } from '../../game/enter-game/enter-game-req.js';
+import { EnterGameResp } from '../../game/enter-game/enter-game-resp.js';
 import { LoginReq } from '../../game/login/login-req.js';
 import { LoginResp } from '../../game/login/login-resp.js';
 
@@ -9,30 +11,36 @@ import { LoginResp } from '../../game/login/login-resp.js';
 export enum Payload {
   NONE = 0,
   Game_Login_LoginReq = 1,
-  Game_Login_LoginResp = 2
+  Game_Login_LoginResp = 2,
+  Game_EnterGame_EnterGameReq = 3,
+  Game_EnterGame_EnterGameResp = 4
 }
 
 export function unionToPayload(
   type: Payload,
-  accessor: (obj:LoginReq|LoginResp) => LoginReq|LoginResp|null
-): LoginReq|LoginResp|null {
+  accessor: (obj:EnterGameReq|EnterGameResp|LoginReq|LoginResp) => EnterGameReq|EnterGameResp|LoginReq|LoginResp|null
+): EnterGameReq|EnterGameResp|LoginReq|LoginResp|null {
   switch(Payload[type]) {
     case 'NONE': return null; 
     case 'Game_Login_LoginReq': return accessor(new LoginReq())! as LoginReq;
     case 'Game_Login_LoginResp': return accessor(new LoginResp())! as LoginResp;
+    case 'Game_EnterGame_EnterGameReq': return accessor(new EnterGameReq())! as EnterGameReq;
+    case 'Game_EnterGame_EnterGameResp': return accessor(new EnterGameResp())! as EnterGameResp;
     default: return null;
   }
 }
 
 export function unionListToPayload(
   type: Payload, 
-  accessor: (index: number, obj:LoginReq|LoginResp) => LoginReq|LoginResp|null, 
+  accessor: (index: number, obj:EnterGameReq|EnterGameResp|LoginReq|LoginResp) => EnterGameReq|EnterGameResp|LoginReq|LoginResp|null, 
   index: number
-): LoginReq|LoginResp|null {
+): EnterGameReq|EnterGameResp|LoginReq|LoginResp|null {
   switch(Payload[type]) {
     case 'NONE': return null; 
     case 'Game_Login_LoginReq': return accessor(index, new LoginReq())! as LoginReq;
     case 'Game_Login_LoginResp': return accessor(index, new LoginResp())! as LoginResp;
+    case 'Game_EnterGame_EnterGameReq': return accessor(index, new EnterGameReq())! as EnterGameReq;
+    case 'Game_EnterGame_EnterGameResp': return accessor(index, new EnterGameResp())! as EnterGameResp;
     default: return null;
   }
 }

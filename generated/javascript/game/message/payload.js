@@ -5,6 +5,8 @@ exports.Payload = void 0;
 exports.unionToPayload = unionToPayload;
 exports.unionListToPayload = unionListToPayload;
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
+var enter_game_req_js_1 = require("../../game/enter-game/enter-game-req.js");
+var enter_game_resp_js_1 = require("../../game/enter-game/enter-game-resp.js");
 var login_req_js_1 = require("../../game/login/login-req.js");
 var login_resp_js_1 = require("../../game/login/login-resp.js");
 var Payload;
@@ -12,12 +14,16 @@ var Payload;
     Payload[Payload["NONE"] = 0] = "NONE";
     Payload[Payload["Game_Login_LoginReq"] = 1] = "Game_Login_LoginReq";
     Payload[Payload["Game_Login_LoginResp"] = 2] = "Game_Login_LoginResp";
+    Payload[Payload["Game_EnterGame_EnterGameReq"] = 3] = "Game_EnterGame_EnterGameReq";
+    Payload[Payload["Game_EnterGame_EnterGameResp"] = 4] = "Game_EnterGame_EnterGameResp";
 })(Payload || (exports.Payload = Payload = {}));
 function unionToPayload(type, accessor) {
     switch (Payload[type]) {
         case 'NONE': return null;
         case 'Game_Login_LoginReq': return accessor(new login_req_js_1.LoginReq());
         case 'Game_Login_LoginResp': return accessor(new login_resp_js_1.LoginResp());
+        case 'Game_EnterGame_EnterGameReq': return accessor(new enter_game_req_js_1.EnterGameReq());
+        case 'Game_EnterGame_EnterGameResp': return accessor(new enter_game_resp_js_1.EnterGameResp());
         default: return null;
     }
 }
@@ -26,6 +32,8 @@ function unionListToPayload(type, accessor, index) {
         case 'NONE': return null;
         case 'Game_Login_LoginReq': return accessor(index, new login_req_js_1.LoginReq());
         case 'Game_Login_LoginResp': return accessor(index, new login_resp_js_1.LoginResp());
+        case 'Game_EnterGame_EnterGameReq': return accessor(index, new enter_game_req_js_1.EnterGameReq());
+        case 'Game_EnterGame_EnterGameResp': return accessor(index, new enter_game_resp_js_1.EnterGameResp());
         default: return null;
     }
 }
