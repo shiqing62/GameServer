@@ -12,6 +12,8 @@ class LoginService {
     handleLogin(loginReq, socket = null) {
         const uid = loginReq.uid();
         const token = loginReq.sessionToken();
+        console.log("--->>>uid: ",uid);
+        console.log("--->>>token: ",token);
 
         let player;
         let session;
@@ -49,6 +51,12 @@ class LoginService {
             // 非法连接
             return this._errorResp(1000,"invalid login params");
         }
+
+        // 绑定socket <-> uid
+        socket.uid = player.uid;
+
+        // 确保session知道当前socket
+        session.socket = socket;
 
         return this._successResp(player.uid,session.token,isNew);
     }

@@ -52,7 +52,7 @@ class GameServer{
         ctx.registerRepository('player',playerRepository);
 
         // 声明 & 注册 managers
-        const playerManager = new PlayerManager();
+        const playerManager = new PlayerManager(ctx);
         const dropManager = new DropManager();
         const sessionManager = new SessionManager();
         const sceneManager = new SceneManager();
@@ -116,7 +116,7 @@ class GameServer{
 
             ws.on('close',() => {
                 if (ws.uid){
-                    sessionManager.unbind(ws.uid);
+                    // sessionManager.unbind(ws.uid);
                 }
             });
 

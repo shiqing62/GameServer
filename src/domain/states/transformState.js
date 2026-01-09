@@ -1,7 +1,7 @@
 /**
  * 玩家位姿（坐标 & 朝向）
  */
-const float3 = require('../../../generated/javascript/game/common/float3.js');
+const float3 = require('../../../generated/javascript/game/common/float3.js').Float3;
 
 class TransformState {
     constructor() {

@@ -12,9 +12,7 @@ class EnterGameHandler{
             return;
         }
 
-        const payloadBuffer = message.payload(new EnterGameReq());
-        const byteBuffer = new flatBuffers.ByteBuffer(payloadBuffer);
-        const enterGameReq = EnterGameReq.getRootAsEnterGameReq(byteBuffer);
+        const enterGameReq = message.payload(new EnterGameReq());
 
         const respBuffer = this.enterGameService.enterGame({
             uid: ws.uid,

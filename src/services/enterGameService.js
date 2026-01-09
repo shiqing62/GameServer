@@ -11,6 +11,9 @@ class EnterGameService{
     }
 
     enterGame({uid,characterId,sceneId,ws}){
+
+        console.log("--->>>uid: ",uid);
+        
         // 基础校验（账号层）
         const account = this.playerRepo.getByUid(uid);
         if (!account){
@@ -18,13 +21,14 @@ class EnterGameService{
         }
 
         //todo 校验所选角色是否合法（是否拥有该角色，error_code: 2002）
-
+        console.log("--->>>characterId: ",characterId);
 
         // 防止重复进入
         if (this.playerManager.hasPlayer(uid)){
             return this._errorResp(2003);
         }
 
+        console.log("--->>>sceneId: ",sceneId);
         // 校验场景是否合法
         const scene = this.sceneManager.get(sceneId);
         if (!scene){
@@ -49,6 +53,7 @@ class EnterGameService{
     }
 
     _successResp(sceneId){
+        console.log("--->>>sceneId: ",sceneId)
         const builder = new flatBuffers.Builder(64);
 
         EnterGameResp.startEnterGameResp(builder);
